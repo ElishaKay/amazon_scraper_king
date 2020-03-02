@@ -5,11 +5,17 @@
   "version": "1.0",
   "content_scripts": [
     {
-      "matches":["https://www.amazon.com/*"],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+        ],
       "js": [
         "js/app/content.js"
       ]
     }
+  ],
+  "permissions": [
+          "storage"
   ],
   "background": {
     "scripts": ["vendors/jquery-3.3.1.min.js","js/app/background.js"],

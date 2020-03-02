@@ -1,3 +1,12 @@
+$state.go('home.fetch-amazon-data');
+
+window.localStorage.getItem('user')
+
+chrome.storage.sync.get(['key'], function(result) {
+          console.log('Value currently is ' + result.key);
+        });
+
+
 // get creds of client's pinterest users
         
 $http.get($scope.baseUrl+'/getcreds/'+$scope.client_analytics_code)

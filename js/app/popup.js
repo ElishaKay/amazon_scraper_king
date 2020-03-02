@@ -16,6 +16,11 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '../views/insert-code.html'
         })
 
+        .state('home.fetch-amazon-data', {
+            url: '/fetch-amazon-data',
+            templateUrl: '../views/fetch-amazon-data.html'
+        })
+
         .state('home.run-campaign', {
             url: '/run-campaign',
             templateUrl: '../views/run-campaign.html'
@@ -41,7 +46,13 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
         console.log('ran $scope.loginViaExtension');
         chrome.runtime.sendMessage({type:"loginViaExtension", data: formData }, 
             function(response){
-                console.log('this is the response from the background page',response)        
+                console.log('this is the response from the background page',response);
+                if(response.hasOwnProperty('client_analytics_code')){
+                    console.log('found client_analytics_code property');
+                    
+                     $state.go('home.fetch-amazon-data');
+
+                }  
             }
         );
     };
@@ -57,15 +68,12 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
 
     };
 
-    $scope.startScraping = function(user, campaign){
-        console.log('here is the search_term:', campaign.search_term);
-        console.log('here is the campaign_id:', campaign.campaign_id);
-        console.log('ran startScraping function with this user', user);
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-             chrome.tabs.sendMessage(tabs[0].id, {type:"scrapeTime", creds: user, campaign: {campaign_id: campaign.campaign_id, search: campaign.search_term}}, function(response){
-                // console.log('this is the response from content page',response)        
-            });
-        });    
+    $scope.startScraping = function(user){
+        chrome.runtime.sendMessage({type:"scrapeTime", user: user }, 
+            function(response){
+                console.log('this is the response from the content page for scrapeTime Event',response);
+            }
+        );    
     }
 
     // handling the images and descriptions sent back from content.js

@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener(
 	                    success: function(a) {
 	                      console.log(a);
 	                      window.localStorage.setItem('user', JSON.stringify(a));
-	                      sendResponse({message: a[0]});
+	                      sendResponse(a[0]);
 
 	                    },
 	                    error: function(a) {
