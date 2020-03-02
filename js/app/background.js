@@ -1,7 +1,8 @@
 let server_url = 'http://localhost:8000/';
 let production_server_url = 'https://myfavoriteproducts.herokuapp.com/';
 
-window.localStorage.setItem('user', JSON.stringify({name:'pikachu'}));
+// after login, you can get the user here like so:
+// localStorage.getItem(user);
 
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
@@ -15,6 +16,7 @@ chrome.runtime.onMessage.addListener(
 	                    type: "POST",
 	                    success: function(a) {
 	                      console.log(a);
+	                      window.localStorage.setItem('user', JSON.stringify(a));
 	                    },
 	                    error: function(a) {
 	                      console.log("Error");
