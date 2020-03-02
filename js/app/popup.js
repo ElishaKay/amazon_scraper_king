@@ -37,6 +37,12 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     //change before deploying
     $scope.baseUrl = 'http://localhost:8000';
 
+    $scope.loginViaExtension = function(formData) {
+        console.log('ran $scope.loginViaExtension');
+
+        chrome.runtime.sendMessage({type:"loginViaExtension", data: formData });
+    };
+
     $scope.getClientData = function(formData) {
         console.log('heres the client form data:', formData);
         $scope.client_analytics_code = formData.client_analytics_code;

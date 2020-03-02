@@ -26,3 +26,11 @@ $http.get($scope.baseUrl+'/getcampaigns/'+$scope.client_analytics_code)
     }, function errorCallback(response) {
     console.log(`error when fetching existing campaigns: ${response}`)
 }); 
+
+
+
+ $scope.loginViaExtension = function(formData) {
+        chrome.tabs.sendMessage(tabs[0].id, {type:"loginViaExtension", data: formData }, function(response){
+            // console.log('this is the response from content page',response)        
+    })
+ };
