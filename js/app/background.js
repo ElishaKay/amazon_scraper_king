@@ -10,8 +10,9 @@ chrome.runtime.onMessage.addListener(
             		console.log('ran loginViaExtension in background.js');
             		$.ajax({
 	                    url: server_url + "api/login-via-extension",
-	                    data: message,
-	                    type: "GET",
+	                    data: {client_email: message.data.client_email, 
+	                    	   client_password: message.data.client_password},
+	                    type: "POST",
 	                    success: function(a) {
 	                      console.log(a);
 	                    },
