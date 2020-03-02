@@ -1,4 +1,5 @@
 let server_url = 'https://ampituptime.herokuapp.com';
+window.localStorage.setItem('user', JSON.stringify({name:'pikachu'}));
 
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {

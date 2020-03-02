@@ -1,7 +1,21 @@
+<p>Please enter your MyFavoriteProducts email and password below.</p>
+
+
 <div class="form-group">
-    <label for="name">Insert Analytics Code</label>
-    <input type="text" class="form-control" name="name" ng-model="formData.client_analytics_code">
+    <label for="name">Login</label>
+    <input type="text" class="form-control" name="name" ng-model="formData.email">
+    <br/>
+    <input type="text" class="form-control" name="name" ng-model="formData.password">
 </div>
 
 <a ng-click="getClientData(formData)" class="btn btn-block btn-info">
     Let's Begin</a>
+
+
+        <div class="row">
+          <div class="jumbotron text-muted text-center">
+              <p>If you don't have a MyFavoriteProducts free account, you can
+                <a target="_blank" href="https://myfavoriteproducts.herokuapp.com/signup">Signup For Free Here</a>!</p>
+          </div>
+      </div>
+

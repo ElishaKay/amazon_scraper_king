@@ -1,6 +1,6 @@
 console.log("Content js script loaded.");
 
-
+console.log('localStorage user:',JSON.parse(window.localStorage.getItem('user')));
 
 // localStorage.removeItem('search_term');
 // window.location.href = 'https://www.pinterest.com/search/pins/?q='+search_term;
