@@ -1,4 +1,4 @@
-console.log("Content js script loaded.");
+console.log("Content js script loaded for amazon popup shop");
 
 console.log('localStorage user:',JSON.parse(window.localStorage.getItem('user')));
 
@@ -21,6 +21,7 @@ chrome.runtime.onMessage.addListener(
               console.log('ran scrapetime func');
               window.location.href = 'https://www.amazon.com/gp/your-account/order-history?opt=ab&digitalOrders=1&unifiedOrders=1&returnTo=&orderFilter=year-2018';
 
+              return true;
               // let search_term = message.campaign.search;
               // let campaign_id = message.campaign.campaign_id;
               // let client_id = message.creds.client_id;

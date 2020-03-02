@@ -35,6 +35,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
    console.log("Controller Initialized");
 
     // we will store all of our form data in this object
+    $scope.client = {};
     $scope.formData = {};
     $scope.client_analytics_code = '';
     $scope.selectedObj = {};
@@ -49,9 +50,8 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
                 console.log('this is the response from the background page',response);
                 if(response.hasOwnProperty('client_analytics_code')){
                     console.log('found client_analytics_code property');
-                    
-                     $state.go('home.fetch-amazon-data');
-
+                    $scope.client = response;
+                    $state.go('home.fetch-amazon-data');
                 }  
             }
         );
@@ -68,29 +68,28 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
 
     };
 
-    $scope.startScraping = function(user){
-        chrome.runtime.sendMessage({type:"scrapeTime", user: user }, 
-            function(response){
-                console.log('this is the response from the content page for scrapeTime Event',response);
-            }
-        );    
-    }
-
-    // handling the images and descriptions sent back from content.js
-    chrome.runtime.onMessage.addListener(
-        function(message, sender, sendResponse) {
-            switch(message.type) {
-                case "fell in love":
-                    console.log('cool');
-                    
-                    break;
-                default:
-                    console.error("Unrecognised message: ", message);
-            }
-        }
-    );
-
   }
 ]);
 
 
+myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $http, $state){
+   console.log("Scraper Controller Initialized");
+
+    $scope.fetchAmazonData = function(user){
+        // chrome.runtime.sendMessage({type:"scrapeTime", user: user }, 
+        //     function(response){
+        //         console.log('this is the response from the content page for scrapeTime Event',response);
+        //     }
+        // ); 
+
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {type:"scrapeTime", user: user }, function(response){
+                // console.log('this is the response from content page',response)        
+            });   
+        });    
+
+    }
+
+
+  }
+]);
