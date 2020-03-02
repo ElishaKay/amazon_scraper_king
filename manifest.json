@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "My Favorite Products",
+  "description": "Create amazing custom shops with your Amazon Purchases and Customized Reviews",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches":["https://www.amazon.com/*"],
+      "js": [
+        "js/app/content.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": ["vendors/jquery-3.3.1.min.js","js/app/background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_popup": "views/popup.html",
+    "default_title": "Pinterest Bot"
+  }
+}

@@ -1,0 +1,57 @@
+<h3>Step 1: Choose Campaign</h3>
+
+  <div ng-if="campaigns" class="form-group">
+    <table>
+      <tr ng-repeat="campaign in campaigns">
+        <td>
+          <label> {{$index}}
+             <input type="radio" ng-model="$parent.selectedObj" ng-value="campaign">
+             {{campaign.search_term}}
+          </label>
+        </td>
+      </tr>  
+  </table>
+
+  <div ng-if="!campaigns">
+        <div class="row">
+          <div class="jumbotron text-muted text-center">
+              <p>You will need to create some campaign search terms via the 
+                <a href="https://ampituptime.herokuapp.com/login">Admin Dashboard</a></p>
+          </div>
+      </div>
+    </div>
+
+<h3>Step 2: Choose User</h3>
+
+  <table ng-if="users">
+      <thead>
+      <tr>
+        <td>
+          User Email
+        </td>
+        <td>
+          User Password
+        </td>
+        <td>
+          Options
+        </td>
+      </tr>
+    </thead>
+
+     <tbody>
+      <tr ng-repeat="user in users">
+        <td>{{ user.user_email }}</a></td>
+        <td class="btn btn-block btn-info" ng-click="startScraping(user, selectedObj)">Start Scraping</td>
+        
+      </tr>
+     </tbody>
+ </table>
+
+  <div ng-if="!users">
+        <div class="row">
+          <div class="jumbotron text-muted text-center">
+              <p>You will need to add some Pinterest User Credentials via the 
+                <a href="https://ampituptime.herokuapp.com/login">Admin Dashboard</a></p>
+          </div>
+      </div>
+    </div>
