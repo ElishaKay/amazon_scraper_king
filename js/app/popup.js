@@ -39,8 +39,11 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
 
     $scope.loginViaExtension = function(formData) {
         console.log('ran $scope.loginViaExtension');
-
-        chrome.runtime.sendMessage({type:"loginViaExtension", data: formData });
+        chrome.runtime.sendMessage({type:"loginViaExtension", data: formData }, 
+            function(response){
+                console.log('this is the response from the background page',response)        
+            }
+        );
     };
 
     $scope.getClientData = function(formData) {
