@@ -30,24 +30,35 @@ chrome.runtime.onMessage.addListener(
             	case 'scrapeTime':
 				    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 				    	console.log('tabs', tabs);
-				    	tabs[0].url = 'https://stackoverflow.com';
-					  	chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
-					    	console.log(response.farewell);
+					  	chrome.tabs.sendMessage(tabs[0].id, {type: "scrapeAmazon"}, function(response) {
+					    	console.log(response);
 					  });
 					});
 					return true;
 				    break;
 				case 'dropDownOptions':
-					console.log('these are the given users dropDownOptions:', message.dropDownOptions);
-					window.localStorage.setItem('dropDownOptions', JSON.stringify(message.dropDownOptions));
-				    // code block
+					saveContentJSData(message.type, message.data);
+					sendResponse('all good');
+				    return true;
 				    break;
+				case 'orderPageURLs':
+					saveContentJSData(message.type, message.data);
+					sendResponse('all good');
+					return true;
+					break;
 				case 'orderDetails':
-					console.log('these are the given users orderDetails:', message.orderDetails);
-					window.localStorage.setItem('orderDetails', JSON.stringify(message.orderDetails));
-				    break;
+					saveContentJSData(message.type, message.data);
+					sendResponse('all good');
+					return true;
+					break;
 				default:
 				    // code block
             }
         }
 );
+
+function saveContentJSData(eventName, data){
+	console.log('eventName', eventName);
+	console.log('data', data);
+	window.localStorage.setItem(eventName, JSON.stringify(data));
+}

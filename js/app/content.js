@@ -2,28 +2,39 @@ console.log('content script ran')
 var url = window.location.href;
 
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if (request.greeting == "hello"){
+  function(message, sender, sendResponse) {
+    if (message.type == "scrapeAmazon"){
     	window.location.href='https://www.amazon.com/gp/your-account/order-history';
-    	sendResponse({farewell: "goodbye"});
+    	sendResponse('all good');
     } 
   }
 );
 
 if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&unifiedOrders=1')){
+	//first landing on the orders page
+
 	let dropDownOptions = [];
 	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
 	for (i = 0; i < theOptions.length; i++) { 
-    	dropDownOptions.push(theOptions[i].text);
+    	dropDownOptions.push(theOptions[i].value);
 	}
-	chrome.runtime.sendMessage({type:"dropDownOptions", dropDownOptions: dropDownOptions }, 
-            function(response){
-                console.log('this is the response from the background page for dropDownOptions Event',response);
-            }
-    ); 
+    sendToBackground("dropDownOptions", dropDownOptions);
+    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+dropDownOptions.slice(-1)[0]; 
 } else if (url.includes('amazon.com/gp/your-account') && url.includes('digitalOrders=1&unifiedOrders=1')){
+	//got to yearly page - need to click on 'See All Products Button'
+	var orderPageURLs = [];
+	var orderPageButtons = document.querySelectorAll('.a-size-medium')
 
+	for (i = 0; i <  orderPageButtons.length; i++) { 
+	    if(orderPageButtons[i].href){
+	    	orderPageURLs.push( orderPageButtons[i].href);
+		}
+	}
+	sendToBackground("orderPageURLs", orderPageURLs);
+	window.location.href = orderPageURLs.slice(-1)[0]; 
 } else if (url.includes('amazon.com/gp/your-account/order-details')){
+	//got to page of a given order details within a given year
+
 	console.log('order details page');
 	let orderDetails = [];
 	let products = document.querySelectorAll('.a-fixed-left-grid-inner')
@@ -38,10 +49,13 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&
 
 	    orderDetails.push(item);
 	}
-	chrome.runtime.sendMessage({type:"orderDetails", orderDetails: orderDetails }, 
+    sendToBackground("orderDetails", orderDetails);
+}
+
+function sendToBackground(eventName, eventData){
+	chrome.runtime.sendMessage({type: eventName, data: eventData }, 
             function(response){
-                console.log('this is the response from the background page for orderDetails Event',response);
+                console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
             }
     );
-
 }

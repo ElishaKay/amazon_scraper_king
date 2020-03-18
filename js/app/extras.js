@@ -72,9 +72,10 @@ The array generated may look something like this:
 Let's say you start by scraping the 2018 data.
 When reaching the 2018 URL, you can run:
 
-document.querySelectorAll('.a-size-medium')
-This element contains the 'see all 6 products' links.
-You need to loop through it, and extract_______
+var orderPageButtons = document.querySelectorAll('.a-size-medium')
+
+// This element contains the 'see all 6 products' links.
+// You need to loop through it, and extract_______
 
 for (i = 0; i <  orderPageButtons.length; i++) { 
     console.log( orderPageButtons[i].href);
