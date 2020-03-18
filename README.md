@@ -1,3 +1,7 @@
+'if you're debugging your extension and the Dev Tools window is open and focused, the array will be empty. You should check for that.'
+
+<a href='https://stackoverflow.com/questions/29681477/background-script-messaging-with-javascript'>source</a>
+
 Create a Campaign Search via the Admin GUI and fetch images from Pinterest!
 
 <h5>Step 1: Via the Admin GUI. Add the credentials of your Pinterest User</h5>
