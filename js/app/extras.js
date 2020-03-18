@@ -11,11 +11,17 @@ console.log('localStorage user:',JSON.parse(window.localStorage.getItem('user'))
 
 
 //on orders page:
-From All Orders of 2020 Page:'https://www.amazon.com/gp/your-account/order-history?opt=ab&digitalOrders=1&unifiedOrders=1&returnTo=&orderFilter=year-2020'
+From All Orders of 2020 Page:
+
+'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-2020'
+
+And in case there's a page 2 for the given year:
+
+'https://www.amazon.com/gp/your-account/order-history/?orderFilter=year-2019&search=&startIndex=10'
 
 Step 1: you need to click unto the button: "Order Details" or "See all 7 products"
 
-Step 2: That full page will befor example:"https://www.amazon.com/gp/your-account/order-details/ref=ppx_yo_dt_b_order_details_o00_s00?ie=UTF8&orderID=114-4917364-5138627"
+Step 2: That full page will be something like:"https://www.amazon.com/gp/your-account/order-details/ref=ppx_yo_dt_b_order_details_o00_s00?ie=UTF8&orderID=114-4917364-5138627"
 
 Then, this script works: 
 
@@ -27,7 +33,7 @@ for (i = 0; i < products.length; i++) {
     let cleanedUpValues = products[i].innerText.split("\n");
     item.product_title = cleanedUpValues[0];    
     item.product_by = cleanedUpValues[1]; 
-    item.product_cost = cleanedUpValues[3];   
+    item.product_cost = cleanedUpValues[4];   
 
     console.log(item);
 }
@@ -49,10 +55,16 @@ let currencies = ['د.إ','Af','L','Դ','Kz','$','$','ƒ','ман','КМ','$','�
 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-2019'
 
 To fetch the options available for the given amazon user:
+
 document.querySelectorAll('#timePeriodForm span select option')
 
 document.querySelector('#timePeriodForm')
-
+document.querySelector('#timePeriodForm #orderFilter')
+var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')
+theOptions = theOptions[0].options;
+for (i = 0; i < theOptions.length; i++) { 
+    console.log(theOptions[i].text);
+}
 
 $state.go('home.fetch-amazon-data');
 

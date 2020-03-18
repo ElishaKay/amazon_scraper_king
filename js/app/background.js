@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener(
 	                    }
 	                });
 	                return true;
-            		
+            		break;
             	case 'scrapeTime':
 				    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 				    	console.log('tabs', tabs);
@@ -36,27 +36,9 @@ chrome.runtime.onMessage.addListener(
 					  });
 					});
 					return true;
-				    // code block
-				 //    console.log('in background.js scrapeTime switch: ', message);
-					// chrome.tabs.query({
-					//   active: true,
-					//   currentWindow: true
-					// }, function(tabs) {
-					//   chrome.runtime.sendMessage({type:"backgroundCmdToScrape", user: window.localStorage.getItem('user')}, 
-				 //            function(response){
-				 //                console.log('this is the response from the content page for scrapeTime Event',response);
-				 //            }
-				 //        ); 
-
-					//   console.log('background js page', tabs)
-					//   var activeTab = tabs[0];
-
-					//   chrome.tabs.sendMessage(activeTab.id, {"message": "start"});
-					// });
-                     console.log('message',message);
-                    return true;
 				    break;
-				case 'armageddon':
+				case 'dropDownOptions':
+					console.log('these are the given users dropDownOptions:', message.dropDownOptions);
 				    // code block
 				    break;
 				default:

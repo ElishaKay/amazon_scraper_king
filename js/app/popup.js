@@ -5,7 +5,6 @@ var myApp = angular.module("my-app", ['ui.router']);
 myApp.config(function($stateProvider, $urlRouterProvider) {
     
     $stateProvider
-    
         .state('home', {
             url: '/home',
             templateUrl: '../views/home.html'
@@ -29,8 +28,6 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home/insert-code');
 })
 
-
-
 myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $http, $state){
    console.log("Controller Initialized");
 
@@ -38,7 +35,6 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     $scope.client = {};
     $scope.formData = {};
     $scope.client_analytics_code = '';
-    $scope.selectedObj = {};
 
     //change before deploying
     $scope.baseUrl = 'http://localhost:8000';
@@ -64,10 +60,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
         let logIn = function(){
            $state.go('home.run-campaign');
         }
-        
-
     };
-
   }
 ]);
 
@@ -81,15 +74,6 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
                 console.log('this is the response from the content page for scrapeTime Event',response);
             }
         ); 
-
-        // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        //     chrome.tabs.sendMessage(tabs[0].id, {type:"scrapeTime", user: user }, function(response){
-        //         // console.log('this is the response from content page',response)        
-        //     });   
-        // });    
-
     }
-
-
   }
 ]);
