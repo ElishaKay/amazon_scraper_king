@@ -6,8 +6,7 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "https://www.amazon.com/*"
         ],
       "js": [
         "js/app/content.js"
@@ -15,7 +14,7 @@
     }
   ],
   "permissions": [
-          "storage"
+          "activeTab", "storage",  "<all_urls>", "tabs"
   ],
   "background": {
     "scripts": ["vendors/jquery-3.3.1.min.js","js/app/background.js"],
@@ -23,6 +22,6 @@
   },
   "browser_action": {
     "default_popup": "views/popup.html",
-    "default_title": "Pinterest Bot"
+    "default_title": "Amazon Popup Shop"
   }
 }

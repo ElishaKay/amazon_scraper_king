@@ -76,17 +76,17 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
    console.log("Scraper Controller Initialized");
 
     $scope.fetchAmazonData = function(user){
-        // chrome.runtime.sendMessage({type:"scrapeTime", user: user }, 
-        //     function(response){
-        //         console.log('this is the response from the content page for scrapeTime Event',response);
-        //     }
-        // ); 
+        chrome.runtime.sendMessage({type:"scrapeTime", user: user }, 
+            function(response){
+                console.log('this is the response from the content page for scrapeTime Event',response);
+            }
+        ); 
 
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, {type:"scrapeTime", user: user }, function(response){
-                // console.log('this is the response from content page',response)        
-            });   
-        });    
+        // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        //     chrome.tabs.sendMessage(tabs[0].id, {type:"scrapeTime", user: user }, function(response){
+        //         // console.log('this is the response from content page',response)        
+        //     });   
+        // });    
 
     }
 

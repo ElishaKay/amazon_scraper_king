@@ -1,3 +1,13 @@
+Extras from content.js page
+
+console.log("Content js script loaded for amazon popup shop");
+
+console.log('localStorage user:',JSON.parse(window.localStorage.getItem('user')));
+
+// window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+5000);         
+// localStorage.removeItem('search_term');
+// window.location.href = 'https://www.pinterest.com/search/pins/?q='+search_term;
+// let search_term = localStorage.getItem('search_term');
 
 
 //on orders page:

@@ -27,26 +27,34 @@ chrome.runtime.onMessage.addListener(
 	                });
 	                return true;
             		
-            	case 'imageData':
+            	case 'scrapeTime':
+				    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+				    	console.log('tabs', tabs);
+				    	tabs[0].url = 'https://stackoverflow.com';
+					  	chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+					    	console.log(response.farewell);
+					  });
+					});
+					return true;
 				    // code block
-				    console.log('in background.js, got image Data from content.js: ', message)
-                    
-                    let imagesArr = message.images;
-                        for (i = 0; i < imagesArr.length; i++) {
-                        	$.ajax({
-			                    url: server_url + "/save-images",
-			                    data: imagesArr[i],
-			                    type: "POST",
-			                    success: function(a) {
-			                      console.log(a);
-			                    },
-			                    error: function(a) {
-			                      console.log("Error");
-			                      console.log(a);
-			                    }
-			                });      
-                    }
+				 //    console.log('in background.js scrapeTime switch: ', message);
+					// chrome.tabs.query({
+					//   active: true,
+					//   currentWindow: true
+					// }, function(tabs) {
+					//   chrome.runtime.sendMessage({type:"backgroundCmdToScrape", user: window.localStorage.getItem('user')}, 
+				 //            function(response){
+				 //                console.log('this is the response from the content page for scrapeTime Event',response);
+				 //            }
+				 //        ); 
 
+					//   console.log('background js page', tabs)
+					//   var activeTab = tabs[0];
+
+					//   chrome.tabs.sendMessage(activeTab.id, {"message": "start"});
+					// });
+                     console.log('message',message);
+                    return true;
 				    break;
 				case 'armageddon':
 				    // code block
