@@ -39,7 +39,12 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'dropDownOptions':
 					console.log('these are the given users dropDownOptions:', message.dropDownOptions);
+					window.localStorage.setItem('dropDownOptions', JSON.stringify(message.dropDownOptions));
 				    // code block
+				    break;
+				case 'orderDetails':
+					console.log('these are the given users orderDetails:', message.orderDetails);
+					window.localStorage.setItem('orderDetails', JSON.stringify(message.orderDetails));
 				    break;
 				default:
 				    // code block

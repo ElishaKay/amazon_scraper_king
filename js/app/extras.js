@@ -66,6 +66,23 @@ for (i = 0; i < theOptions.length; i++) {
     console.log(theOptions[i].text);
 }
 
+The array generated may look something like this:
+["last 30 days", "past 6 months", "2020", "2019", "2018"]
+
+Let's say you start by scraping the 2018 data.
+When reaching the 2018 URL, you can run:
+
+document.querySelectorAll('.a-size-medium')
+This element contains the 'see all 6 products' links.
+You need to loop through it, and extract_______
+
+for (i = 0; i <  orderPageButtons.length; i++) { 
+    console.log( orderPageButtons[i].href);
+}
+
+
+
+-------------
 $state.go('home.fetch-amazon-data');
 
 window.localStorage.getItem('user')

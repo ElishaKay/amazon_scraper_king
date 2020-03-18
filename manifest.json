@@ -14,7 +14,7 @@
     }
   ],
   "permissions": [
-          "activeTab", "storage",  "<all_urls>", "tabs"
+          "activeTab", "storage", "tabs"
   ],
   "background": {
     "scripts": ["vendors/jquery-3.3.1.min.js","js/app/background.js"],
