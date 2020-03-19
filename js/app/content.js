@@ -16,12 +16,12 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&
 	//navigate to a specific Time Period ()
 	//log whichever year has been completely scraped
 
-	let dropDownOptions = [];
+	let purchaseYears = [];
 	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
 	for (i = 0; i < theOptions.length; i++) { 
-    	dropDownOptions.push(theOptions[i].value);
+    	purchaseYears.push(theOptions[i].value);
 	}
-    sendToBackground("dropDownOptions", dropDownOptions);
+    sendToBackground("purchaseYears", purchaseYears);
     // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+dropDownOptions.slice(-1)[0]; 
 } else if (url.includes('amazon.com/gp/your-account') && url.includes('digitalOrders=1&unifiedOrders=1')){
 	//got to yearly page - need to:
