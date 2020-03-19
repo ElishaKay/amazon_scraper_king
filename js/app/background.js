@@ -36,7 +36,7 @@ chrome.runtime.onMessage.addListener(
 					});
 					return true;
 				    break;
-				case 'dropDownOptions':
+				case 'purchaseYears':
 					saveContentJSData(message.type, message.data);
 					sendResponse('all good');
 				    return true;
