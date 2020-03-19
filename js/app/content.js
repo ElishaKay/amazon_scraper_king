@@ -11,7 +11,10 @@ chrome.runtime.onMessage.addListener(
 );
 
 if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&unifiedOrders=1')){
-	//first landing on the orders page
+	//first landing on the main orders page
+	//send all the dropDown Options to the Background page
+	//navigate to a specific Time Period ()
+	//log whichever year has been completely scraped
 
 	let dropDownOptions = [];
 	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
@@ -19,9 +22,13 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&
     	dropDownOptions.push(theOptions[i].value);
 	}
     sendToBackground("dropDownOptions", dropDownOptions);
-    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+dropDownOptions.slice(-1)[0]; 
+    // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+dropDownOptions.slice(-1)[0]; 
 } else if (url.includes('amazon.com/gp/your-account') && url.includes('digitalOrders=1&unifiedOrders=1')){
-	//got to yearly page - need to click on 'See All Products Button'
+	//got to yearly page - need to:
+	//send all the orderPageURLs to the Background page
+	//navigate to a specific orders page
+	//log whichever page has already been visited
+	'See All Products Button'
 	var orderPageURLs = [];
 	var orderPageButtons = document.querySelectorAll('.a-size-medium')
 
@@ -31,7 +38,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&
 		}
 	}
 	sendToBackground("orderPageURLs", orderPageURLs);
-	window.location.href = orderPageURLs.slice(-1)[0]; 
+	// window.location.href = orderPageURLs.slice(-1)[0]; 
 } else if (url.includes('amazon.com/gp/your-account/order-details')){
 	//got to page of a given order details within a given year
 
