@@ -4,7 +4,7 @@ a) Write a function to automatically grab the prices, without getting confused r
 
 For example, within this <a href="https://www.amazon.com/gp/your-account/order-history?opt=ab&digitalOrders=1&unifiedOrders=1&returnTo=&orderFilter=year-2019">2019 Orders Page:</a>
 
-<img src="img/get_price_function.png">
+<img src="img/get_price_function.PNG">
 
 b) Define functions in Background.js and Server to keep track of which years have already been scraped. If a given year contains pagination, the DB's purchase_year table should be filled within one record per page (of the given year).
 
