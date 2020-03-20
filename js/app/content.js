@@ -41,8 +41,6 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('&orderFilter='))
     	sendToBackground("paginationDetails", checkAndGetPagination());
     	}, 
     5000);
-
-
 }
 
 function sendToBackground(eventName, eventData){
