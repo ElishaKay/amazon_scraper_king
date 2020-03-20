@@ -3,14 +3,19 @@ var url = window.location.href;
 
 chrome.runtime.onMessage.addListener(
   function(message, sender, sendResponse) {
-    if (message.type == "scrapeAmazon"){
-    	window.location.href='https://www.amazon.com/gp/your-account/order-history';
-    	sendResponse('all good');
+  	switch(message.type) {
+       	case 'scrapeAmazon':
+	    	window.location.href='https://www.amazon.com/gp/your-account/order-history';
+	    	sendResponse('all good');
+	    	return true;
+			break;
+		default:
+		    console.log('default match');
     } 
   }
 );
 
-if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&unifiedOrders=1')){
+if(url.includes('amazon.com/gp/your-account') && !url.includes('&orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
@@ -23,26 +28,29 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&
 	}
     sendToBackground("purchaseYears", purchaseYears);
     // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+dropDownOptions.slice(-1)[0]; 
-} else if (url.includes('amazon.com/gp/your-account') && url.includes('digitalOrders=1&unifiedOrders=1')){
+} else if (url.includes('amazon.com/gp/your-account/') && url.includes('&orderFilter=')){
 	//got to yearly page - need to:
-	//send all the orderPageURLs to the Background page
-	//navigate to a specific orders page
-	//log whichever page has already been visited
-	'See All Products Button'
-	var orderPageURLs = [];
-	var orderPageButtons = document.querySelectorAll('.a-size-medium')
+    //send all the orderPageURLs to the Background page
+    //navigate to a specific orders page
+    //log whichever page has already been visited
+    console.log('on a yearly page now');
+    window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+5000);
 
-	for (i = 0; i <  orderPageButtons.length; i++) { 
-	    if(orderPageButtons[i].href){
-	    	orderPageURLs.push( orderPageButtons[i].href);
-		}
-	}
-	sendToBackground("orderPageURLs", orderPageURLs);
-	// window.location.href = orderPageURLs.slice(-1)[0]; 
-} else if (url.includes('amazon.com/gp/your-account/order-details')){
-	//got to page of a given order details within a given year
+    setTimeout(function(){ 
+    	sendToBackground("orderDetails", fetchYearlyOrders());
+    	}, 
+    5000);  
+}
 
-	console.log('order details page');
+function sendToBackground(eventName, eventData){
+	chrome.runtime.sendMessage({type: eventName, data: eventData }, 
+            function(response){
+                console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
+            }
+    );
+}
+
+function fetchYearlyOrders(){
 	let orderDetails = [];
 	let products = document.querySelectorAll('.a-fixed-left-grid-inner')
 
@@ -56,13 +64,6 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('digitalOrders=1&
 
 	    orderDetails.push(item);
 	}
-    sendToBackground("orderDetails", orderDetails);
-}
 
-function sendToBackground(eventName, eventData){
-	chrome.runtime.sendMessage({type: eventName, data: eventData }, 
-            function(response){
-                console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
-            }
-    );
+	return orderDetails;
 }
