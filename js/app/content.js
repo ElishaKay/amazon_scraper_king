@@ -19,7 +19,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('&orderFilter='))
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
-	//log whichever year has been completely scraped
+	//to-do: log whichever year has been completely scraped
 
 	let purchaseYears = [];
 	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
@@ -30,16 +30,19 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('&orderFilter='))
     // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+dropDownOptions.slice(-1)[0]; 
 } else if (url.includes('amazon.com/gp/your-account/') && url.includes('&orderFilter=')){
 	//got to yearly page - need to:
-    //send all the orderPageURLs to the Background page
-    //navigate to a specific orders page
-    //log whichever page has already been visited
+    //checkAndGetPagination
+    //send OrderDetails to the Background
+    //to-do: log whichever page has already been visited
     console.log('on a yearly page now');
     window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+5000);
 
     setTimeout(function(){ 
     	sendToBackground("orderDetails", fetchYearlyOrders());
+    	sendToBackground("paginationDetails", checkAndGetPagination());
     	}, 
-    5000);  
+    5000);
+
+
 }
 
 function sendToBackground(eventName, eventData){
@@ -66,4 +69,14 @@ function fetchYearlyOrders(){
 	}
 
 	return orderDetails;
+}
+
+function checkAndGetPagination(){
+	let pageNumbers = [];
+	let pagination = document.querySelectorAll('.pagination-full');
+	let extractedNumbers = pagination[0].innerText.match(/\d/g);
+	for (i = 0; i < extractedNumbers.length; i++) { 
+    	pageNumbers.push(parseInt(extractedNumbers[i]));
+	}
+	return pageNumbers;
 }

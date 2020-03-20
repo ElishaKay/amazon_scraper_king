@@ -18,7 +18,6 @@ chrome.runtime.onMessage.addListener(
 	                      console.log(a);
 	                      window.localStorage.setItem('user', JSON.stringify(a));
 	                      sendResponse(a[0]);
-
 	                    },
 	                    error: function(a) {
 	                      console.log("Error");
@@ -41,12 +40,12 @@ chrome.runtime.onMessage.addListener(
 					sendResponse('all good');
 				    return true;
 				    break;
-				case 'orderPageURLs':
+				case 'orderDetails':
 					saveContentJSData(message.type, message.data);
 					sendResponse('all good');
 					return true;
 					break;
-				case 'orderDetails':
+				case 'paginationDetails':
 					saveContentJSData(message.type, message.data);
 					sendResponse('all good');
 					return true;
