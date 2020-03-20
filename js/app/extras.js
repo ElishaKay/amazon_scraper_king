@@ -129,3 +129,25 @@ $http.get($scope.baseUrl+'/getcampaigns/'+$scope.client_analytics_code)
             // console.log('this is the response from content page',response)        
     })
  };
+
+IF YOU NEED EVENTUALLY TO GRAB STUFF FROM THE ORDER PAGES
+here's how to grab the orderPageURLs within the Main Orders page
+Or Yearly orders Page:
+
+ else if (url.includes('amazon.com/gp/your-account') && url.includes('digitalOrders=1&unifiedOrders=1')){
+    //got to yearly page - need to:
+    //send all the orderPageURLs to the Background page
+    //navigate to a specific orders page
+    //log whichever page has already been visited
+    'See All Products Button'
+    var orderPageURLs = [];
+    var orderPageButtons = document.querySelectorAll('.a-size-medium')
+
+    for (i = 0; i <  orderPageButtons.length; i++) { 
+        if(orderPageButtons[i].href){
+            orderPageURLs.push( orderPageButtons[i].href);
+        }
+    }
+    sendToBackground("orderPageURLs", orderPageURLs);
+    // window.location.href = orderPageURLs.slice(-1)[0]; 
+} 
