@@ -1,6 +1,7 @@
-let server_url = 'http://localhost:8000/';
-let production_server_url = 'https://myfavoriteproducts.herokuapp.com/';
-
+let dev_server_url = 'http://localhost:8000/';
+let prod_server_url = 'https://myfavoriteproducts.herokuapp.com/';
+let environment = 'dev';
+let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 // after login, you can get the user here like so:
 // localStorage.getItem(user);
 
@@ -9,22 +10,11 @@ chrome.runtime.onMessage.addListener(
             switch(message.type) {
             	case 'loginViaExtension':
             		console.log('ran loginViaExtension in background.js');
-            		$.ajax({
-	                    url: server_url + "api/login-via-extension",
-	                    data: {client_email: message.data.client_email, 
-	                    	   client_password: message.data.client_password},
-	                    type: "POST",
-	                    success: function(a) {
-	                      console.log(a);
-	                      window.localStorage.setItem('user', JSON.stringify(a));
-	                      sendResponse(a[0]);
-	                    },
-	                    error: function(a) {
-	                      console.log("Error");
-	                      console.log(a);
-	                    }
-	                });
-	                return true;
+            		ajaxCall('POST',message.data,'api/login-via-extension', function(response){
+	            		setStorageItem('user',response[0]);
+						sendResponse(response[0]);
+            		});
+            		return true;
             		break;
             	case 'scrapeTime':
 				    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -36,17 +26,17 @@ chrome.runtime.onMessage.addListener(
 					return true;
 				    break;
 				case 'purchaseYears':
-					saveContentJSData(message.type, message.data);
+					setStorageItem(message.type, message.data);
 					sendResponse('all good');
 				    return true;
 				    break;
 				case 'orderDetails':
-					saveContentJSData(message.type, message.data);
+					setStorageItem(message.type, message.data);
 					sendResponse('all good');
 					return true;
 					break;
 				case 'paginationDetails':
-					saveContentJSData(message.type, message.data);
+					setStorageItem(message.type, message.data);
 					sendResponse('all good');
 					return true;
 					break;
@@ -56,8 +46,28 @@ chrome.runtime.onMessage.addListener(
         }
 );
 
-function saveContentJSData(eventName, data){
-	console.log('eventName', eventName);
+function setStorageItem(varName, data){
+	console.log('varName: ', varName);
 	console.log('data', data);
-	window.localStorage.setItem(eventName, JSON.stringify(data));
+	window.localStorage.setItem(varName, JSON.stringify(data));
+}
+
+function getStorageItem(varName){
+	JSON.parse(localStorage.getItem(varName));
+}
+
+function ajaxCall(type,data,path,callback){
+	$.ajax({
+        url: domain + path,
+        data: data,
+        type: type,
+        success: function(a) {
+          console.log('server response: ',a);
+          callback(a);
+        },
+        error: function(a) {
+          console.log("Error");
+          console.log(a);
+        }
+    });
 }
