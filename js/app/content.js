@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-if(url.includes('amazon.com/gp/your-account') && !url.includes('&orderFilter=')){
+if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
@@ -28,7 +28,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('&orderFilter='))
 	}
     sendToBackground("purchaseYears", purchaseYears);
     // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+dropDownOptions.slice(-1)[0]; 
-} else if (url.includes('amazon.com/gp/your-account/') && url.includes('&orderFilter=')){
+} else if (url.includes('amazon.com/gp/your-account/') && url.includes('orderFilter=')){
 	//got to yearly page - need to:
     //checkAndGetPagination
     //send OrderDetails to the Background
