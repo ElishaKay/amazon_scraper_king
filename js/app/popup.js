@@ -23,6 +23,11 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
         .state('home.run-campaign', {
             url: '/run-campaign',
             templateUrl: '../views/run-campaign.html'
+        })
+
+        .state('home.dance-time', {
+            url: '/dance-time',
+            templateUrl: '../views/dance-time.html'
         });
        
     $urlRouterProvider.otherwise('/home/insert-code');
@@ -69,6 +74,7 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
    console.log("Scraper Controller Initialized");
 
     $scope.fetchAmazonData = function(user){
+        $state.go('home.dance-time');
         chrome.runtime.sendMessage({type:"scrapeTime", user: user }, 
             function(response){
                 console.log('this is the response from the content page for scrapeTime Event',response);
