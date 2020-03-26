@@ -27,7 +27,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
     	purchaseYears.push(theOptions[i].value);
 	}
     sendToBackground("purchaseYears", purchaseYears);
-    // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+dropDownOptions.slice(-1)[0]; 
+    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]; 
 } else if (url.includes('amazon.com/gp/your-account/') && url.includes('orderFilter=')){
 	//got to yearly page - need to:
     //checkAndGetPagination
