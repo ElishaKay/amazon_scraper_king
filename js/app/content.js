@@ -27,14 +27,18 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
     	purchaseYears.push(theOptions[i].value);
 	}
     sendToBackground("purchaseYears", purchaseYears);
-    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]; 
+    setTimeout(function(){ 
+	    // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]; 
+    	}, 
+    10000);
+
 } else if (url.includes('amazon.com/gp/your-account/') && url.includes('orderFilter=')){
 	//got to yearly page - need to:
     //checkAndGetPagination
     //send OrderDetails to the Background
     //to-do: log whichever page has already been visited
     console.log('on a yearly page now');
-    window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+5000);
+    window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+1000);
 
     setTimeout(function(){ 
     	sendToBackground("orderDetails", fetchYearlyOrders());
