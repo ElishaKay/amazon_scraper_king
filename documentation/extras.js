@@ -1,3 +1,5 @@
+localStorage.clear();
+
 Extras from content.js page
 
 console.log("Content js script loaded for amazon popup shop");
