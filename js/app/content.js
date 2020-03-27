@@ -63,22 +63,22 @@ function getYear(){
 }
 
 function fetchYearlyOrders(){
-	let orderDetails = [];
-	let products = document.querySelectorAll('.a-fixed-left-grid-inner')
-
-	for (i = 0; i < products.length; i++) {
-	    let item = {};
-	    
-	    let cleanedUpValues = products[i].innerText.split("\n");
-	    item.product_title = cleanedUpValues[0];    
-	    item.product_by = cleanedUpValues[1]; 
-	    item.product_cost = cleanedUpValues[cleanedUpValues.indexOf('Buy it again')-1];
-
-	    orderDetails.push(item);
-	}
-
-	return orderDetails;
+    let orderDetails = [];
+    let products = document.querySelectorAll('.a-fixed-left-grid-inner')
+    for (i = 0; i < products.length; i++) {
+        let item = {};
+        let cleanedUpValues = products[i].innerText.split("\n");
+        item.product_title = cleanedUpValues[0];    
+        item.product_by = cleanedUpValues[1]; 
+        item.product_cost = cleanedUpValues[cleanedUpValues.indexOf('Buy it again')-1];
+        item.product_link = products[i].firstElementChild.firstElementChild.firstElementChild.href;   
+        let imgurl = products[i].firstElementChild.firstElementChild.firstElementChild.innerHTML;
+        item.product_imgurl = imgurl.split("\"")[3];
+        orderDetails.push(item);
+    }
+    return orderDetails;
 }
+
 
 function checkAndGetPagination(){
 	let pageNumbers = [];
