@@ -41,13 +41,14 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
     window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+1000);
 
     setTimeout(function(){ 
-    	sendToBackground("orderDetails", fetchYearlyOrders());
-    	sendToBackground("paginationDetails", checkAndGetPagination());
+    	sendToBackground("ordersPageDetails", 
+    					 {"orderDetails": fetchYearlyOrders(),
+    					  "paginationDetails": checkAndGetPagination()});
     	}, 
     5000);
 }
 
-function sendToBackground(eventName, eventData){
+function sendToBackground(eventName, eventData, callback){
 	chrome.runtime.sendMessage({type: eventName, data: eventData }, 
             function(response){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);

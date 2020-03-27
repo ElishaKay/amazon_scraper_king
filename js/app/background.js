@@ -30,7 +30,7 @@ chrome.runtime.onMessage.addListener(
 					sendResponse('all good');
 				    return true;
 				    break;
-				case 'orderDetails':
+				case 'ordersPageDetails':
 					setStorageItem(message.type, message.data);
 					sendResponse('all good');
 					return true;
