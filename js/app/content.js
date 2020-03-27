@@ -42,7 +42,8 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
 
     setTimeout(function(){ 
     	sendToBackground("ordersPageDetails", 
-    					 {"orderDetails": fetchYearlyOrders(),
+    					 {"year": getYear(),
+    					  "orderDetails": fetchYearlyOrders(),
     					  "paginationDetails": checkAndGetPagination()});
     	}, 
     5000);
@@ -54,6 +55,12 @@ function sendToBackground(eventName, eventData, callback){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
             }
     );
+}
+
+function getYear(){
+	let queryString = window.location.search;
+	let urlParams = new URLSearchParams(queryString);
+	return urlParams.get('orderFilter').split('-')[1];
 }
 
 function fetchYearlyOrders(){
