@@ -82,6 +82,9 @@ function fetchYearlyOrders(){
 function checkAndGetPagination(){
 	let pageNumbers = [];
 	let pagination = document.querySelectorAll('.pagination-full');
+	if(){
+		
+	}
 	let extractedNumbers = pagination[0].innerText.match(/\d/g);
 	for (i = 0; i < extractedNumbers.length; i++) { 
     	pageNumbers.push(parseInt(extractedNumbers[i]));
