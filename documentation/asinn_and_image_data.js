@@ -1,3 +1,52 @@
+everything works except for 'Product Roadmaps Relaunched: How to Set Direction while Embracing Uncertainty'
+which returns: https://images-na.ssl-images-amazon.com/images/G/01/x-locale/common/grey-pixel.gif
+instead of: 
+
+function fetchYearlyOrders(){
+    let orderDetails = [];
+    let products = document.querySelectorAll('.a-fixed-left-grid-inner')
+    for (i = 0; i < products.length; i++) {
+        let item = {};
+        let cleanedUpValues = products[i].innerText.split("\n");
+        item.product_title = cleanedUpValues[0];    
+        item.product_by = cleanedUpValues[1]; 
+        item.product_cost = cleanedUpValues[cleanedUpValues.indexOf('Buy it again')-1];
+        item.product_link = products[i].firstElementChild.firstElementChild.firstElementChild.href;   
+        let imgurl = products[i].firstElementChild.firstElementChild.firstElementChild.innerHTML;
+        item.product_imgurl = imgurl.split("\"")[3];
+        orderDetails.push(item);
+    }
+    return orderDetails;
+}
+
+
+---------------------------------
+
+let asinnAndImageDetails = [];
+
+for (i = 0; i < products.length; i++) {     
+    let details = products[i].firstElementChild.firstElementChild.firstElementChild.href; 
+    console.log(details)   
+    asinnAndImageDetails.push(details);
+}
+
+successfully grabs product links :)
+
+----------------------
+
+let imgURLs = [];
+for (i = 0; i < products.length; i++) {     
+        let details = products[i].firstElementChild.firstElementChild.firstElementChild.innerHTML;
+        let imgURL = details.split("\"")[3];  
+        console.log(imgURL)   
+        imgURLs.push(imgURL);
+    }
+
+
+successfully grabs image urls :)
+
+
+------------------------
 let asinnAndImageDetails = [];
 
 for (i = 0; i < products.length; i++) {
@@ -21,20 +70,8 @@ logs:
 </div>
 
 
----------------------------------
 
-let asinnAndImageDetails = [];
-
-for (i = 0; i < products.length; i++) {     
-    let details = products[i].firstElementChild.firstElementChild.firstElementChild.href; 
-    console.log(details)   
-    asinnAndImageDetails.push(details);
-}
-
-successfully grabs product links :)
-
-----------------------
-
+-------------------
 For grabbing images:
 
 for (i = 0; i < products.length; i++) {     
