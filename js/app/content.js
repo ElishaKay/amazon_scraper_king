@@ -19,7 +19,6 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
-	//to-do: log whichever year has been completely scraped
 
 	let purchaseYears = [];
 	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
@@ -36,7 +35,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
 	//got to yearly page - need to:
     //checkAndGetPagination
     //send OrderDetails to the Background
-    //to-do: log whichever page has already been visited
+   
     console.log('on a yearly page now');
     window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+1000);
 
@@ -73,7 +72,7 @@ function fetchYearlyOrders(){
 	    let cleanedUpValues = products[i].innerText.split("\n");
 	    item.product_title = cleanedUpValues[0];    
 	    item.product_by = cleanedUpValues[1]; 
-	    item.product_cost = cleanedUpValues[4];   
+	    item.product_cost = cleanedUpValues[cleanedUpValues.indexOf('Buy it again')-1];
 
 	    orderDetails.push(item);
 	}
