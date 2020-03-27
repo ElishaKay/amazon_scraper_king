@@ -37,7 +37,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
     //send OrderDetails to the Background
    
     console.log('on a yearly page now');
-    window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+1000);
+    window.scrollTo(0,document.querySelector(".navLeftFooter").scrollHeight+5000);
 
     setTimeout(function(){ 
     	sendToBackground("ordersPageDetails", 
@@ -72,13 +72,12 @@ function fetchYearlyOrders(){
         item.product_by = cleanedUpValues[1]; 
         item.product_cost = cleanedUpValues[cleanedUpValues.indexOf('Buy it again')-1];
         item.product_link = products[i].firstElementChild.firstElementChild.firstElementChild.href;   
-        let imgurl = products[i].firstElementChild.firstElementChild.firstElementChild.innerHTML;
-        item.product_imgurl = imgurl.split("\"")[3];
+        let imgurl = products[i].firstElementChild.firstElementChild.firstElementChild.innerHTML.split("\"");
+        item.product_imgurl = imgurl[imgurl.findIndex(element => element.includes("images/I"))];
         orderDetails.push(item);
     }
     return orderDetails;
 }
-
 
 function checkAndGetPagination(){
 	let pageNumbers = [];
