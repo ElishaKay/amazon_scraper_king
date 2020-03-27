@@ -1,6 +1,9 @@
 <h3>Next Steps: March 20, 2020</h3>
 
-a) Write a function to automatically grab the prices, without getting confused regarding the index of the price within the Product Array.
+In Background.js:
+ //to-do: log whichever page has already been visited
+ //to-do: log whichever year has been completely scraped
+ //to-do: Write a function to automatically grab the prices, without getting confused regarding the index of the price within the Product Array.
 
 For example, within this <a href="https://www.amazon.com/gp/your-account/order-history?opt=ab&digitalOrders=1&unifiedOrders=1&returnTo=&orderFilter=year-2019">2019 Orders Page:</a>
 
