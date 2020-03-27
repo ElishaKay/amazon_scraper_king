@@ -32,7 +32,10 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'ordersPageDetails':
 					setStorageItem(message.type, message.data);
-					sendResponse('all good');
+					ajaxCall('POST',message.data,'api/save-yearly-products', function(response){
+						console.log(response);
+						sendResponse(response);
+            		});
 					return true;
 					break;
 				case 'paginationDetails':
