@@ -12,8 +12,8 @@ function fetchYearlyOrders(){
         item.product_by = cleanedUpValues[1]; 
         item.product_cost = cleanedUpValues[cleanedUpValues.indexOf('Buy it again')-1];
         item.product_link = products[i].firstElementChild.firstElementChild.firstElementChild.href;   
-        let imgurl = products[i].firstElementChild.firstElementChild.firstElementChild.innerHTML;
-        item.product_imgurl = imgurl.split("\"")[3];
+        let imgurl = products[i].firstElementChild.firstElementChild.firstElementChild.innerHTML.split("\"");
+        item.product_imgurl = imgurl[imgurl.findIndex(element => element.includes("images/I"))];
         orderDetails.push(item);
     }
     return orderDetails;
