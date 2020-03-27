@@ -82,12 +82,14 @@ function fetchYearlyOrders(){
 function checkAndGetPagination(){
 	let pageNumbers = [];
 	let pagination = document.querySelectorAll('.pagination-full');
-	if(){
-		
+	if(pagination[0]){
+		let extractedNumbers = pagination[0].innerText.match(/\d/g);
+		for (i = 0; i < extractedNumbers.length; i++) { 
+	    	pageNumbers.push(parseInt(extractedNumbers[i]));
+		}
+		return pageNumbers;
+	} else {
+		return [];
 	}
-	let extractedNumbers = pagination[0].innerText.match(/\d/g);
-	for (i = 0; i < extractedNumbers.length; i++) { 
-    	pageNumbers.push(parseInt(extractedNumbers[i]));
-	}
-	return pageNumbers;
+	
 }
