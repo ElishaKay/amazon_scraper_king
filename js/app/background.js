@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'ordersPageDetails':
 					setStorageItem(message.type, message.data);
-					message.data.client_id = typeof getStorageItem('user') === 'undefined' ? 'no client yet' : getStorageItem('user').client_id;	
+					message.data.client_id = JSON.parse(localStorage.getItem('user')).client_id;
 					ajaxCall('POST',message.data,'api/save-yearly-products', function(response){
 						console.log(response);
 						sendResponse(response);
