@@ -50,8 +50,16 @@ chrome.runtime.onMessage.addListener(
 					message.data.client_id = getStorageItem('user').client_id;
 					message.data.multi_page = multi_page;
 					ajaxCall('POST',message.data,'api/save-yearly-products', function(response){
+						let nextPage = '';
+						let purchaseYears = getStorageItem('purchaseYears');
 						console.log(response);
-						sendResponse(response);
+						if(response.multi_page=="false" && response.purchase_year==getStorageItem('ordersPageDetails').purchase_year){
+							let index = purchaseYears.indexOf(response.purchase_year);
+							if(index >= 0 && index < purchaseYears.length - 1){
+								nextPage = purchaseYears[index + 1];
+							}
+						}
+						sendResponse(nextPage);
             		});
 					return true;
 					break;
