@@ -42,6 +42,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
     setTimeout(function(){ 
     	sendToBackground("ordersPageDetails", 
     					 {"purchase_year": getYear(),
+    					  "page_number": getPageNumber(),
     					  "orderDetails": fetchYearlyOrders(),
     					  "paginationDetails": checkAndGetPagination()});
     	}, 
@@ -61,6 +62,19 @@ function getYear(){
 	let urlParams = new URLSearchParams(queryString);
 	return urlParams.get('orderFilter').split('-')[1];
 }
+
+function getPageNumber(){
+	let queryString = window.location.search;
+	let urlParams = new URLSearchParams(queryString);
+	let startIndex = urlParams.get('startIndex');
+	if(startIndex){
+		return (startIndex/10)*2;	
+	} else {
+		return 1;
+	}
+}
+
+let page_number = 1;
 
 function fetchYearlyOrders(){
     let orderDetails = [];
