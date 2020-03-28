@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'ordersPageDetails':
 					setStorageItem(message.type, message.data);
-					message.data.client_id = JSON.parse(localStorage.getItem('user')).client_id;
+					message.data.client_id = getStorageItem('user').client_id;
 					ajaxCall('POST',message.data,'api/save-yearly-products', function(response){
 						console.log(response);
 						sendResponse(response);
@@ -57,7 +57,7 @@ function setStorageItem(varName, data){
 }
 
 function getStorageItem(varName){
-	JSON.parse(localStorage.getItem(varName));
+	return JSON.parse(localStorage.getItem(varName));
 }
 
 function ajaxCall(type,data,path,callback){
