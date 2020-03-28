@@ -27,7 +27,14 @@ chrome.runtime.onMessage.addListener(
 					return true;
 				    break;
 				case 'purchaseYears':
-					setStorageItem(message.type, message.data);
+					let purchaseYears = [];
+					for (let i = 0; i < message.data.length; i++) { 
+						let value = message.data[i];
+						if(value.includes('-')&&!value.includes('months')){
+							 purchaseYears.push(value.split('-')[1]);
+						}
+					}
+					setStorageItem(message.type, purchaseYears);
 					sendResponse('all good');
 				    return true;
 				    break;

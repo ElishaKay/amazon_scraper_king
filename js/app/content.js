@@ -105,5 +105,4 @@ function checkAndGetPagination(){
 	} else {
 		return [];
 	}
-	
 }
