@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener(
 					for (let i = 0; i < message.data.length; i++) { 
 						let value = message.data[i];
 						if(value.includes('-')&&!value.includes('months')){
-							 purchaseYears.push(value.split('-')[1]);
+							 purchaseYears.unshift(value.split('-')[1]);
 						}
 					}
 					setStorageItem(message.type, purchaseYears);
