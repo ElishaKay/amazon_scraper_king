@@ -27,7 +27,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
 	}
     sendToBackground("purchaseYears", purchaseYears);
     setTimeout(function(){ 
-	    // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]; 
+	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]; 
     	}, 
     10000);
 
@@ -53,6 +53,9 @@ function sendToBackground(eventName, eventData, callback){
 	chrome.runtime.sendMessage({type: eventName, data: eventData }, 
             function(response){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
+                if(eventName=='ordersPageDetails'){
+                	window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+response;
+                }
             }
     );
 }
