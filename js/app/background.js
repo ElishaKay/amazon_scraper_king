@@ -46,20 +46,43 @@ chrome.runtime.onMessage.addListener(
 					} else {
 						multi_page = 1;
 					}
-					setStorageItem(message.type, message.data);
 					message.data.client_id = getStorageItem('user').client_id;
 					message.data.multi_page = multi_page;
+					setStorageItem(message.type, message.data);
 					ajaxCall('POST',message.data,'api/save-yearly-products', function(response){
-						let nextPage = '';
+						let nextWhat = '';
+						let year = 0;
+						let startIndex = 0;
 						let purchaseYears = getStorageItem('purchaseYears');
 						console.log(response);
-						if(response.multi_page=="false" && response.purchase_year==getStorageItem('ordersPageDetails').purchase_year){
+						if(response.multi_page=="false"){
+							// ie lechatchila there was only one page for the year
 							let index = purchaseYears.indexOf(response.purchase_year);
+							//navigate to the next year in the purchaseYears Array
 							if(index >= 0 && index < purchaseYears.length - 1){
-								nextPage = purchaseYears[index + 1];
+								nextWhat = 'nextYear';
+								year = purchaseYears[index + 1];
+							}
+						} else if(response.multi_page=="true"){
+							//multi-page year
+							//step 1: check whether you just scraped the final page
+							let paginationDetails = getStorageItem('paginationDetails');
+							if(response.page_number == paginationDetails[paginationDetails.length - 1]){
+								let index = purchaseYears.indexOf(response.purchase_year);
+								//navigate to the next year in the purchaseYears Array
+								if(index >= 0 && index < purchaseYears.length - 1){
+									nextWhat = 'nextYear';
+									year = purchaseYears[index + 1];
+								}
+							} else {
+							// you are on a year page with more than one page in it 
+							//& you need to navigate to the next page of the given year
+								response.page_number++;
+								nextWhat = 'nextPage';
+								startIndex = (response.page_number*10)/2;
 							}
 						}
-						sendResponse(nextPage);
+						sendResponse({nextWhat: nextWhat, year:year, startIndex:startIndex});
             		});
 					return true;
 					break;
