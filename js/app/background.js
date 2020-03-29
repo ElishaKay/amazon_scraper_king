@@ -48,12 +48,14 @@ chrome.runtime.onMessage.addListener(
 					}
 					message.data.client_id = getStorageItem('user').client_id;
 					message.data.multi_page = multi_page;
+					message.data.total_pages = paginationDetails.length; 
 					setStorageItem(message.type, message.data);
 					ajaxCall('POST',message.data,'api/save-yearly-products', function(response){
 						let nextWhat = '';
 						let year = 0;
 						let startIndex = 0;
 						let purchaseYears = getStorageItem('purchaseYears');
+
 						console.log(response);
 						if(response.multi_page=="false"){
 							// ie lechatchila there was only one page for the year
@@ -63,11 +65,11 @@ chrome.runtime.onMessage.addListener(
 								nextWhat = 'nextYear';
 								year = purchaseYears[index + 1];
 							}
-						} else if(response.multi_page=="true"){
+						} else if(response.multi_page=="1"){
 							//multi-page year
 							//step 1: check whether you just scraped the final page
-							let paginationDetails = getStorageItem('paginationDetails');
-							if(response.page_number == paginationDetails[paginationDetails.length - 1]){
+							
+							if(response.page_number == response.total_pages){
 								let index = purchaseYears.indexOf(response.purchase_year);
 								//navigate to the next year in the purchaseYears Array
 								if(index >= 0 && index < purchaseYears.length - 1){
