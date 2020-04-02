@@ -1,5 +1,5 @@
 let dev_server_url = 'http://localhost:8000/';
-let prod_server_url = 'https://myfavoriteproducts.herokuapp.com/';
+let prod_server_url = 'https://mysidehussle.com/';
 let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
@@ -47,10 +47,11 @@ chrome.runtime.onMessage.addListener(
 						multi_page = 1;
 					}
 					message.data.client_id = getStorageItem('user').client_id;
+					message.data._id = getStorageItem('user')._id;
 					message.data.multi_page = multi_page;
 					message.data.total_pages = paginationDetails.length; 
 					setStorageItem(message.type, message.data);
-					ajaxCall('POST',message.data,'api/save-yearly-products', function(response){
+					ajaxCall('POST',message.data,'api/extension/products', function(response){
 						let nextWhat = '';
 						let year = 0;
 						let startIndex = 0;
