@@ -1,5 +1,5 @@
 let dev_server_url = 'http://localhost:8000/';
-let prod_server_url = 'https://mysidehussle.com/';
+let prod_server_url = 'https://myamazonhistory.com/';
 let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
@@ -11,9 +11,14 @@ chrome.runtime.onMessage.addListener(
             switch(message.type) {
             	case 'loginViaExtension':
             		console.log('ran loginViaExtension in background.js');
-            		ajaxCall('POST',message.data,'api/login-via-extension', function(response){
-	            		setStorageItem('user',response[0]);
-						sendResponse(response[0]);
+            		ajaxCall('POST',message.data,'api/extension/login', function(response){
+            			console.log('login response from ajax:', response);
+            			if(response.error){
+            				sendResponse(response);
+            			} else{
+            				setStorageItem('user',response);
+							sendResponse(response);	
+            			}            		
             		});
             		return true;
             		break;
@@ -121,7 +126,7 @@ function ajaxCall(type,data,path,callback){
         },
         error: function(a) {
           console.log("Error");
-          console.log(a);
+          callback({error: true, data: a});
         }
     });
 }
