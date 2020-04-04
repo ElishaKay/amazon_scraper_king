@@ -9,10 +9,10 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/home',
             templateUrl: '../views/home.html'
         })
-        
-        .state('home.insert-code', {
-            url: '/insert-code',
-            templateUrl: '../views/insert-code.html'
+
+        .state('home.login', {
+            url: '/login',
+            templateUrl: '../views/login.html'
         })
 
         .state('home.fetch-amazon-data', {
@@ -30,7 +30,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '../views/dance-time.html'
         });
        
-    $urlRouterProvider.otherwise('/home/insert-code');
+    $urlRouterProvider.otherwise('/home/login');
 })
 
 myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $http, $state){
@@ -40,7 +40,8 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     $scope.client = {};
     $scope.formData = {};
     $scope.client_analytics_code = '';
-
+    $scope.errorMessage = '';
+    $scope.error = false;
     //change before deploying
     $scope.baseUrl = 'http://localhost:8000';
 
@@ -49,11 +50,16 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
         chrome.runtime.sendMessage({type:"loginViaExtension", data: formData }, 
             function(response){
                 console.log('this is the response from the background page',response);
-                if(response.hasOwnProperty('client_analytics_code')){
+                if(response.error){
+                    let theErrorMessage = response.data.responseJSON.error;
+                    console.log('theErrorMessage:',theErrorMessage);
+                    $scope.errorMessage = theErrorMessage;
+                    $scope.error = true;                   
+                } else {
                     console.log('found client_analytics_code property');
                     $scope.client = response;
                     $state.go('home.fetch-amazon-data');
-                }  
+                }
             }
         );
     };
