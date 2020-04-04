@@ -63,15 +63,6 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
             }
         );
     };
-
-    $scope.getClientData = function(formData) {
-        console.log('heres the client form data:', formData);
-        $scope.client_analytics_code = formData.client_analytics_code;
-
-        let logIn = function(){
-           $state.go('home.run-campaign');
-        }
-    };
   }
 ]);
 
