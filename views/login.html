@@ -1,5 +1,7 @@
 <p>Please enter your MyFavoriteProducts email and password below.</p>
 
+<div ng-show="error" ng-class="{fade:doFade}" class="alert alert-danger"><strong>Error:</strong> {{errorMessage}}</div>
+
 <div class="form-group">
     <label for="name">Login</label>
     <input type="text" class="form-control" name="name" ng-model="formData.client_email">
@@ -14,7 +16,7 @@
         <div class="row">
           <div class="jumbotron text-muted text-center">
               <p>If you don't have a MyFavoriteProducts free account, you can
-                <a target="_blank" href="https://myfavoriteproducts.herokuapp.com/signup">Signup For Free Here</a>!</p>
+                <a target="_blank" href="https://MyAmazonHistory.com/signup">Signup For Free Here</a>!</p>
           </div>
       </div>
 
