@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener(
 					
 					message.data._id = getStorageItem('user').user._id;
 					message.data.multi_page = multi_page;
-					message.data.total_pages = paginationDetails.length; 
+					message.data.total_pages = paginationDetails.length == 0 ? 1 : paginationDetails.length; 
 					setStorageItem(message.type, message.data);
 					ajaxCall('POST',message.data,'api/extension/products', function(response){
 						let nextWhat = '';
@@ -63,31 +63,30 @@ chrome.runtime.onMessage.addListener(
 						let purchaseYears = getStorageItem('purchaseYears');
 
 						console.log('response from api/extension/products',response);
-						if(response.multi_page=="false"){
+						if(response.multiPageYear=="false"){
 							// ie lechatchila there was only one page for the year
-							let index = purchaseYears.indexOf(response.purchase_year);
+							// find index of the year which was just scraped
+							let index = purchaseYears.indexOf(response.purchaseYear.toString());
+
 							//navigate to the next year in the purchaseYears Array
-							if(index >= 0 && index < purchaseYears.length - 1){
-								nextWhat = 'nextYear';
-								year = purchaseYears[index + 1];
-							}
-						} else if(response.multi_page=="1"){
+							nextWhat = 'nextYear';
+							year = purchaseYears[index + 1];
+						} else {
 							//multi-page year
 							//step 1: check whether you just scraped the final page
 							
-							if(response.page_number == response.total_pages){
-								let index = purchaseYears.indexOf(response.purchase_year);
+							if(response.yearlyPageNumber == response.totalPagesOfYear){
+								// find index of the year which was just scraped
+								let index = purchaseYears.indexOf(response.purchaseYear.toString());
 								//navigate to the next year in the purchaseYears Array
-								if(index >= 0 && index < purchaseYears.length - 1){
-									nextWhat = 'nextYear';
-									year = purchaseYears[index + 1];
-								}
+								nextWhat = 'nextYear';
+								year = purchaseYears[index + 1];
 							} else {
 							// you are on a year page with more than one page in it 
 							//& you need to navigate to the next page of the given year
-								response.page_number++;
+								startIndex = response.yearlyPageNumber*10;
 								nextWhat = 'nextPage';
-								startIndex = (response.page_number*10)/2;
+								year = response.purchaseYear;
 							}
 						}
 						sendResponse({nextWhat: nextWhat, year:year, startIndex:startIndex});
