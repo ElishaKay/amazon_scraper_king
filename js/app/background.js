@@ -51,8 +51,8 @@ chrome.runtime.onMessage.addListener(
 					} else {
 						multi_page = 1;
 					}
-					message.data.client_id = getStorageItem('user').client_id;
-					message.data._id = getStorageItem('user')._id;
+					
+					message.data._id = getStorageItem('user').user._id;
 					message.data.multi_page = multi_page;
 					message.data.total_pages = paginationDetails.length; 
 					setStorageItem(message.type, message.data);
@@ -62,7 +62,7 @@ chrome.runtime.onMessage.addListener(
 						let startIndex = 0;
 						let purchaseYears = getStorageItem('purchaseYears');
 
-						console.log(response);
+						console.log('response from api/extension/products',response);
 						if(response.multi_page=="false"){
 							// ie lechatchila there was only one page for the year
 							let index = purchaseYears.indexOf(response.purchase_year);
