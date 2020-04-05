@@ -91,8 +91,6 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
                 sendResponse('all good');
                 return true;
                 break;
-            default:
-                console.log('default match');
         } 
       }
     );
