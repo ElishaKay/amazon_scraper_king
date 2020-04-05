@@ -1,5 +1,5 @@
 let dev_server_url = 'http://localhost:8000/';
-let prod_server_url = 'https://myamazonhistory.com/';
+let prod_server_url = 'http://138.197.196.165/';
 let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
