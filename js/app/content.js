@@ -57,6 +57,17 @@ function sendToBackground(eventName, eventData, callback){
                 	window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year;
                 } else if (eventName=='ordersPageDetails' && response.nextWhat == 'nextPage'){
                     window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex;
+                } else(eventName=='ordersPageDetails' && response.year == 'undefined'){
+                    chrome.runtime.sendMessage({type: 'fetchingComplete', data: {fetchingComplete: true} }, 
+                            function(response){
+                                console.log('this is the response from the popup page: ',response);
+                            }
+                    );
+                    setTimeout(function(){ 
+                        window.location.href = 'https://myamazonhistory.com/user/crud/blogs';
+                        }, 
+                    3000);
+                    
                 }
             }
     );
