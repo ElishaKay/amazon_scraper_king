@@ -28,6 +28,11 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
         .state('home.dance-time', {
             url: '/dance-time',
             templateUrl: '../views/dance-time.html'
+        })
+
+        .state('home.fetching-complete', {
+            url: '/fetching-complete',
+            templateUrl: '../views/fetching-complete.html'
         });
        
     $urlRouterProvider.otherwise('/home/login');
@@ -56,7 +61,6 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
                     $scope.errorMessage = theErrorMessage;
                     $scope.error = true;                   
                 } else {
-                    console.log('found client_analytics_code property');
                     $scope.client = response;
                     $state.go('home.fetch-amazon-data');
                 }
@@ -78,5 +82,18 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
             }
         ); 
     }
+
+    chrome.runtime.onMessage.addListener(
+      function(message, sender, sendResponse) {
+        switch(message.type) {
+            case 'fetchingComplete':
+                $state.go('home.fetching-complete');
+                sendResponse('all good');
+                return true;
+                break;
+        } 
+      }
+    );
+
   }
 ]);
