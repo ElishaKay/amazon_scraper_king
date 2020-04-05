@@ -19,7 +19,7 @@
     }
   ],
   "permissions": [
-          "activeTab", "tabs"
+         "tabs"
   ],
   "background": {
     "scripts": ["vendors/jquery-3.3.1.min.js","js/app/background.js"],
