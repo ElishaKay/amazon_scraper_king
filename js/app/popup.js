@@ -20,11 +20,6 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '../views/fetch-amazon-data.html'
         })
 
-        .state('home.run-campaign', {
-            url: '/run-campaign',
-            templateUrl: '../views/run-campaign.html'
-        })
-
         .state('home.dance-time', {
             url: '/dance-time',
             templateUrl: '../views/dance-time.html'
