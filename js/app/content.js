@@ -46,7 +46,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
     					  "orderDetails": fetchYearlyOrders(),
     					  "paginationDetails": checkAndGetPagination()});
     	}, 
-    5000);
+    10000);
 }
 
 function sendToBackground(eventName, eventData, callback){

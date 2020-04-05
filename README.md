@@ -1,3 +1,9 @@
+<h3>Next Steps: April 5th, 2020</h3>
+
+Verift that the scraper stops after the final page, and goes to the MyAmazonHistory Profile Page on Completion.
+
+
+
 <h3>Next Steps: March 20, 2020</h3>
 
 In content.js
