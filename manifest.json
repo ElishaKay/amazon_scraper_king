@@ -1,8 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "My Favorite Products",
+  "name": "My Amazon History",
   "description": "Create amazing custom shops with your Amazon Purchases and Customized Reviews",
   "version": "1.0",
+  "icons": {
+      "16": "img/logo.png",
+      "48": "img/logo.png",
+      "128": "img/logo.png"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -14,7 +19,7 @@
     }
   ],
   "permissions": [
-          "activeTab", "storage", "tabs"
+          "activeTab", "tabs"
   ],
   "background": {
     "scripts": ["vendors/jquery-3.3.1.min.js","js/app/background.js"],
@@ -25,3 +30,4 @@
     "default_title": "Amazon Popup Shop"
   }
 }
+
