@@ -27,7 +27,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
 	}
     sendToBackground("purchaseYears", purchaseYears);
     setTimeout(function(){ 
-	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]; 
+	    // window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]; 
     	}, 
     10000);
 
@@ -155,7 +155,14 @@ function loadSideBar(config){
                     <p id='length' class='sidebar-anchor'>Start Scraping Profile URL's </p>
                 </li>
             </ul>
-    </div>`;
+    </div>
+
+    
+    <style>
+        .hidden{
+            display: none;
+        }
+    </style>`;
 
     var sideNav = document.createElement('div');
     sideNav.innerHTML = sidebar;
