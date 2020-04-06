@@ -19,7 +19,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
-
+    loadSideBar({yearlyPage: false});
 	let purchaseYears = [];
 	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
 	for (i = 0; i < theOptions.length; i++) { 
@@ -36,6 +36,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
     //checkAndGetPagination
     //send OrderDetails to the Background
     console.log('on a yearly page now');
+    loadSideBar({yearlyPage: true});
 
     if(getYear()=='undefined'){
         chrome.runtime.sendMessage({type: 'fetchingComplete', data: {fetchingComplete: true} }, 
@@ -45,7 +46,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
         );
         
         setTimeout(function(){ 
-            window.location.href = 'myamazonhistory.com/user/crud/blogs';
+            window.location.href = 'https://myamazonhistory.com/user/crud/blogs';
             }, 
         3000);
     }
@@ -123,4 +124,54 @@ function checkAndGetPagination(){
 	} else {
 		return [];
 	}
+}
+
+
+function loadSideBar(config){
+    let sidebar = 
+    `<div class='from-right'> 
+        <a id='thetogglebutton'><div id='togglebar' class='nav-right hidden-xs'> 
+        <div class='button' id='btn thetogglebutton'> 
+                <div class='bar top'></div> 
+                <div class='bar middle'></div> 
+                <div class='bar bottom'></div> 
+            </div> </div> </a></div>"
+            <div class='sidebar'> 
+            <ul class='sidebar-list'>
+                <li>
+                    <h1>Currently Fetching Data from ${config.yearlyPage ? getYear() : 'Amazon'}</h1>
+                    <p>The MyAmazonHistory Chrome Extension is now populating your 
+                    Social Shopping Dashboard 😋</p><br><br>
+                    <p>
+                    You may navigate to another Chrome Tab, but please keep this tab open as your 
+                    Public Shopping Dashboard is being generated.
+                    </p>
+                    <p>
+                    You'll be able to hide specific orders via your MyAmazonHistory Dashboard once 
+                    this process is complete.
+                    </p>
+                </li>
+                <li class='sidebar-item'>
+                    <p id='length' class='sidebar-anchor'>Start Scraping Profile URL's </p>
+                </li>
+            </ul>
+    </div>`;
+
+    var sideNav = document.createElement('div');
+    sideNav.innerHTML = sidebar;
+    document.body.insertBefore(sideNav, document.body.firstChild);
+
+    function toggleSidebar() {
+      $(".button").toggleClass("active");
+      $(".sidebar-item").toggleClass("active");
+      $(".sidebar").toggleClass("active");
+      };
+
+    toggleSidebar();
+
+    var button = document.getElementById('thetogglebutton');
+    button.addEventListener('click', function(){
+        toggleSidebar();
+        $(".sidebar").toggleClass("hidden");
+    });
 }
