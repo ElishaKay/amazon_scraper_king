@@ -3,8 +3,6 @@ let prod_server_url = 'http://138.197.196.165/';
 let environment = 'prod';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
-// after login, you can get the user here like so:
-// localStorage.getItem(user);
 
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
@@ -23,12 +21,18 @@ chrome.runtime.onMessage.addListener(
             		return true;
             		break;
             	case 'scrapeTime':
-				    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-				    	console.log('tabs', tabs);
-					  	chrome.tabs.sendMessage(tabs[0].id, {type: "scrapeAmazon"}, function(response) {
-					    	console.log(response);
-					  });
-					});
+            		chrome.tabs.create({url: 'https://www.amazon.com/'});
+				    
+            		setTimeout(function(){ 
+	            			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+						    	console.log('tabs', tabs);
+							  	chrome.tabs.sendMessage(tabs[0].id, {type: "scrapeAmazon"}, function(response) {
+							    	console.log(response);
+							  });
+							}); 
+	            		}, 
+	            	3000);
+				    
 					return true;
 				    break;
 				case 'purchaseYears':
