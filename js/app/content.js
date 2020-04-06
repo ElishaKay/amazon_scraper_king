@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(
   function(message, sender, sendResponse) {
   	switch(message.type) {
        	case 'scrapeAmazon':
-	    	window.location.href='https://www.amazon.com/gp/your-account/order-history';
+	    	window.location.href='https://www.amazon.com/gp/css/order-history';
 	    	sendResponse('all good');
 	    	return true;
 			break;
@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
+if(url.includes('amazon.com/gp/css/order-history') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
