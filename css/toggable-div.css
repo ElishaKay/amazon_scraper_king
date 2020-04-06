@@ -5,27 +5,14 @@
   z-index: 500;
 }
 
-main {
-  z-index: 100;
-  position: relative;
-  height: 100%;
-  background-color: #2D3142;
-  -webkit-transition: transform .7s ease-in-out;
-  -moz-transition: transform .7s ease-in-out;
-  -ms-transition: transform .7s ease-in-out;
-  -o-transition: transform .7s ease-in-out;
-  transition: transform .7s ease-in-out;
-}
-
 .sidebar {
   height: 100%;
   width: 400px;
   position: fixed;
   top: 0;
-  z-index: 1;
   right: 0;
   /*background-color: #EF8354;*/
-  z-index: 99;
+  z-index: 300;
 }
 
 .bar {
@@ -34,18 +21,6 @@ main {
   width: 50px;
   background-color: #EF8354;
   margin: 10px auto;
-}
-
-.button {
-  cursor: pointer;
-  display: inline-block;
-  width: auto;
-  margin: 0 auto;
-  -webkit-transition: all .7s ease;
-  -moz-transition: all .7s ease;
-  -ms-transition: all .7s ease;
-  -o-transition: all .7s ease;
-  transition: all .7s ease;
 }
 
 .nav-right {
@@ -101,10 +76,6 @@ main {
 
 .button.active .middle {
   width: 0;
-}
-
-nav {
-  padding-top: 30px;
 }
 
 .sidebar-list {
