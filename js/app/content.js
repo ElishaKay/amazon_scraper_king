@@ -128,6 +128,7 @@ function checkAndGetPagination(){
 
 
 function loadSideBar(config){
+    let year = getYear(); 
     let sidebar = 
     `<div class='from-right'> 
         <a id='thetogglebutton'><div id='togglebar' class='nav-right hidden-xs'> 
@@ -138,7 +139,7 @@ function loadSideBar(config){
             </div> </div> </a></div>
             <div class='sidebar'> 
             <div class='sidebar-list'>
-                    <h2>Currently Fetching Data from ${config.yearlyPage ? getYear() : 'Amazon'}</h2>
+                    <h2>Currently Fetching Data from ${config.yearlyPage && year != 'undefined' ? year : 'Amazon'}</h2>
                     <p>The MyAmazonHistory Chrome Extension is now populating your 
                     Social Shopping Dashboard 😊</p>
                     <p>Please keep this tab open as your Public Shopping Dashboard is being generated.
