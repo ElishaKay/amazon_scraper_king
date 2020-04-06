@@ -135,7 +135,7 @@ function loadSideBar(config){
                 <div class='bar top'></div> 
                 <div class='bar middle'></div> 
                 <div class='bar bottom'></div> 
-            </div> </div> </a></div>"
+            </div> </div> </a></div>
             <div class='sidebar'> 
             <ul class='sidebar-list'>
                 <li>
@@ -157,7 +157,7 @@ function loadSideBar(config){
             </ul>
     </div>
 
-    
+
     <style>
         .hidden{
             display: none;
