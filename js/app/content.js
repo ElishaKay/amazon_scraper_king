@@ -137,24 +137,15 @@ function loadSideBar(config){
                 <div class='bar bottom'></div> 
             </div> </div> </a></div>
             <div class='sidebar'> 
-            <ul class='sidebar-list'>
-                <li>
-                    <h1>Currently Fetching Data from ${config.yearlyPage ? getYear() : 'Amazon'}</h1>
+            <div class='sidebar-list'>
+                    <h2>Currently Fetching Data from ${config.yearlyPage ? getYear() : 'Amazon'}</h2>
                     <p>The MyAmazonHistory Chrome Extension is now populating your 
-                    Social Shopping Dashboard 😋</p><br><br>
-                    <p>
-                    You may navigate to another Chrome Tab, but please keep this tab open as your 
-                    Public Shopping Dashboard is being generated.
+                    Social Shopping Dashboard 😊</p>
+                    <p>Please keep this tab open as your Public Shopping Dashboard is being generated.
                     </p>
-                    <p>
-                    You'll be able to hide specific orders via your MyAmazonHistory Dashboard once 
-                    this process is complete.
-                    </p>
-                </li>
-                <li class='sidebar-item'>
-                    <p id='length' class='sidebar-anchor'>Start Scraping Profile URL's </p>
-                </li>
-            </ul>
+                    <p>You'll be able to hide specific orders via your MyAmazonHistory Dashboard once 
+                    this process is complete.</p>
+            </div>
     </div>
 
 
