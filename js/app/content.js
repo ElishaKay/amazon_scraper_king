@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(
   function(message, sender, sendResponse) {
   	switch(message.type) {
        	case 'scrapeAmazon':
-	    	window.location.href='https://www.amazon.com/gp/your-account/order-history';
+	    	window.location.href='https://www.amazon.com/gp/css/order-history';
 	    	sendResponse('all good');
 	    	return true;
 			break;
@@ -15,11 +15,11 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
+if(url.includes('amazon.com/gp/css/order-history') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
-
+    loadSideBar({yearlyPage: false});
 	let purchaseYears = [];
 	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
 	for (i = 0; i < theOptions.length; i++) { 
@@ -36,6 +36,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
     //checkAndGetPagination
     //send OrderDetails to the Background
     console.log('on a yearly page now');
+    loadSideBar({yearlyPage: true});
 
     if(getYear()=='undefined'){
         chrome.runtime.sendMessage({type: 'fetchingComplete', data: {fetchingComplete: true} }, 
@@ -45,7 +46,7 @@ if(url.includes('amazon.com/gp/your-account') && !url.includes('orderFilter=')){
         );
         
         setTimeout(function(){ 
-            window.location.href = 'myamazonhistory.com/user/crud/blogs';
+            window.location.href = 'https://myamazonhistory.com/user/crud/blogs';
             }, 
         3000);
     }
@@ -123,4 +124,114 @@ function checkAndGetPagination(){
 	} else {
 		return [];
 	}
+}
+
+
+function loadSideBar(config){
+    let year = getYear(); 
+    let sidebar = 
+    `<div class='from-right'> 
+        <a id='thetogglebutton'><div id='togglebar' class='nav-right hidden-xs'> 
+        <div class='button' id='btn thetogglebutton'> 
+                <div class='bar top'></div> 
+                <div class='bar middle'></div> 
+                <div class='bar bottom'></div> 
+            </div> </div> </a></div>
+            <div class='sidebar'> 
+            <div class='sidebar-list'>
+                    <h2>Currently Fetching Data from ${config.yearlyPage && year != 'undefined' ? year : 'Amazon'}</h2>
+                    <p>The MyAmazonHistory Chrome Extension is now populating your 
+                    Social Shopping Dashboard 😊</p>
+                    <p>Please keep this tab open as your Public Shopping Dashboard is being generated.
+                    </p>
+                    <p>You'll be able to hide specific orders via your MyAmazonHistory Dashboard once 
+                    this process is complete.</p>
+            </div>
+    </div>
+
+
+    <style>
+        .hidden{
+            display: none;
+        }
+
+        #thetogglebutton{
+          position: fixed;
+          top: 50px;
+          right: 80px;
+          z-index: 500;
+        }
+
+        .sidebar {
+          height: 100%;
+          width: 400px;
+          position: fixed;
+          top: 0;
+          right: 0;
+          /*background-color: #EF8354;*/
+          z-index: 200;
+        }
+
+        .bar {
+          display: block;
+          height: 5px;
+          width: 50px;
+          background-color: #EF8354;
+          margin: 10px auto;
+        }
+
+        .middle {
+          margin: 0 auto;
+        }
+
+        .bar {
+          -webkit-transition: all .7s ease;
+          -moz-transition: all .7s ease;
+          -ms-transition: all .7s ease;
+          -o-transition: all .7s ease;
+          transition: all .7s ease;
+        }
+
+        .sidebar-list {
+          padding-right: 30px;
+          padding-bottom: 50px;
+          padding-left: 30px;
+          margin: 0;
+          list-style: none;
+          position: absolute;
+          margin-top: 150px;
+        }
+
+        .sidebar.active{
+          background-color: #E5E9EC;
+        }
+
+        .sidebar-list h2{
+          padding-bottom: 30px;
+          text-align: center;
+        }
+
+        .sidebar-list p{
+          padding-left: 25px;
+          font-size: 15px;
+        }
+    </style>`;
+
+    var sideNav = document.createElement('div');
+    sideNav.innerHTML = sidebar;
+    document.body.insertBefore(sideNav, document.body.firstChild);
+
+    function toggleSidebar() {
+      $(".button").toggleClass("active");
+      $(".sidebar-item").toggleClass("active");
+      $(".sidebar").toggleClass("active");
+      };
+
+    toggleSidebar();
+
+    var button = document.getElementById('thetogglebutton');
+    button.addEventListener('click', function(){
+        toggleSidebar();
+        $(".sidebar").toggleClass("hidden");
+    });
 }
