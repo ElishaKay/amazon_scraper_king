@@ -10,12 +10,9 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://www.amazon.com/*"
-        ],
-      "js": [
-        "js/app/content.js"
-      ]
+      "matches": ["https://www.amazon.com/*"],
+      "js": ["js/lib/jquery-3.3.1.min.js","js/app/content.js"],
+      "css": ["css/toggable-div.css"]
     }
   ],
   "permissions": [
