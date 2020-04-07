@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener(
             		return true;
             		break;
             	case 'scrapeTime':
-            		chrome.tabs.create({url: 'https://www.amazon.com/'});
+            		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?amazonhistoryfetching=on'});
 				    
             		setTimeout(function(){ 
 	            			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {

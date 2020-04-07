@@ -1,25 +1,11 @@
 console.log('content script ran')
 var url = window.location.href;
 
-chrome.runtime.onMessage.addListener(
-  function(message, sender, sendResponse) {
-  	switch(message.type) {
-       	case 'scrapeAmazon':
-	    	window.location.href='https://www.amazon.com/gp/css/order-history';
-	    	sendResponse('all good');
-	    	return true;
-			break;
-		default:
-		    console.log('default match');
-    } 
-  }
-);
-
-if(url.includes('amazon.com/gp/css/order-history') && !url.includes('orderFilter=')){
+if(url.includes('amazon.com/gp/css/order-history') && url.includes('amazonhistoryfetching=on') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
-    loadSideBar({yearlyPage: false});
+  loadSideBar({yearlyPage: false});
 	let purchaseYears = [];
 	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
 	for (i = 0; i < theOptions.length; i++) { 
@@ -27,11 +13,11 @@ if(url.includes('amazon.com/gp/css/order-history') && !url.includes('orderFilter
 	}
     sendToBackground("purchaseYears", purchaseYears);
     setTimeout(function(){ 
-	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]; 
+	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]+'&amazonhistoryfetching=on'; 
     	}, 
     10000);
 
-} else if (url.includes('amazon.com/gp/your-account/') && url.includes('orderFilter=')){
+} else if (url.includes('amazon.com/gp/your-account/') && url.includes('&amazonhistoryfetching=on') && url.includes('orderFilter=')){
 	//got to yearly page - need to:
     //checkAndGetPagination
     //send OrderDetails to the Background
@@ -68,9 +54,9 @@ function sendToBackground(eventName, eventData, callback){
             function(response){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
                 if(eventName=='ordersPageDetails' && response.nextWhat == 'nextYear'){
-                	window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year;
+                	window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&amazonhistoryfetching=on';
                 } else if (eventName=='ordersPageDetails' && response.nextWhat == 'nextPage' && typeof response.year != 'undefined'){
-                    window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex;
+                    window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&amazonhistoryfetching=on';
                 } 
             }
     );
@@ -79,7 +65,12 @@ function sendToBackground(eventName, eventData, callback){
 function getYear(){
 	let queryString = window.location.search;
 	let urlParams = new URLSearchParams(queryString);
-	return urlParams.get('orderFilter').split('-')[1];
+  let orderFilter = urlParams.get('orderFilter');
+  if(orderFilter){
+      return orderFilter.split('-')[1];
+  } else {
+    return 'orderFilter not found';
+  }
 }
 
 function getPageNumber(){
