@@ -1,6 +1,14 @@
 console.log('content script ran')
 var url = window.location.href;
 
+//helpers
+function getURLParam(paramName){
+  let queryString = window.location.search;
+  let urlParams = new URLSearchParams(queryString);
+  return urlParams.get(paramName);  
+}
+
+// Fetching Search Page Data
 if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
   let products = document.querySelectorAll('.s-desktop-content div .sg-col-inner');
   let searchPageData = [];
@@ -55,13 +63,31 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
 
   setTimeout(function(){ 
     sendToBackground("searchPageData", 
-             {"searchPageData": searchPageData
-              // "paginationDetails": checkAndGetPagination()
+             {"searchPageData": searchPageData,
+              "searchKeyword": getURLParam('k'),
+              "totalSearchPages": getTotalSearchPages(),
+              "searchPageNumber": getSearchPageNumber()
              });
     }, 
-  10000);
+  3000);
 }
 
+function getTotalSearchPages(){
+  let pagination = document.querySelectorAll('.a-pagination');
+  if(pagination[0]){
+      let paginationDetails = pagination[0].textContent.split('\n') 
+      return parseInt(paginationDetails[10].trim());
+  } else {
+      return {mutliPage:false};
+  }
+}
+
+function getSearchPageNumber(){
+  return getURLParam() || 1;
+}
+
+
+// Fetching Orders Page Data
 if(url.includes('amazon.com/gp/css/order-history') && url.includes('amazonhistoryfetching=on') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
@@ -123,10 +149,9 @@ function sendToBackground(eventName, eventData, callback){
     );
 }
 
+
 function getYear(){
-	let queryString = window.location.search;
-	let urlParams = new URLSearchParams(queryString);
-  let orderFilter = urlParams.get('orderFilter');
+  let orderFilter = getURLParam(orderFilter);
   if(orderFilter){
       return orderFilter.split('-')[1];
   } else {
@@ -135,9 +160,7 @@ function getYear(){
 }
 
 function getPageNumber(){
-	let queryString = window.location.search;
-	let urlParams = new URLSearchParams(queryString);
-	let startIndex = urlParams.get('startIndex');
+	let startIndex = getURLParam('startIndex');
 	if(startIndex){
 		return (startIndex/10)*2;	
 	} else {
