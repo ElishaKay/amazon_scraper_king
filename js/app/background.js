@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'prod';
+let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -98,6 +98,11 @@ chrome.runtime.onMessage.addListener(
 					return true;
 					break;
 				case 'paginationDetails':
+					setStorageItem(message.type, message.data);
+					sendResponse('all good');
+					return true;
+					break;
+				case 'searchPageData':
 					setStorageItem(message.type, message.data);
 					sendResponse('all good');
 					return true;

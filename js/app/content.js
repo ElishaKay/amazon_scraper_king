@@ -1,6 +1,67 @@
 console.log('content script ran')
 var url = window.location.href;
 
+if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
+  let products = document.querySelectorAll('.s-desktop-content div .sg-col-inner');
+  let searchPageData = [];
+  for (i = 0; i < products.length; i++) {
+  
+    if(products[i].innerText!=''){
+      let product = {};
+      let image = products[i].querySelector('img');
+      let product_link = products[i].querySelector('.a-size-mini a');
+  
+      if(image!= null && product_link){
+            product.product_link = product_link.href;
+            let productBriefs = products[i].innerText.split('\n');
+  
+            if(productBriefs[0] == 'Best Seller'){
+              product.best_seller = true;
+              productBriefs.splice(0, 1);
+            } else {
+              product.best_seller = false;
+            }
+  
+            product.product_title = productBriefs[0];
+            product.product_by = productBriefs[1];
+          
+            
+            if(productBriefs[2] && isNaN(parseInt(productBriefs[3]))){
+                productBriefs.splice(2, 2);
+            } else {
+              product.product_rating = productBriefs[2].split(' ')[0];
+              product.total_ratings = productBriefs[3];
+              product.main_format = productBriefs[4]; 
+            }
+  
+            product.product_imgurl = image.src;
+  
+            for (y = 5; y < productBriefs.length; y++) {
+              if(productBriefs[y].includes('Other format')){
+                  product.other_formats = productBriefs[y]; 
+              }
+              if(productBriefs[y].includes('$') && !productBriefs[y]!='$0' && !productBriefs[y]!='$0.00'){
+                  product.product_cost = productBriefs[y];
+                  continue;
+              }    
+            }
+            
+            if(productBriefs.length <=30){
+                searchPageData.push(product);
+            }
+      }
+    }
+  }
+
+  setTimeout(function(){ 
+    sendToBackground("searchPageData", 
+             {"searchPageData": searchPageData
+              // "paginationDetails": checkAndGetPagination()
+             });
+    }, 
+  10000);
+}
+
 if(url.includes('amazon.com/gp/css/order-history') && url.includes('amazonhistoryfetching=on') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
