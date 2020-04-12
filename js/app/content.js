@@ -66,8 +66,7 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
              {"searchPageData": searchPageData,
               "searchKeyword": getURLParam('k'),
               "totalSearchPages": getTotalSearchPages(),
-              "searchPageNumber": getSearchPageNumber()
-             });
+              "searchPageNumber": getSearchPageNumber()});
     }, 
   3000);
 }
