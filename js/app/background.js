@@ -104,7 +104,10 @@ chrome.runtime.onMessage.addListener(
 					break;
 				case 'searchPageData':
 					setStorageItem(message.type, message.data);
-					sendResponse('all good');
+					ajaxCall('POST',message.data,'api/extension/products-from-search', function(response){
+            			console.log('response from server for /extension/products-from-search post request:', response);
+            			sendResponse(response);            		
+            		});
 					return true;
 					break;
 				default:
