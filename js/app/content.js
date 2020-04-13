@@ -68,7 +68,7 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
               "totalSearchPages": getTotalSearchPages(),
               "searchPageNumber": getSearchPageNumber()});
     }, 
-  3000);
+  10000);
 }
 
 function getTotalSearchPages(){
@@ -82,7 +82,7 @@ function getTotalSearchPages(){
 }
 
 function getSearchPageNumber(){
-  return getURLParam() || 1;
+  return getURLParam('page') || 1;
 }
 
 
@@ -147,7 +147,11 @@ function sendToBackground(eventName, eventData, callback){
                     }
                 } else if(eventName=='searchPageData'){
                     console.log('searchPageData response block ran');
-                    // window.location.href = 'https://www.amazon.com/s?k=javascript&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
+                    if(response.nextWhat == 'nextPage'){
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
+                    } else if(response.nextWhat == 'nextKeyword'){
+                        console.log('reached nextKeyword conditional block');
+                    }
                 }
             }
     );
