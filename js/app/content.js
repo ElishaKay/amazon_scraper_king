@@ -75,7 +75,7 @@ function getTotalSearchPages(){
   let pagination = document.querySelectorAll('.a-pagination');
   if(pagination[0]){
       let paginationDetails = pagination[0].textContent.split('\n') 
-      return parseInt(paginationDetails[10].trim());
+      return parseInt(paginationDetails.slice(-3)[0].trim());
   } else {
       return {mutliPage:false};
   }
