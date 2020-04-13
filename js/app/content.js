@@ -31,7 +31,11 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
             }
   
             product.product_title = productBriefs[0];
-            product.product_by = productBriefs[1].split('by ')[1].split('|')[0].trim();
+            product.product_by = productBriefs[1].split('by ')[1];
+            if(product.product_by){
+              product.product_by = product.product_by.split('|')[0].trim();  
+            }
+            
           
             
             if(productBriefs[2] && isNaN(parseInt(productBriefs[3]))){
