@@ -31,14 +31,14 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
             }
   
             product.product_title = productBriefs[0];
-            product.product_by = productBriefs[1];
+            product.product_by = productBriefs[1].split('by ')[1].split('|')[0].trim();
           
             
             if(productBriefs[2] && isNaN(parseInt(productBriefs[3]))){
                 productBriefs.splice(2, 2);
             } else {
               product.product_rating = productBriefs[2].split(' ')[0];
-              product.total_ratings = productBriefs[3];
+              product.total_ratings = parseFloat(productBriefs[3].replace(/,/g, '')); 
               product.main_format = productBriefs[4]; 
             }
   
@@ -139,18 +139,23 @@ function sendToBackground(eventName, eventData, callback){
 	chrome.runtime.sendMessage({type: eventName, data: eventData }, 
             function(response){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
-                if(eventName=='ordersPageDetails' && response.nextWhat == 'nextYear'){
-                	window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&amazonhistoryfetching=on';
-                } else if (eventName=='ordersPageDetails' && response.nextWhat == 'nextPage' && typeof response.year != 'undefined'){
-                    window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&amazonhistoryfetching=on';
-                } 
+                if(eventName=='ordersPageDetails'){
+                    if(response.nextWhat == 'nextYear'){
+                      window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&amazonhistoryfetching=on';
+                    } else if (response.nextWhat == 'nextPage' && typeof response.year != 'undefined'){
+                        window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&amazonhistoryfetching=on';
+                    }
+                } else if(eventName=='searchPageData'){
+                    console.log('searchPageData response block ran');
+                    // window.location.href = 'https://www.amazon.com/s?k=javascript&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
+                }
             }
     );
 }
 
 
 function getYear(){
-  let orderFilter = getURLParam(orderFilter);
+  let orderFilter = getURLParam('orderFilter');
   if(orderFilter){
       return orderFilter.split('-')[1];
   } else {

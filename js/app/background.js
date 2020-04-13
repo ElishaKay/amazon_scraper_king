@@ -104,6 +104,7 @@ chrome.runtime.onMessage.addListener(
 					break;
 				case 'searchPageData':
 					setStorageItem(message.type, message.data);
+					message.data._id = getStorageItem('user').user._id;
 					ajaxCall('POST',message.data,'api/extension/products-from-search', function(response){
             			console.log('response from server for /extension/products-from-search post request:', response);
             			sendResponse(response);            		
