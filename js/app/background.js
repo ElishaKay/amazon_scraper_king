@@ -102,6 +102,26 @@ chrome.runtime.onMessage.addListener(
 					sendResponse('all good');
 					return true;
 					break;
+				case 'searchPageData':
+					setStorageItem(message.type, message.data);
+					message.data._id = getStorageItem('user').user._id;
+					ajaxCall('POST',message.data,'api/extension/products-from-search', function(response){
+            			console.log('response from server for /extension/products-from-search post request:', response);
+            			let nextWhat = '';
+            			let searchKeyword = '';
+            			let nextPageNumber = 1;
+
+            			if(response.searchPageNumber <= response.totalSearchPages){
+            				nextWhat = 'nextPage';
+            				nextPageNumber = response.searchPageNumber+1;
+            				searchKeyword = response.searchKeyword;	
+            			} else {
+            				nextWhat = 'nextKeyword';
+            			}
+            			sendResponse({nextWhat: nextWhat, nextPageNumber: nextPageNumber, searchKeyword: searchKeyword });            		
+            		});
+					return true;
+					break;
 				default:
 				    // code block
             }
