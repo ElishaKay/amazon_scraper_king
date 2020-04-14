@@ -1,6 +1,96 @@
 console.log('content script ran')
 var url = window.location.href;
 
+//helpers
+function getURLParam(paramName){
+  let queryString = window.location.search;
+  let urlParams = new URLSearchParams(queryString);
+  return urlParams.get(paramName);  
+}
+
+// Fetching Search Page Data
+if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
+  let products = document.querySelectorAll('.s-desktop-content div .sg-col-inner');
+  let searchPageData = [];
+  for (i = 0; i < products.length; i++) {
+  
+    if(products[i].innerText!=''){
+      let product = {};
+      let image = products[i].querySelector('img');
+      let product_link = products[i].querySelector('.a-size-mini a');
+  
+      if(image!= null && product_link){
+            product.product_link = product_link.href;
+            let productBriefs = products[i].innerText.split('\n');
+  
+            if(productBriefs[0] == 'Best Seller'){
+              product.best_seller = true;
+              productBriefs.splice(0, 1);
+            } else {
+              product.best_seller = false;
+            }
+  
+            product.product_title = productBriefs[0];
+            product.product_by = productBriefs[1].split('by ')[1];
+            if(product.product_by){
+              product.product_by = product.product_by.split('|')[0].trim();  
+            }
+            
+          
+            
+            if(productBriefs[2] && isNaN(parseInt(productBriefs[3]))){
+                productBriefs.splice(2, 2);
+            } else {
+              product.product_rating = productBriefs[2].split(' ')[0];
+              product.total_ratings = parseFloat(productBriefs[3].replace(/,/g, '')); 
+              product.main_format = productBriefs[4]; 
+            }
+  
+            product.product_imgurl = image.src;
+  
+            for (y = 5; y < productBriefs.length; y++) {
+              if(productBriefs[y].includes('Other format')){
+                  product.other_formats = productBriefs[y]; 
+              }
+              if(productBriefs[y].includes('$') && !productBriefs[y]!='$0' && !productBriefs[y]!='$0.00'){
+                  product.product_cost = productBriefs[y];
+                  continue;
+              }    
+            }
+            
+            if(productBriefs.length <=30){
+                searchPageData.push(product);
+            }
+      }
+    }
+  }
+
+  setTimeout(function(){ 
+    sendToBackground("searchPageData", 
+             {"searchPageData": searchPageData,
+              "searchKeyword": getURLParam('k'),
+              "totalSearchPages": getTotalSearchPages(),
+              "searchPageNumber": getSearchPageNumber()});
+    }, 
+  10000);
+}
+
+function getTotalSearchPages(){
+  let pagination = document.querySelectorAll('.a-pagination');
+  if(pagination[0]){
+      let paginationDetails = pagination[0].textContent.split('\n') 
+      return parseInt(paginationDetails.slice(-3)[0].trim());
+  } else {
+      return {mutliPage:false};
+  }
+}
+
+function getSearchPageNumber(){
+  return getURLParam('page') || 1;
+}
+
+
+// Fetching Orders Page Data
 if(url.includes('amazon.com/gp/css/order-history') && url.includes('amazonhistoryfetching=on') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
@@ -53,19 +143,27 @@ function sendToBackground(eventName, eventData, callback){
 	chrome.runtime.sendMessage({type: eventName, data: eventData }, 
             function(response){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
-                if(eventName=='ordersPageDetails' && response.nextWhat == 'nextYear'){
-                	window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&amazonhistoryfetching=on';
-                } else if (eventName=='ordersPageDetails' && response.nextWhat == 'nextPage' && typeof response.year != 'undefined'){
-                    window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&amazonhistoryfetching=on';
-                } 
+                if(eventName=='ordersPageDetails'){
+                    if(response.nextWhat == 'nextYear'){
+                      window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&amazonhistoryfetching=on';
+                    } else if (response.nextWhat == 'nextPage' && typeof response.year != 'undefined'){
+                        window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&amazonhistoryfetching=on';
+                    }
+                } else if(eventName=='searchPageData'){
+                    console.log('searchPageData response block ran');
+                    if(response.nextWhat == 'nextPage'){
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
+                    } else if(response.nextWhat == 'nextKeyword'){
+                        console.log('reached nextKeyword conditional block');
+                    }
+                }
             }
     );
 }
 
+
 function getYear(){
-	let queryString = window.location.search;
-	let urlParams = new URLSearchParams(queryString);
-  let orderFilter = urlParams.get('orderFilter');
+  let orderFilter = getURLParam('orderFilter');
   if(orderFilter){
       return orderFilter.split('-')[1];
   } else {
@@ -74,9 +172,7 @@ function getYear(){
 }
 
 function getPageNumber(){
-	let queryString = window.location.search;
-	let urlParams = new URLSearchParams(queryString);
-	let startIndex = urlParams.get('startIndex');
+	let startIndex = getURLParam('startIndex');
 	if(startIndex){
 		return (startIndex/10)*2;	
 	} else {
