@@ -39,7 +39,10 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'initiateSearchKeywordsScraping':
 					console.log('message: ',message);
-            		chrome.tabs.create({url: message.search_url + '&amazonsearchfetching=on'});
+					let search_keywords = message.search_keywords.split(',');
+					setStorageItem('search_keywords',search_keywords);
+					var search_url = 'https://www.amazon.com/s?i=stripbooks-intl-ship&ref=nb_sb_noss_2&k='+ search_keywords[0];
+            		chrome.tabs.create({url: search_url + '&amazonsearchfetching=on'});
 				    
 					return true;
 				    break;
