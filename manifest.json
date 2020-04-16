@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "My Amazon History",
-  "description": "Share your Amazon history with friends, family, and even colleagues - if that's what you're into.",
+  "description": "Scrape Amazon Search Results, or Purchase History, and Automatically Generate Amazon Affiliate Marketing Pages.",
   "version": "1.11",
   "icons": {
       "16": "img/icon_16.png",
@@ -18,7 +18,7 @@
          "tabs"
   ],
   "background": {
-    "scripts": ["vendors/jquery-3.3.1.min.js","js/app/background.js"],
+    "scripts": ["js/lib/jquery-3.3.1.min.js","js/app/background.js"],
     "persistent": true
   },
   "browser_action": {
