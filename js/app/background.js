@@ -20,18 +20,13 @@ chrome.runtime.onMessage.addListener(
             		});
             		return true;
             		break;
-            	case 'scrapeTime':
+            	case 'initiateHistoryScraping':
             		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?amazonhistoryfetching=on'});
 				    
-            		setTimeout(function(){ 
-	            			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-						    	console.log('tabs', tabs);
-							  	chrome.tabs.sendMessage(tabs[0].id, {type: "scrapeAmazon"}, function(response) {
-							    	console.log(response);
-							  });
-							}); 
-	            		}, 
-	            	3000);
+					return true;
+				    break;
+				case 'initiateHistoryScraping':
+            		chrome.tabs.create({url: + message.data.search_url + '&amazonhistoryfetching=on'});
 				    
 					return true;
 				    break;
