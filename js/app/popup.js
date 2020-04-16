@@ -53,8 +53,24 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     $scope.client_analytics_code = '';
     $scope.errorMessage = '';
     $scope.error = false;
+    $scope.name = '';
     //change before deploying
     $scope.baseUrl = 'http://localhost:8000';
+
+    $scope.onPopupInit = function(formData) {
+        console.log('ran $scope.onPopupInit function');
+        chrome.runtime.sendMessage({type:"onPopupInit"}, 
+            function(response){
+                console.log('this is the response from the background page for onPopupInit message',response);
+                if(response.user){
+                    $scope.name = response.user.name;
+                    $state.go('home.choose-method');
+                }       
+            }
+        );
+    };
+
+    $scope.onPopupInit();
 
     $scope.loginViaExtension = function(formData) {
         console.log('ran $scope.loginViaExtension');
@@ -91,10 +107,35 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
 
     //scrape search results
     $scope.initiateSearchScraping = function(user){
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            console.log('tabs', tabs);
+            chrome.runtime.sendMessage({type:"initiateSearchScraping", user: user }, 
+                function(response){
+                    console.log('this is the response from the content page for initiateSearchScraping Event',response); 
+                    if(response.error){
+                        let theErrorMessage = response.data.responseJSON.error;
+                        console.log('theErrorMessage:',theErrorMessage);
+                        $scope.errorMessage = theErrorMessage;
+                        $scope.error = true;  
+                    } else {
+                         $state.go('home.dance-time');
+                    }
+                }
+            ); 
+        });  
+    }
+
+    $scope.initiateSearchKeywordsScraping = function(user, keywords){
         $state.go('home.dance-time');
-        chrome.runtime.sendMessage({type:"initiateSearchScraping", user: user }, 
+        chrome.runtime.sendMessage({type:"initiateSearchScraping", user: user, keywords: keywords }, 
             function(response){
-                console.log('this is the response from the content page for initiateSearchScraping Event',response);
+                console.log('this is the response from the content page for initiateSearchKeywordsScraping Event',response); 
+                if(response.error){
+                    let theErrorMessage = response.data.responseJSON.error;
+                    console.log('theErrorMessage:',theErrorMessage);
+                    $scope.errorMessage = theErrorMessage;
+                    $scope.error = true;  
+                }
             }
         ); 
     }
@@ -105,6 +146,12 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
         chrome.runtime.sendMessage({type:"initiateHistoryScraping", user: user }, 
             function(response){
                 console.log('this is the response from the content page for initiateHistoryScraping Event',response);
+                if(response.error){
+                    let theErrorMessage = response.data.responseJSON.error;
+                    console.log('theErrorMessage:',theErrorMessage);
+                    $scope.errorMessage = theErrorMessage;
+                    $scope.error = true;  
+                }
             }
         ); 
     }
