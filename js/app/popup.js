@@ -109,7 +109,7 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
     $scope.initiateSearchScraping = function(user){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             console.log('tabs', tabs);
-            chrome.runtime.sendMessage({type:"initiateSearchScraping", user: user }, 
+            chrome.runtime.sendMessage({type:"initiateSearchScraping", user: user, search_url: tabs[0].url }, 
                 function(response){
                     console.log('this is the response from the content page for initiateSearchScraping Event',response); 
                     if(response.error){
