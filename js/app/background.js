@@ -33,13 +33,13 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'initiateSearchScraping':
 					console.log('message: ',message);
-            		chrome.tabs.create({url: + message.data.search_url + '&amazonhistoryfetching=on'});
+            		chrome.tabs.create({url: message.search_url + '&amazonsearchfetching=on'});
 				    
 					return true;
 				    break;
 				case 'initiateSearchKeywordsScraping':
 					console.log('message: ',message);
-            		chrome.tabs.create({url: + message.data.search_url + '&amazonhistoryfetching=on'});
+            		chrome.tabs.create({url: message.search_url + '&amazonsearchfetching=on'});
 				    
 					return true;
 				    break;
