@@ -15,10 +15,21 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '../views/login.html'
         })
 
-        .state('home.fetch-amazon-data', {
-            url: '/fetch-amazon-data',
-            templateUrl: '../views/fetch-amazon-data.html'
+        .state('home.choose-method', {
+            url: '/choose-method',
+            templateUrl: '../views/choose-method.html'
         })
+
+        .state('home.fetch-search-results', {
+            url: '/fetch-search-results',
+            templateUrl: '../views/fetch-search-results.html'
+        })
+
+        .state('home.fetch-my-history', {
+            url: '/fetch-my-history',
+            templateUrl: '../views/fetch-my-history.html'
+        })
+
 
         .state('home.dance-time', {
             url: '/dance-time',
@@ -42,8 +53,24 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
     $scope.client_analytics_code = '';
     $scope.errorMessage = '';
     $scope.error = false;
+    $scope.name = '';
     //change before deploying
     $scope.baseUrl = 'http://localhost:8000';
+
+    $scope.onPopupInit = function(formData) {
+        console.log('ran $scope.onPopupInit function');
+        chrome.runtime.sendMessage({type:"onPopupInit"}, 
+            function(response){
+                console.log('this is the response from the background page for onPopupInit message',response);
+                if(response.user){
+                    $scope.name = response.user.name;
+                    $state.go('home.choose-method');
+                }       
+            }
+        );
+    };
+
+    $scope.onPopupInit();
 
     $scope.loginViaExtension = function(formData) {
         console.log('ran $scope.loginViaExtension');
@@ -57,7 +84,7 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
                     $scope.error = true;                   
                 } else {
                     $scope.client = response;
-                    $state.go('home.fetch-amazon-data');
+                    $state.go('home.choose-method');
                 }
             }
         );
@@ -69,11 +96,64 @@ myApp.controller("PopupCtrl", ['$scope', '$http', '$state', function($scope, $ht
 myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $http, $state){
    console.log("Scraper Controller Initialized");
 
-    $scope.fetchAmazonData = function(user){
-        $state.go('home.dance-time');
-        chrome.runtime.sendMessage({type:"scrapeTime", user: user }, 
+    //choose method
+    $scope.fetchSearchResults = function(user){
+        $state.go('home.fetch-search-results');
+    }
+
+    $scope.fetchMyHistory = function(user){
+        $state.go('home.fetch-my-history');
+    }
+
+    //scrape search results
+    $scope.initiateSearchScraping = function(){
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            console.log('tabs', tabs);
+            chrome.runtime.sendMessage({type:"initiateSearchScraping", search_url: tabs[0].url }, 
+                function(response){
+                    console.log('this is the response from the content page for the initiateSearchScraping Event',response); 
+                    if(response.error){
+                        let theErrorMessage = response.data.responseJSON.error;
+                        console.log('theErrorMessage:',theErrorMessage);
+                        $scope.errorMessage = theErrorMessage;
+                        $scope.error = true;  
+                    } else {
+                         $state.go('home.dance-time');
+                    }
+                }
+            ); 
+        });  
+    }
+
+    $scope.initiateSearchKeywordsScraping = function(search_keywords){
+        console.log('search_keywords: ',search_keywords)
+        chrome.runtime.sendMessage({type:"initiateSearchKeywordsScraping", search_keywords: search_keywords }, 
             function(response){
-                console.log('this is the response from the content page for scrapeTime Event',response);
+                console.log('this is the response from the content page for the initiateSearchKeywordsScraping Event',response); 
+                if(response.error){
+                    let theErrorMessage = response.data.responseJSON.error;
+                    console.log('theErrorMessage:',theErrorMessage);
+                    $scope.errorMessage = theErrorMessage;
+                    $scope.error = true;  
+                } else {
+                     $state.go('home.dance-time');
+                }
+            }
+        );   
+    }
+
+    //scrape purchase history result
+    $scope.initiateHistoryScraping = function(user){
+        $state.go('home.dance-time');
+        chrome.runtime.sendMessage({type:"initiateHistoryScraping", user: user }, 
+            function(response){
+                console.log('this is the response from the content page for initiateHistoryScraping Event',response);
+                if(response.error){
+                    let theErrorMessage = response.data.responseJSON.error;
+                    console.log('theErrorMessage:',theErrorMessage);
+                    $scope.errorMessage = theErrorMessage;
+                    $scope.error = true;  
+                }
             }
         ); 
     }
@@ -92,3 +172,5 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
 
   }
 ]);
+
+

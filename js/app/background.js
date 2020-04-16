@@ -7,6 +7,11 @@ let multi_page = false;
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
+            	case 'onPopupInit':
+            		console.log('ran onPopupInit Case in background.js');
+					sendResponse(getStorageItem('user'));
+            		return true;
+            		break;
             	case 'loginViaExtension':
             		console.log('ran loginViaExtension in background.js');
             		ajaxCall('POST',message.data,'api/extension/login', function(response){
@@ -20,18 +25,24 @@ chrome.runtime.onMessage.addListener(
             		});
             		return true;
             		break;
-            	case 'scrapeTime':
+            	case 'initiateHistoryScraping':
+            		console.log('message: ',message);
             		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?amazonhistoryfetching=on'});
 				    
-            		setTimeout(function(){ 
-	            			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-						    	console.log('tabs', tabs);
-							  	chrome.tabs.sendMessage(tabs[0].id, {type: "scrapeAmazon"}, function(response) {
-							    	console.log(response);
-							  });
-							}); 
-	            		}, 
-	            	3000);
+					return true;
+				    break;
+				case 'initiateSearchScraping':
+					console.log('message: ',message);
+            		chrome.tabs.create({url: message.search_url + '&amazonsearchfetching=on'});
+				    
+					return true;
+				    break;
+				case 'initiateSearchKeywordsScraping':
+					console.log('message: ',message);
+					let search_keywords = message.search_keywords.split(',');
+					setStorageItem('search_keywords',search_keywords);
+					var search_url = 'https://www.amazon.com/s?i=stripbooks-intl-ship&ref=nb_sb_noss_2&k='+ search_keywords[0];
+            		chrome.tabs.create({url: search_url + '&amazonsearchfetching=on'});
 				    
 					return true;
 				    break;
@@ -111,12 +122,19 @@ chrome.runtime.onMessage.addListener(
             			let searchKeyword = '';
             			let nextPageNumber = 1;
 
-            			if(response.searchPageNumber <= response.totalSearchPages){
+            			if(response.searchPageNumber < response.totalSearchPages){
             				nextWhat = 'nextPage';
             				nextPageNumber = response.searchPageNumber+1;
             				searchKeyword = response.searchKeyword;	
             			} else {
             				nextWhat = 'nextKeyword';
+            				let search_keywords = getStorageItem('search_keywords');
+            				let index = search_keywords.indexOf(response.searchKeyword.toString());
+            				console.log('index of keyword: ', index);
+            				console.log('search_keywords: ', search_keywords);
+
+							//navigate to the next keywords in the purchaseYears Array
+							searchKeyword = search_keywords[index + 1];
             			}
             			sendResponse({nextWhat: nextWhat, nextPageNumber: nextPageNumber, searchKeyword: searchKeyword });            		
             		});
@@ -130,8 +148,10 @@ chrome.runtime.onMessage.addListener(
 
 function setStorageItem(varName, data){
 	console.log('varName: ', varName);
-	console.log('data', data);
-	window.localStorage.setItem(varName, JSON.stringify(data));
+	if(varName!='searchPageData'){
+		console.log('data', data);
+		window.localStorage.setItem(varName, JSON.stringify(data));
+	}
 }
 
 function getStorageItem(varName){
