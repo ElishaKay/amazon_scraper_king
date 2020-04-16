@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'prod';
+let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -130,8 +130,10 @@ chrome.runtime.onMessage.addListener(
 
 function setStorageItem(varName, data){
 	console.log('varName: ', varName);
-	console.log('data', data);
-	window.localStorage.setItem(varName, JSON.stringify(data));
+	if(varName!='searchPageData'){
+		console.log('data', data);
+		window.localStorage.setItem(varName, JSON.stringify(data));
+	}
 }
 
 function getStorageItem(varName){

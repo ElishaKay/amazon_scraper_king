@@ -8,6 +8,19 @@ function getURLParam(paramName){
   return urlParams.get(paramName);  
 }
 
+function ajaxGet(url, callback){
+  $.ajax({
+        url: url, 
+        type: 'GET',
+        success: function(a) {
+          callback(a);
+        },
+        error: function(a) {
+          console.log("Error: ",a);
+        }
+    });
+}
+
 // Fetching Search Page Data
 if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
   let products = document.querySelectorAll('.s-desktop-content div .sg-col-inner');
@@ -59,7 +72,12 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
             }
             
             if(productBriefs.length <=30){
+              ajaxGet(product.product_link.split('amazon.com')[1], function(response){
+                let element = $($.parseHTML( response ));
+                product.editorial_review = element.find("div").attr("data-feature-name", 'editorialReviews')[0].outerHTML;
+
                 searchPageData.push(product);
+              })
             }
       }
     }
@@ -151,11 +169,11 @@ function sendToBackground(eventName, eventData, callback){
                     }
                 } else if(eventName=='searchPageData'){
                     console.log('searchPageData response block ran');
-                    if(response.nextWhat == 'nextPage'){
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
-                    } else if(response.nextWhat == 'nextKeyword'){
-                        console.log('reached nextKeyword conditional block');
-                    }
+                    // if(response.nextWhat == 'nextPage'){
+                    //     window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
+                    // } else if(response.nextWhat == 'nextKeyword'){
+                    //     console.log('reached nextKeyword conditional block');
+                    // }
                 }
             }
     );
