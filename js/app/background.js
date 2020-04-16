@@ -122,12 +122,19 @@ chrome.runtime.onMessage.addListener(
             			let searchKeyword = '';
             			let nextPageNumber = 1;
 
-            			if(response.searchPageNumber <= response.totalSearchPages){
+            			if(response.searchPageNumber < response.totalSearchPages){
             				nextWhat = 'nextPage';
             				nextPageNumber = response.searchPageNumber+1;
             				searchKeyword = response.searchKeyword;	
             			} else {
             				nextWhat = 'nextKeyword';
+            				let search_keywords = getStorageItem('search_keywords');
+            				let index = search_keywords.indexOf(response.searchKeyword.toString());
+            				console.log('index of keyword: ', index);
+            				console.log('search_keywords: ', search_keywords);
+
+							//navigate to the next keywords in the purchaseYears Array
+							searchKeyword = search_keywords[index + 1];
             			}
             			sendResponse({nextWhat: nextWhat, nextPageNumber: nextPageNumber, searchKeyword: searchKeyword });            		
             		});

@@ -172,6 +172,7 @@ function sendToBackground(eventName, eventData, callback){
                         window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
                     } else if(response.nextWhat == 'nextKeyword'){
                         console.log('reached nextKeyword conditional block');
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page=1';
                     }
                 }
             }
