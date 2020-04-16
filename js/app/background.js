@@ -7,6 +7,11 @@ let multi_page = false;
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
+            	case 'onPopupInit':
+            		console.log('ran onPopupInit Case in background.js');
+					sendResponse(getStorageItem('user'));
+            		return true;
+            		break;
             	case 'loginViaExtension':
             		console.log('ran loginViaExtension in background.js');
             		ajaxCall('POST',message.data,'api/extension/login', function(response){
@@ -21,11 +26,19 @@ chrome.runtime.onMessage.addListener(
             		return true;
             		break;
             	case 'initiateHistoryScraping':
+            		console.log('message: ',message);
             		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?amazonhistoryfetching=on'});
 				    
 					return true;
 				    break;
-				case 'initiateHistoryScraping':
+				case 'initiateSearchScraping':
+					console.log('message: ',message);
+            		chrome.tabs.create({url: + message.data.search_url + '&amazonhistoryfetching=on'});
+				    
+					return true;
+				    break;
+				case 'initiateSearchKeywordsScraping':
+					console.log('message: ',message);
             		chrome.tabs.create({url: + message.data.search_url + '&amazonhistoryfetching=on'});
 				    
 					return true;

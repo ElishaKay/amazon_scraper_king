@@ -1,20 +1,24 @@
-<p>Sure thing! Please copy-paste Page 1 of your Search URL below. The extension will automaticaly navigate to the next page until it reaches the final page of search results for the given Search.</p>
-
 <div ng-show="error" class="alert alert-danger"><strong>Error:</strong> {{errorMessage}}</div>
+
+<p>Sure thing! Please Refine your Amazon Search Results Page, and Press 'Start Scraping' when you're ready to begin. Please note: The app will automatically navigate to the Next Page until it reaches the final page of the given Search Results</p>
+
+<a ng-click="initiateSearchScraping($scope.client)" class="btn btn-block btn-info">
+    Only Scrape Current Search</a>
+<br/>
+
+<p class="pt-3">Alternatively, if you'd like to scrape Search Results for several keywords please insert the keywords below in comma-separated format (i.e. 'javascript, c++, html')</p>
 
 <div class="form-group">
     <label for="name">Amazon Search URL</label>
-    <input type="text" class="form-control" name="search_url" ng-model="search_url">
+    <input type="text" class="form-control" name="search_keywords" placeholder="javascript, c++, html" ng-model="search_keywords">
 </div>
 
-<a ng-click="initiateSearchScraping($scope.search_url)" class="btn btn-block btn-info">
-    Let's Begin</a>
-
-
-        <div class="row">
-          <div class="jumbotron text-muted text-center">
-              <p>If you don't have a MyAmazonHistory free account, you can
-                <a target="_blank" href="https://myamazonhistory.com/signup">Signup For Free Here</a>!</p>
-          </div>
-      </div>
-
+<a ng-click="initiateSearchKeywordsScraping($scope.client)" class="btn btn-block btn-info">
+    Scrape Results of These Keywords</a>
+<br/>
+<div class="row">
+    <div class="jumbotron text-muted text-center">
+        <p>Need Assistance?
+          <a target="_blank" href="https://myamazonhistory.com/contact">Contact Support Here</a>!</p>
+    </div>
+</div>
