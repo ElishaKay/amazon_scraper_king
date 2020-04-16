@@ -74,7 +74,7 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
             if(productBriefs.length <=30){
               ajaxGet(product.product_link.split('amazon.com')[1], function(response){
                 let element = $($.parseHTML( response ));
-                product.editorial_review = element.find("div").attr("data-feature-name", 'editorialReviews').prev("noscript")[0].innerText;
+                product.editorial_review = element.find("div").attr("data-feature-name", 'editorialReviews').prev("noscript")[0].innerHTML;
                 searchPageData.push(product);
               })
             }
