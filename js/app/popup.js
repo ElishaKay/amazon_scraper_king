@@ -102,7 +102,7 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
     //scrape purchase history result
     $scope.initiateHistoryScraping = function(user){
         $state.go('home.dance-time');
-        chrome.runtime.sendMessage({type:"initiateHistoryScraping ", user: user }, 
+        chrome.runtime.sendMessage({type:"initiateHistoryScraping", user: user }, 
             function(response){
                 console.log('this is the response from the content page for initiateHistoryScraping Event',response);
             }
