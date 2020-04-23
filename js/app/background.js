@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'prod';
+let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -126,6 +126,15 @@ chrome.runtime.onMessage.addListener(
             				nextWhat = 'nextPage';
             				nextPageNumber = response.searchPageNumber+1;
             				searchKeyword = response.searchKeyword;	
+            			} else if(response.searchPageNumber == 75 || response.nextWhat == 'nextKeyword'){
+            				nextWhat = 'nextKeyword';
+            				let search_keywords = getStorageItem('search_keywords');
+            				let index = search_keywords.indexOf(response.searchKeyword.toString());
+            				console.log('index of keyword: ', index);
+            				console.log('search_keywords: ', search_keywords);
+
+							//navigate to the next keywords in the purchaseYears Array
+							searchKeyword = search_keywords[index + 1];
             			} else {
             				nextWhat = 'nextKeyword';
             				let search_keywords = getStorageItem('search_keywords');

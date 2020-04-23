@@ -44,21 +44,28 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
             }
   
             product.product_title = productBriefs[0];
-            product.product_by = productBriefs[1].split('by ')[1];
+
+            if(productBriefs[1]){
+                product.product_by = productBriefs[1].split('by ')[1];  
+            }
+            
             if(product.product_by){
               product.product_by = product.product_by.split('|')[0].trim();  
             }
             
-          
-            
             if(productBriefs[2] && isNaN(parseInt(productBriefs[3]))){
                 productBriefs.splice(2, 2);
-            } else {
+            } 
+
+            if(productBriefs[2]){
               product.product_rating = productBriefs[2].split(' ')[0];
-              product.total_ratings = parseFloat(productBriefs[3].replace(/,/g, '')); 
-              product.main_format = productBriefs[4]; 
             }
-  
+            
+            if(productBriefs[3]){
+              product.total_ratings = parseFloat(productBriefs[3].replace(/,/g, ''));  
+            }
+            
+            product.main_format = productBriefs[4]; 
             product.product_imgurl = image.src;
   
             for (y = 5; y < productBriefs.length; y++) {
