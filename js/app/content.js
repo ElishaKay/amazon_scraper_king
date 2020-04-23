@@ -59,10 +59,13 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
 
             if(productBriefs[2]){
               product.product_rating = productBriefs[2].split(' ')[0];
-              product.total_ratings = parseFloat(productBriefs[3].replace(/,/g, '')); 
-              product.main_format = productBriefs[4]; 
             }
-  
+            
+            if(productBriefs[3]){
+              product.total_ratings = parseFloat(productBriefs[3].replace(/,/g, ''));  
+            }
+            
+            product.main_format = productBriefs[4]; 
             product.product_imgurl = image.src;
   
             for (y = 5; y < productBriefs.length; y++) {
