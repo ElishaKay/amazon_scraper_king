@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'prod';
+let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -175,6 +175,23 @@ function getStorageItem(varName){
 }
 
 function ajaxCall(type,data,path,callback){
+	$.ajax({
+        url: domain + path,
+        data: data,
+        type: type,
+        success: function(a) {
+          console.log('server response: ',a);
+          callback(a);
+        },
+        error: function(a) {
+          console.log("Error");
+          callback({error: true, data: a});
+        }
+    });
+}
+
+
+function miniAjaxCall(type,data,path){
 	$.ajax({
         url: domain + path,
         data: data,

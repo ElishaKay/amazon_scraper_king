@@ -87,8 +87,7 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
                 //save reviews html in array
                 for (i = 0; i < reviews.length; i++) {
                   let review = reviews[i];
-                  product.product_reviews.push($(review).find('div:nth-child(5)>span>div>div')[0].innerHTML);
-                  console.log('product.product_reviews: ',product.product_reviews);
+                  product.product_reviews.push($(review).find('div:nth-child(5)>span>div>div>span')[0].innerHTML.trim());
                 }
                 searchPageData.push(product);
               })
@@ -97,15 +96,14 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
     }
   }
 
-  console.log('searchPageData at end of loop:',searchPageData);
-  // setTimeout(function(){ 
-  //   sendToBackground("searchPageData", 
-  //            {"searchPageData": searchPageData,
-  //             "searchKeyword": getURLParam('k'),
-  //             "totalSearchPages": getTotalSearchPages(),
-  //             "searchPageNumber": getSearchPageNumber()});
-  //   }, 
-  // 10000);
+  setTimeout(function(){ 
+    sendToBackground("searchPageData", 
+             {"searchPageData": searchPageData,
+              "searchKeyword": getURLParam('k'),
+              "totalSearchPages": getTotalSearchPages(),
+              "searchPageNumber": getSearchPageNumber()});
+    }, 
+  10000);
 }
 
 function getTotalSearchPages(){
