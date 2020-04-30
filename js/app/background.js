@@ -41,7 +41,7 @@ chrome.runtime.onMessage.addListener(
 					console.log('message: ',message);
 					let search_keywords = message.search_keywords.split(',');
 					setStorageItem('search_keywords',search_keywords);
-					var search_url = 'https://www.amazon.com/s?i=stripbooks-intl-ship&ref=nb_sb_noss_2&k='+ search_keywords[0];
+					var search_url = 'https://www.amazon.com/s?k='+ search_keywords[0];
             		chrome.tabs.create({url: search_url + '&amazonsearchfetching=on'});
 				    
 					return true;
@@ -114,6 +114,7 @@ chrome.runtime.onMessage.addListener(
 					return true;
 					break;
 				case 'searchPageData':
+					setStorageItem('searchPageDetails', {searchKeyword: message.data.searchKeyword, totalSearchPages: message.data.totalSearchPages, searchPageNumber: message.data.searchPageNumber } ); 
 					setStorageItem(message.type, message.data);
 					message.data._id = getStorageItem('user').user._id;
 					ajaxCall('POST',message.data,'api/extension/products-from-search', function(response){
@@ -122,7 +123,13 @@ chrome.runtime.onMessage.addListener(
             			let searchKeyword = '';
             			let nextPageNumber = 1;
 
-            			if(response.searchPageNumber < response.totalSearchPages){
+            			if(response.error){
+            				nextWhat = 'nextPage';
+            				//need to pull up keyword from localStorage
+            				let searchPageDetails = getStorageItem('searchPageDetails')
+            				nextPageNumber = searchPageDetails.searchPageNumber++;
+            				searchKeyword = searchPageDetails.searchKeyword;
+            			} else if(response.searchPageNumber < response.totalSearchPages){
             				nextWhat = 'nextPage';
             				nextPageNumber = response.searchPageNumber+1;
             				searchKeyword = response.searchKeyword;	
@@ -168,6 +175,23 @@ function getStorageItem(varName){
 }
 
 function ajaxCall(type,data,path,callback){
+	$.ajax({
+        url: domain + path,
+        data: data,
+        type: type,
+        success: function(a) {
+          console.log('server response: ',a);
+          callback(a);
+        },
+        error: function(a) {
+          console.log("Error");
+          callback({error: true, data: a});
+        }
+    });
+}
+
+
+function miniAjaxCall(type,data,path){
 	$.ajax({
         url: domain + path,
         data: data,
