@@ -82,6 +82,13 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
               ajaxGet(product.product_link.split('amazon.com')[1], function(response){
                 let element = $($.parseHTML( response ));
                 product.product_summary = element.find("div").attr("data-feature-name", 'editorialReviews').prev("noscript")[0].innerHTML;
+                let reviews = element.find("div [id*=customer_review]");
+                product.product_reviews = [];
+                //save reviews html in array
+                for (i = 0; i < reviews.length; i++) {
+                  let review = reviews[i];
+                  product.product_reviews.push($(review).find('div:nth-child(5)>span>div>div>span')[0].innerHTML.trim());
+                }
                 searchPageData.push(product);
               })
             }
@@ -176,10 +183,10 @@ function sendToBackground(eventName, eventData, callback){
                 } else if(eventName=='searchPageData'){
                     console.log('searchPageData response block ran');
                     if(response.nextWhat == 'nextPage'){
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&amazonsearchfetching=on&page='+response.nextPageNumber;
                     } else if(response.nextWhat == 'nextKeyword'){
                         console.log('reached nextKeyword conditional block');
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page=1';
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&amazonsearchfetching=on&page=1';
                     }
                 }
             }
