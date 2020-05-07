@@ -1,23 +1,3 @@
-<h3>Next Steps: April 5th, 2020</h3>
-
-Verift that the scraper stops after the final page, and goes to the MyAmazonHistory Profile Page on Completion.
-
-
-
-<h3>Next Steps: March 20, 2020</h3>
-
-In content.js
-"images sent correctly. fix get pagination function on 2018 page"
-
-
-In Background.js:
- //to-do: log whichever page has already been visited
- //to-do: log whichever year has been completely scraped
-
-Other stuff:
-
-b) Define functions in Background.js and Server to keep track of which years have already been scraped. If a given year contains pagination, the DB's purchase_year table should be filled within one record per page (of the given year).
-
 <h3>Messaging: Important Note</h3>
 
 'if you're debugging your extension and the Dev Tools window is open and focused, the array will be empty. You should check for that.'
@@ -67,3 +47,12 @@ chrome.runtime.onMessage.addListener(
         }
 );
 ```
+
+<h3>DONE</h3>
+Save Product Title
+Save Product Description
+Save Product Image
+Save Product Reviews
+
+Log whichever page has been visited
+Log whichever year has been completely scraped
