@@ -183,10 +183,10 @@ function sendToBackground(eventName, eventData, callback){
                 } else if(eventName=='searchPageData'){
                     console.log('searchPageData response block ran');
                     if(response.nextWhat == 'nextPage'){
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page='+response.nextPageNumber;
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&amazonsearchfetching=on&page='+response.nextPageNumber;
                     } else if(response.nextWhat == 'nextKeyword'){
                         console.log('reached nextKeyword conditional block');
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&i=stripbooks-intl-ship&amazonsearchfetching=on&page=1';
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&amazonsearchfetching=on&page=1';
                     }
                 }
             }
