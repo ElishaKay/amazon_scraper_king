@@ -31,7 +31,7 @@ Because the chrome.runtime.onMessage API goes out to the content.js, background.
 
 You can use the following template in any of your main extension pages:
 
-```
+```javascript
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
