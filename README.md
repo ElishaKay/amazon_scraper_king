@@ -36,13 +36,13 @@ chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
             	case x:
-				    // code block
-				    break;
-				case y:
-				    // code block
-				    break;
-				default:
-				    // code block
+		    // code block
+		    break;
+		case y:
+		    // code block
+		    break;
+		default:
+		    // code block
             }
         }
 );
