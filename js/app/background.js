@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'dev';
+let environment = 'prod';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(
             		break;
             	case 'initiateHistoryScraping':
             		console.log('message: ',message);
-            		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?amazonhistoryfetching=on'});
+            		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?i=stripbooks-intl-ship&amazonsearchfetching=on'});
 				    
 					return true;
 				    break;
