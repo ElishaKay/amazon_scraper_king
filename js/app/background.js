@@ -191,6 +191,11 @@ function ajaxCall(type,data,path,callback){
 }
 
 
+ajaxCall('POST',message.data,'api/extension/products', function(response){
+
+}
+
+
 function miniAjaxCall(type,data,path){
 	$.ajax({
         url: domain + path,
