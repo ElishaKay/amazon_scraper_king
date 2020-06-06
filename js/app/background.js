@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'prod';
+let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -114,7 +114,7 @@ chrome.runtime.onMessage.addListener(
 					return true;
 					break;
 				case 'searchPageData':
-					setStorageItem('searchPageDetails', {searchKeyword: message.data.searchKeyword, totalSearchPages: message.data.totalSearchPages, searchPageNumber: message.data.searchPageNumber } ); 
+					setStorageItem('searchPageDetails', {searchKeyword: message.data.searchKeyword, totalSearchPages: message.data.totalSearchPages, searchPageNumber: parseInt(message.data.searchPageNumber) } ); 
 					setStorageItem(message.type, message.data);
 					message.data._id = getStorageItem('user').user._id;
 					ajaxCall('POST',message.data,'api/extension/products-from-search', function(response){
@@ -127,7 +127,8 @@ chrome.runtime.onMessage.addListener(
             				nextWhat = 'nextPage';
             				//need to pull up keyword from localStorage
             				let searchPageDetails = getStorageItem('searchPageDetails')
-            				nextPageNumber = searchPageDetails.searchPageNumber++;
+            				nextPageNumber = searchPageDetails.searchPageNumber+1;
+            				console.log('nextPageNumber in response.error logic: ',nextPageNumber)
             				searchKeyword = searchPageDetails.searchKeyword;
             			} else if(response.searchPageNumber < response.totalSearchPages){
             				nextWhat = 'nextPage';
@@ -189,12 +190,6 @@ function ajaxCall(type,data,path,callback){
         }
     });
 }
-
-
-ajaxCall('POST',message.data,'api/extension/products', function(response){
-
-}
-
 
 function miniAjaxCall(type,data,path){
 	$.ajax({
