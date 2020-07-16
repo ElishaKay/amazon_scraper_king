@@ -114,7 +114,7 @@ chrome.runtime.onMessage.addListener(
 					return true;
 					break;
 				case 'searchPageData':
-					setStorageItem('searchPageDetails', {searchKeyword: message.data.searchKeyword, totalSearchPages: message.data.totalSearchPages, searchPageNumber: message.data.searchPageNumber } ); 
+					setStorageItem('searchPageDetails', {searchKeyword: message.data.searchKeyword, totalSearchPages: message.data.totalSearchPages, searchPageNumber: parseInt(message.data.searchPageNumber) } );
 					setStorageItem(message.type, message.data);
 					message.data._id = getStorageItem('user').user._id;
 					ajaxCall('POST',message.data,'api/extension/products-from-search', function(response){
