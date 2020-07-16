@@ -1,30 +1,4 @@
-<h3>Next Steps: April 5th, 2020</h3>
-
-Verift that the scraper stops after the final page, and goes to the MyAmazonHistory Profile Page on Completion.
-
-
-
-<h3>Next Steps: March 20, 2020</h3>
-
-In content.js
-"images sent correctly. fix get pagination function on 2018 page"
-
-
-In Background.js:
- //to-do: log whichever page has already been visited
- //to-do: log whichever year has been completely scraped
-
-Other stuff:
-
-b) Define functions in Background.js and Server to keep track of which years have already been scraped. If a given year contains pagination, the DB's purchase_year table should be filled within one record per page (of the given year).
-
-<h3>Messaging: Important Note</h3>
-
-'if you're debugging your extension and the Dev Tools window is open and focused, the array will be empty. You should check for that.'
-
-<a href='https://stackoverflow.com/questions/29681477/background-script-messaging-with-javascript'>source</a>
-
-<h3>Never Post from the Content Page - only Background.js!</h3>
+<h3>Best Practices: Make all HTTP Post Requests from the Background.js</h3>
 
 This type of structure can support scraping on any social network. Why? Github.com and LinkedIn.com know when someone is making post requests directly from the DOM. But, there's no way they can know what's happening from the 'popup.js' page (or the 'background.js' pages) because popup.js and background.js are part of the Chrome Browser's Internal Structure.
 
@@ -51,19 +25,32 @@ Because the chrome.runtime.onMessage API goes out to the content.js, background.
 
 You can use the following template in any of your main extension pages:
 
-```
+```javascript
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
-            	case x:
-				    // code block
-				    break;
-				case y:
-				    // code block
-				    break;
-				default:
-				    // code block
+                case x:
+            // code block
+            break;
+        case y:
+            // code block
+            break;
+        default:
+            // code block
             }
         }
 );
 ```
+
+<h3>DONE</h3>
+
+<ul>
+  <li>Save Product Title</li>
+  <li>Save Product Description</li>
+  <li>Save Product Image</li>
+  <li>Save Product Reviews</li> 
+  <li>Log whichever page has been visited</li>  
+  <li>Log whichever year has been completely scraped</li>
+  <li>Toggable Div to show which year is currently being scraped</li>
+</ul>
+
