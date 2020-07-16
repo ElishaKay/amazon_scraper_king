@@ -103,7 +103,7 @@ if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
               "totalSearchPages": getTotalSearchPages(),
               "searchPageNumber": getSearchPageNumber()});
     }, 
-  10000);
+  5000);
 }
 
 function getTotalSearchPages(){
