@@ -127,7 +127,7 @@ chrome.runtime.onMessage.addListener(
             				nextWhat = 'nextPage';
             				//need to pull up keyword from localStorage
             				let searchPageDetails = getStorageItem('searchPageDetails')
-            				nextPageNumber = searchPageDetails.searchPageNumber++;
+            				nextPageNumber = searchPageDetails.searchPageNumber+1;
             				searchKeyword = searchPageDetails.searchKeyword;
             			} else if(response.searchPageNumber < response.totalSearchPages){
             				nextWhat = 'nextPage';
