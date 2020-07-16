@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "My Amazon History",
   "description": "Scrape Amazon Search Results, or Your Own Purchase History, and Automatically Generate Amazon Affiliate Marketing Pages.",
-  "version": "1.15",
+  "version": "2.15",
   "icons": {
       "16": "img/icon_16.png",
       "48": "img/icon_48.png",
