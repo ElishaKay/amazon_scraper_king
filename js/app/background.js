@@ -172,7 +172,11 @@ function setStorageItem(varName, data){
 }
 
 function getStorageItem(varName){
-	return JSON.parse(localStorage.getItem(varName));
+	if(varName=='user'){
+		return JSON.parse(JSON.parse(localStorage.getItem(varName)));
+	} else {
+		return JSON.parse(localStorage.getItem(varName));
+	}
 }
 
 function ajaxCall(type,data,path,callback){
@@ -182,7 +186,7 @@ function ajaxCall(type,data,path,callback){
         type: type,
         success: function(a) {
           console.log('server response: ',a);
-          callback(a);
+          callback(JSON.parse(a));
         },
         error: function(a) {
           console.log("Error");

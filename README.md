@@ -1,10 +1,4 @@
-<h3>Messaging: Important Note</h3>
-
-'if you're debugging your extension and the Dev Tools window is open and focused, the array will be empty. You should check for that.'
-
-<a href='https://stackoverflow.com/questions/29681477/background-script-messaging-with-javascript'>source</a>
-
-<h3>Never Post from the Content Page - only Background.js!</h3>
+<h3>Best Practices: Make all HTTP Post Requests from the Background.js</h3>
 
 This type of structure can support scraping on any social network. Why? Github.com and LinkedIn.com know when someone is making post requests directly from the DOM. But, there's no way they can know what's happening from the 'popup.js' page (or the 'background.js' pages) because popup.js and background.js are part of the Chrome Browser's Internal Structure.
 
@@ -35,14 +29,14 @@ You can use the following template in any of your main extension pages:
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
             switch(message.type) {
-            	case x:
-		    // code block
-		    break;
-		case y:
-		    // code block
-		    break;
-		default:
-		    // code block
+                case x:
+            // code block
+            break;
+        case y:
+            // code block
+            break;
+        default:
+            // code block
             }
         }
 );
