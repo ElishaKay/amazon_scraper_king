@@ -1,0 +1,59 @@
+
+for google search 'most successful business people'
+
+Better to put the string in quotation marks :)
+
+"Jeff Bezos","Elon Musk","Richard Branson","Oprah Winfrey","Henry Ford","Donald Trump","Larry Page","Bill Gates","Mark Cuban","Jack Ma","Arianna Huffington","Reed Hastings","Sergey Brin","Robert Iger","Andrew Carnegie","Tim Cook","Paul Allen","Walt Disney","Thomas Edison","Satya Nadella","John D. Rockefeller","Carlos Slim","Steve Wozniak","Mary T. Barra","Jeff Weiner","Rupert Murdoch","Jay Z","Sheryl Sandberg","Travis Kalanick","Larry Ellison","Charlie Munger","Madam C. J.Walker","Michael Dell","Michael Bloomberg","Kylie Jenner","Ray Kroc","Amancio Ortega","John Paul DeJoria","Marc Benioff","Jack Dorsey","Dustin Moskovitz","Steve Ballmer","Indra Nooyi","Brian Chesky","Jan Koum","Kevin Plank","Eric Schmidt","Mark Parker"
+
+Warren Buffett,Mark Zuckerberg,Steve Jobs,Jeff Bezos,Elon Musk,Richard Branson,Oprah Winfrey,Henry Ford,Donald Trump,Larry Page,Bill Gates,Mark Cuban,Jack Ma,Arianna Huffington,Reed Hastings,Sergey Brin,Robert Iger,Andrew Carnegie,Tim Cook,Paul Allen,Walt Disney,Thomas Edison,Satya Nadella,John D. Rockefeller,Carlos Slim,Steve Wozniak,Mary T. Barra,Jeff Weiner,Rupert Murdoch,Jay Z,Sheryl Sandberg,Travis Kalanick,Larry Ellison,Charlie Munger,Madam C. J.Walker,Michael Dell,Michael Bloomberg,Kylie Jenner,Ray Kroc,Amancio Ortega,John Paul DeJoria,Marc Benioff,Jack Dorsey,Dustin Moskovitz,Steve Ballmer,Indra Nooyi,Brian Chesky,Jan Koum,Kevin Plank,Eric Schmidt,Mark Parker
+
+
+-----------------------------------------
+
+Latest version of fetching the top-level div by google:
+
+let searchString = '';
+
+let bizpeople = document.querySelectorAll('.EquSJe')
+
+for (i = 0; i < bizpeople.length; i++) {
+  console.log(bizpeople[i].parentElement.innerText)
+  searchString= searchString + (bizpeople[i].parentElement.innerText.replace(/(\r\n|[0-9]|\n|\r\-)/gm, "").replace(/-/g, "") + ',')
+}
+
+console.log('searchString: ',searchString)
+
+
+
+------------------------
+
+
+Works:
+
+
+let searchString = '';
+
+let bizpeople = document.querySelectorAll('.EquSJe')
+
+for (i = 0; i < bizpeople.length; i++) {
+  console.log(bizpeople[i].parentElement.innerText)
+  searchString+= (bizpeople[i].parentElement.innerText.replace(/(\r\n|\n|\r)/gm, "") + ',');
+}
+
+console.log('searchString: ',searchString)
+
+
+
+-----------------------------------
+
+
+let searchString = '';
+
+let bizpeople = document.querySelectorAll('.EquSJe')
+
+for (i = 0; i < bizpeople.length; i++) {
+  console.log(bizpeople[i].parentElement.innerText)
+  searchString+= (bizpeople[i].parentElement.innerText + ',');
+}
+
+console.log('searchString: ',searchString)
