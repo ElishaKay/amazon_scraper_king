@@ -30,6 +30,10 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '../views/fetch-my-history.html'
         })
 
+        .state('home.export-my-data', {
+            url: '/export-my-data',
+            templateUrl: '../views/export-my-data.html'
+        })
 
         .state('home.dance-time', {
             url: '/dance-time',
@@ -105,6 +109,10 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
         $state.go('home.fetch-my-history');
     }
 
+    $scope.exportMyData = function(user){
+        $state.go('home.export-my-data');
+    }
+
     //scrape search results
     $scope.initiateSearchScraping = function(){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -173,4 +181,25 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
   }
 ]);
 
+myApp.controller("ExportCtrl", ['$scope', '$http', '$state', function($scope, $http, $state){
+   console.log("Export Controller Initialized");
 
+    $scope.exportAsCSV = function(user){
+        chrome.runtime.sendMessage({type:"exportAsCSV", user: user }, 
+            function(response){
+                console.log('this is the response from the content page for exportAsCSV Event',response);
+                if(response.error){
+                    let theErrorMessage = response.data.responseJSON.error;
+                    console.log('theErrorMessage:',theErrorMessage);
+                    $scope.errorMessage = theErrorMessage;
+                    $scope.error = true;  
+                }
+            }
+        );
+    }
+
+    $scope.exportAsJSON = function(user){
+
+    }
+
+}]);
