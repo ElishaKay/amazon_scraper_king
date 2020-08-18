@@ -1,0 +1,85 @@
+Amazon Goes Social:
+
+
+Chat with users that purchased products you want.
+
+
+Amazon is a great place to shop, but it's a very social place to shop.
+
+We believe the things you purchase are part of your identity - there's a reason a product speaks to you, and most people love sharing what they've purchased with friends.
+
+The Amazon GUI isn't very friendly for social shopping - we're trying to fix that with our own platform - MyAmazonHistory.
+
+If sharing your Amazon History is a concept that appeals to you, feel free to download the Chrome Extension and sync your Purchase History into our Social Network.
+
+
+
+Most updated list of Tasks for MyAmazonHistory:
+
+Ideas for Fake Users
+Now that reviews are automatically pulled, it may also be worthwhile to create a bunch of fake MyAmazonHistory users and auto-assign specific purchases to them.
+In this way, within the profile/jack_miller page, you will see a bunch of products (within the same keyword where the review was fetched from).
+In this way, it will be much more than 10 products per profile (more like 100 - as long as there isn’t any fancy divs, or images on that page, you can make a long list of ‘a’ tags which will make it much easier for google to scrape naturally - for internal linking analysis)
+An Alternative Approach, within the Amazon Product Page, scrape the links to every user profile page
+The benefit of this is that, if Amazon every realizes that I’m scraping their content, they won’t be as pissed, because at least I didn’t pretend like the reviews on my site, where pretending to be ‘MyAmazonHistory’ reviews.
+
+Relevant Note:
+
+Your Amazon’s Profile Page can be edited here - it doesn’t automatically pull your purchase history - but you can access a public user’s reviews, Posts, and Idea Lists
+
+
+You also can’t message them (which is another added value that MyAmazonHistory actually does provide)
+
+Tagging everything
+
+Tagging should be done automatically as someone is scraping the results of a given keyword.
+
+b) Within the pages/sitemap.xml.js page - dynamically add the tags pages to the sitemap as well (and move the fetch request into the actions folder)
+
+https://myamazonhistory.com//sitemap.xml
+  
+c) Edit the image sizes within all the relevant pages, 
+
+So instead of: 
+
+'background-image:url(https://m.media-amazon.com/images/I/81LW9cfEt6L.jpg)'
+
+it should be: background-image:url(https://m.media-amazon.com/images/I/81LW9cfEt6L.SL575.jpg)
+
+It looks like you can edit the number (ie. .SL75,  .SL275,  .SL350,  .SL575 or any other integer you want - needs to be tested across the site)
+
+
+
+
+MID-PRIORITY
+
+f) Privacy Policy (content here) - worthwhile to try to get approved for independently for Amazon Product Advertising API
+
+
+
+
+LOWER PRIORITY
+
+
+c) Within the Web GUI and Chrome Extension - upload your purchase history by: a) Uploading a CSV exported from Amazon which contains all of the Asinns, b) Scrape your Orders page via the Chrome Extension.
+
+
+e) Enable users to export the results of a given scraping action via a CSV Download - or wait until enough users start requesting that feature.
+
+
+DONE
+
+b) When scraping the results of a given keyword - consider also scraping some of the reviews - this can have 2 benefits:
+For SEO, each product page will have more content.
+In terms of converting visitors into users of the Chrome App, showing reviews can make it seem like there are more users using the chrome extension.
+
+
+h) re: Scraping Reviews as well - See these 2 chrome extensions that give you easy access to the best jQuery selector method to grab the element of your choice:
+
+https://chrome.google.com/webstore/detail/selectify/lpnjpfcjoodgemnipmlaobngfndgojki 
+
+https://chrome.google.com/webstore/detail/jquery-unique-selector/cmdmlphjbobhblimniofbnlfkmpcjlgd
+ 
+
+(DONE) For some books, like John Grisham - perhaps write a script that automatically takes the script the automatically turns the search keyword into a tag.
+
