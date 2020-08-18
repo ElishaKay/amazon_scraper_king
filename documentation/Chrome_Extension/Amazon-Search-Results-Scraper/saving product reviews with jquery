@@ -1,0 +1,28 @@
+
+
+https://www.amazon.com/SQL-Cookbook-Solutions-Techniques-Developers-ebook/dp/B0026OR3KI/ref=sr_1_1?dchild=1&keywords=sql+programming&qid=1588170138&sr=8-1
+
+
+Selects all the review divs: (including International)
+
+$("div [id*=customer_review]")
+
+
+
+
+
+
+$('div#customer_review-R1AXOSFITC4J5D>div:nth-child(5)>span>div>div:nth-child(1)>span')[0].innerHTML
+
+"It's the first SQL book I picked up, but be warned, it is for at least intermediate level users. So by the time I reached Chapter 3, I gave up and bought Ben-Gan's Fundamentals of T-SQL first (which I recommend going through before this book if you are a beginner).<br>If you are using T-SQL, I think Ben-Gan's book is a perfect intro to this one. However, this is the book that takes you to another level. This is the book that enables you to find solutions that others won't be able to. This is the book that makes you a player at work if you aren't a developer and you write SQL. There are no functions, triggers, optimization, table and view creation details. This book is about pulling whatever you want with those things already created (although there is a chapter on metadata and another on inserting/updating). So it isn't for everyone (Developers and Beginners especially).<br><br>Also, the book's date may scare people. I mean, the book could use an update as it is working with SQL Server 2005 (if you write T-SQL like I do). Based on the date, I'm sure the editions of the other platforms are outdated as well. With SQL Server 2005 capabilities though, you still get Window Functions, Pivots, string extraction, cast, convert, etc., and some of the Oracle functions not in SQL Server 2005 are a part of T-SQL in later editions, so at times, you can use the Oracle solution or pieces of it if you are using the latest edition of SQL Server (if you need to use lead and lag for example). The important functions that still exist are there for the most part (Concat for example, is not).<br><br>Most people know how to use partitioning, cases, and subqueries, but can they cast an integer as a string to cast it again into decimal, average that decimal using a case statement that filters out negative values and partition the average as a window function based on multiple criteria all in one line? This book turns you into a magician, and it is all hands on examples, no filler, no lengthy unneeded explanations. Learn by doing."
+
+
+
+Selects all the review divs (non-international):
+
+$("div [id*=customer_review-]")
+
+
+
+
+customer_review_foreign

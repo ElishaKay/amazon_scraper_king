@@ -1,0 +1,35 @@
+next.config.js
+
+const withCSS = require('@zeit/next-css')
+const withSass = require('@zeit/next-sass');
+
+module.exports = withCSS(withSass({
+                publicRuntimeConfig: {
+                                      APP_NAME: 'My Amazon History',                                                                                          API_DEVELOPMENT: 'http://localhost:8000/api',                                                                           API_PRODUCTION: 'https://myamazonhistory.com/api',                                                                      PRODUCTION: true,                                                                                                       DOMAIN_DEVELOPMENT: 'http://localhost:3000',                                                                            DOMAIN_PRODUCTION:'https://myamazonhistory.com',                                                                        FB_APP_ID: '305241670454834',                                                                                           DISQUS_SHORTNAME: 'ampitup-io',                                                                                         GOOGLE_CLIENT_ID:'299145764723-o5k1tr51r339gua3cja4o02r0l2g4lkb.apps.googleusercontent.com'                                                                                                             },                                                                                                                                 webpack: function(config, options) {                                                                                                if (!options.dev) {                                                                                                                     config.module.rules.push({                                                                                                                  test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,                                                                        use: {                                                                                                                                          loader: 'url-loader',                                                                                                   options: {                                                                                                                                          limit: 100000                                                                                                                                                                                                                               }                                                                                           }
+                                                       });                                                                                                     return config;
+                                   }
+
+                       return config;
+                     }
+}));
+
+
+
+
+.env
+
+
+NODE_ENV=production
+APP_NAME=My Amazon History
+PORT=8000
+CLIENT_URL=https://myamazonhistory.com
+DATABASE_CLOUD='mongodb://root:pokemon7@ds155191.mlab.com:55191/myfaveproducts'
+DATABASE_LOCAL='mongodb://root:pokemon7@ds155191.mlab.com:55191/myfaveproducts'
+JWT_SECRET=KDJHF7823RHIU3289FJ932I2G8FG239
+JWT_ACCOUNT_ACTIVATION=8924Y3UH328Y389239RU3Y2G8823R9HU
+SENDGRID_API_KEY=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
+EMAIL_TO=kramer1346@gmail.com
+EMAIL_FROM=noreply@myamazonhistory.com
+JWT_RESET_PASSWORD=034957439HIU34R9U43H034OR3H49UH4390P0IH
+GOOGLE_CLIENT_ID=299145764723-o5k1tr51r339gua3cja4o02r0l2g4lkb.apps.googleusercontent.com
+~                                                                                             
