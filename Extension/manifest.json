@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Amazon Scraper King",
   "description": "Scrape Amazon Search Results, or Your Own Purchase History, and Automatically Generate Amazon Affiliate Marketing Pages.",
-  "version": "2.15",
+  "version": "2.16",
   "icons": {
       "16": "img/icon_16.png",
       "48": "img/icon_48.png",
