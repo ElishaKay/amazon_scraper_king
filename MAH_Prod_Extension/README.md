@@ -48,8 +48,8 @@ chrome.runtime.onMessage.addListener(
   <li>Save Product Title</li>
   <li>Save Product Description</li>
   <li>Save Product Image</li>
-  <li>Save Product Reviews</li> 
-  <li>Log whichever page has been visited</li>  
+  <li>Save Product Reviews</li>	
+  <li>Log whichever page has been visited</li>	
   <li>Log whichever year has been completely scraped</li>
   <li>Toggable Div to show which year is currently being scraped</li>
 </ul>
