@@ -40,8 +40,13 @@ exports.logIn = (req, res) => {
 };
 
 exports.saveProducts = (req, res, next) => {
+    console.log('req.body in saveProducts route', req.body);
 
     let {_id, purchase_year, orderDetails} = req.body;
+
+    if(orderDetails==undefined){
+        return res.send({message: 'zero products', purchaseYear: purchase_year})
+    }
 
     for (let y = 0; y < orderDetails.length; y++) {
         let newPost = new Blog();

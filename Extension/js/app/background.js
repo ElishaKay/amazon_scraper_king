@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'prod';
+let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -90,7 +90,8 @@ chrome.runtime.onMessage.addListener(
 						let purchaseYears = getStorageItem('purchaseYears');
 
 						console.log('response from api/extension/products',response);
-						if(response.multiPageYear=="false"){
+						if(response.message = 'zero products' || response.multiPageYear=="false"){
+
 							// ie lechatchila there was only one page for the year
 							// find index of the year which was just scraped
 							let index = purchaseYears.indexOf(response.purchaseYear.toString());
