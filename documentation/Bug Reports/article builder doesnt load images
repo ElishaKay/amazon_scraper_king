@@ -1,0 +1,13 @@
+There is a bug when loading the images within the GUI and when displaying the images in the GUI
+
+For example, if you log in with Kramer1346@gmail.com, and you visit this page:
+
+https://myamazonhistory.com/admin/crud/mining-the-social-web:-data-mining-facebook-twitter-linkedin-instagram-github-and-more
+
+You will be able to add images. I did that, and pressed save.
+
+The images then appear within the live template.
+
+https://myamazonhistory.com/blogs/mining-the-social-web:-data-mining-facebook-twitter-linkedin-google+-github-and-more
+
+But, the next time I visit that edit page within the Admin GUI, I don't see the images. Why?
