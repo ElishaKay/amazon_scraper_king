@@ -28,13 +28,11 @@ chrome.runtime.onMessage.addListener(
             	case 'initiateHistoryScraping':
             		console.log('message: ',message);
             		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?i=stripbooks-intl-ship&amazonsearchfetching=on'});
-				    
 					return true;
 				    break;
 				case 'initiateSearchScraping':
 					console.log('message: ',message);
             		chrome.tabs.create({url: message.search_url + '&amazonsearchfetching=on'});
-				    
 					return true;
 				    break;
 				case 'initiateSearchKeywordsScraping':
@@ -46,6 +44,20 @@ chrome.runtime.onMessage.addListener(
 				    
 					return true;
 				    break;
+				case 'exportAsCSV':
+					console.log('exportAsCSV: ',message);
+					let user = getStorageItem('user').user;
+				    ajaxCall('GET',{},`api/${user.username}/blogs/csv`, function(response){
+            			console.log('response from exportAsCSV ajax:', response);
+            			if(response.error){
+            				sendResponse(response);
+            			} else{
+            				setStorageItem('user',response);
+							sendResponse(response);	
+            			}            		
+            		});
+					return true;
+				    break;				    
 				case 'purchaseYears':
 					let purchaseYears = [];
 					for (let i = 0; i < message.data.length; i++) { 
@@ -173,7 +185,7 @@ function setStorageItem(varName, data){
 
 function getStorageItem(varName){
 	if(varName=='user'){
-		return JSON.parse(JSON.parse(localStorage.getItem(varName)));
+		return JSON.parse(localStorage.getItem(varName));
 	} else {
 		return JSON.parse(localStorage.getItem(varName));
 	}
@@ -186,7 +198,7 @@ function ajaxCall(type,data,path,callback){
         type: type,
         success: function(a) {
           console.log('server response: ',a);
-          callback(JSON.parse(a));
+          callback(a);
         },
         error: function(a) {
           console.log("Error");
