@@ -115,23 +115,45 @@ New Jungle Tribe Databases:
 mongodb://root:leeshtime83@ds147599.mlab.com:47599/amazon-fashion-app
 67.205.136.120
 
+-----------
+
+Mlab Deployment (shutting off Dec 8, 2020)
 mongodb://root:leeshtime83@ds125255.mlab.com:25255/amazon-music-best
-208.68.37.181
+Old Ip: (208.68.37.181)
+
+New IP: 167.99.230.210
+Atlas Deploment
+U: atlas_user
+P: leeshtime83
+mongodb+srv://atlas_user:leeshtime83@amazon-music-best.bqma4.mongodb.net/amazon-music-best?retryWrites=true&w=majority
+mongodb+srv://root:leeshtime83@amazon-music-best.bqma4.mongodb.net/amazon-music-best?retryWrites=true&w=majority
+
+-----------
 
 mongodb://root:leeshtime83@ds125255.mlab.com:25255/amazon-spark-app
 67.205.128.218
 
+-----------
+
 mongodb://root:leeshtime83@ds125255.mlab.com:25255/amazon-spark-net
 142.93.252.37
+
+-----------
 
 mongodb://root:leeshtime83@ds147446.mlab.com:47446/amazon-sports-app
 165.227.89.221
 
+-----------
+
 mongodb://root:leeshtime83@ds147446.mlab.com:47446/amazon-tech-app
 208.68.37.181
 
+-----------
+
 mongodb://root:leeshtime83@ds125255.mlab.com:25255/amazon-tech-network
 64.227.5.148
+
+-----------
 
 mongodb://root:leeshtime83@ds263590.mlab.com:63590/tech-gadgets-club
 206.189.193.103
