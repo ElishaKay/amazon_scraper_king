@@ -179,13 +179,15 @@ const SingleBlog = ({ blog, query }) => {
                             {showAllReviews(blog)}
                         </div>
 
-                        <div className="pt-5 container">
+                        {blog.body.includes('a story behind this purchase') ? '' : 
+
+                        `<div className="pt-5 container">
                              <div className="card">
                                     <div className="wrapper row">
-                                        {blog.body.includes('a story behind this purchase') ? '' :renderHTML(blog.body)}
+                                        ${renderHTML(blog.body)}
                                     </div>
                             </div>
-                        </div>
+                        </div>`}
 
                         <div className="container">
                             <h4 className="text-center pt-5 pb-5 h2">Related blogs</h4>
