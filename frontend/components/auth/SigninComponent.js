@@ -87,7 +87,6 @@ const SigninComponent = () => {
             {showError()}
             {showLoading()}
             {showMessage()}
-            <LoginGoogle />
             {showForm && signinForm()}
             <br />
             <Link href="/auth/password/forgot">
