@@ -182,7 +182,7 @@ const SingleBlog = ({ blog, query }) => {
                         <div className="pt-5 container">
                              <div className="card">
                                     <div className="wrapper row">
-                                        {renderHTML(blog.body)}
+                                        {blog.body.includes('a story behind this purchase') ? '' :renderHTML(blog.body)}
                                     </div>
                             </div>
                         </div>
