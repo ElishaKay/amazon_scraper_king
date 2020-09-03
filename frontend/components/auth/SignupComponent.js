@@ -98,7 +98,6 @@ const SignupComponent = () => {
             {showError()}
             {showLoading()}
             {showMessage()}
-            <LoginGoogle />
             {showForm && signupForm()}
             <br />
             <Link href="/auth/password/forgot">
