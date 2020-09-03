@@ -9,35 +9,65 @@ const { OAuth2Client } = require('google-auth-library');
 const sgMail = require('@sendgrid/mail'); // SENDGRID_API_KEY
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+var ActiveCampaign = require("activecampaign");
+const request = require('request');
+const ac = new ActiveCampaign(process.env.ACTIVE_CAMPAIGN_HOST, process.env.ACTIVE_CAMPAIGN_KEY);
+
+//environment variables need to be set to your API key and url root
+const requestOptions = (method) => {
+    return  { 
+        method: method,
+    headers: {
+        "Api-Token" : process.env.KEY
+    },
+    url: `${process.env.HOST}/api/3/` };
+}
+
+
 exports.preSignup = (req, res) => {
     const { name, email, password } = req.body;
-    User.findOne({ email: email.toLowerCase() }, (err, user) => {
-        if (user) {
+    User.findOne({ email: email.toLowerCase() }, (err, userResult) => {
+        if (userResult) {
             return res.status(400).json({
                 error: 'Email is taken'
             });
         }
-        const token = jwt.sign({ name, email, password }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '30d' });
 
-        const emailData = {
-            from: process.env.EMAIL_FROM,
-            to: email,
-            subject: `Account activation link`,
-            html: `
-            <p>Please use the following link to activate your acccount:</p>
-            <p>${process.env.CLIENT_URL}/auth/account/activate/${token}</p>
-            <hr />
-            <p>This email may contain sensitive information</p>
-            <p>https://myamazonhistory.com</p>
-        `
-        };
+        let username = email.split('@')[0];
+        let profile = `${process.env.CLIENT_URL}/profile/${username}`;
 
-        sgMail.send(emailData).then(sent => {
-            return res.json({
-                message: `Email has been sent to ${email}. Follow the instructions to activate your account.
-                            If you don't find the email in your Primary Inbox, please check your Spam Box.`
+        const user = new User({ name, email, password, profile, username });
+        user.save((err, user) => {
+            if (err) {
+                return res.status(401).json({
+                    error: errorHandler(err)
+                });
+            }
+            
+            var contact_add = ac.api("contact/add", {email});
+
+            contact_add.then(function(result) {
+                console.log('succesfully added contact',result);
+
+                var eventdata = {
+                    tags: 'installed-scraper-king',
+                    email
+                };
+
+                ac.api('contact/tag/add', eventdata).then(function(result) {
+                    console.log('success', result);
+                    return res.json({
+                        message: `A confirmation email has been sent to ${email}. You may now login.`
+                    });
+                }, function(err) {
+                    console.log('failure', err);
+                });     
+            }, function(result) {
+                console.log(result);
             });
+
         });
+
     });
 };
 
