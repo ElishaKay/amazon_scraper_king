@@ -193,7 +193,10 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
                 }
                 categories = c; // categories
                 // get all tags
-                Tag.find({}).exec((err, t) => {
+                Tag.find({})
+                .sort({createdAt:1})
+                .limit(20)
+                .exec((err, t) => {
                     if (err) {
                         return res.json({
                             error: errorHandler(err)
