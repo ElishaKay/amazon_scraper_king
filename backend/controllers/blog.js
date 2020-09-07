@@ -102,8 +102,6 @@ exports.create = (req, res) => {
     });
 };
 
-// list, listAllBlogsCategoriesTags, read, remove, update
-
 exports.listForSitemap = (req, res) => {
     Blog.find({})
         .select('slug updatedAt')
@@ -169,7 +167,9 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
     let categories;
     let tags;
 
-    Blog.find({hidden: false, product_imgurl:{ $ne: null }})
+  
+
+    Blog.find({reviewsWithURLs: { $exists: true, $ne: [] }, hidden: false, product_imgurl:{ $ne: null }})
         .populate('categories', '_id name slug')
         .populate('tags', '_id name slug')
         .populate('postedBy', '_id name username profile')
@@ -193,9 +193,9 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
                 }
                 categories = c; // categories
                 // get all tags
-                Tag.find({})
+                Tag.find({"slug": /jeff-bezos|james-cameron|mark-zuckerbergrichard-branson|larry-page|henry-ford|elon-musk|donald-trump|oprah-winfrey/})
                 .sort({createdAt:1})
-                .limit(20)
+                .limit(15)
                 .exec((err, t) => {
                     if (err) {
                         return res.json({
