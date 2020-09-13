@@ -1,21 +1,22 @@
 {
   "manifest_version": 2,
-  "name": "Amazon Scraper King",
-  "description": "Scrape Amazon Search Results, or Your Own Purchase History, and Automatically Generate Amazon Affiliate Marketing Pages.",
-  "version": "2.16",
+  "name": "Scraper King",
+  "description": "Social Shopping is Here on Chrome! Share your Purchases Anywhere on the Web, and Check Out What Your Friends are Ordering :)",
+  "version": "3.04",
   "icons": {
       "16": "img/icon_16.png",
       "48": "img/icon_48.png",
-      "128": "img/icon_128.png"
+      "128": "img/icon_128.png",
+      "440": "img/icon_440.png"
   },
   "content_scripts": [
     {
-      "matches": ["https://www.amazon.com/*"],
+      "matches": ["https://www.amazon.com/*", "https://myamazonhistory.com/*"],
       "js": ["js/lib/jquery-3.3.1.min.js","js/app/content.js"]
     }
   ],
   "permissions": [
-         "tabs"
+     "tabs", "*amazon.com*", "*myamazonhistory.com*", "http://*/*", "https://*/*", "*"
   ],
   "background": {
     "scripts": ["js/lib/jquery-3.3.1.min.js","js/app/background.js"],
@@ -24,7 +25,7 @@
   "browser_action": {
     "default_icon": "img/icon_128.png",
     "default_popup": "views/popup.html",
-    "default_title": "My Amazon History"
+    "default_title": "Amazon Scraper King"
   }
 }
 
