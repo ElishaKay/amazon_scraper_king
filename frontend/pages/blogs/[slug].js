@@ -87,8 +87,8 @@ const SingleBlog = ({ blog, query }) => {
         });
         return $.html();
     }
-
-    const showAllReviews = () => {
+     
+    const showAllReviews = () => {    
         if(blog.reviewsWithURLs){
             return blog.reviewsWithURLs.map((review, i) => {
                 return (
@@ -173,7 +173,7 @@ const SingleBlog = ({ blog, query }) => {
                           </div>
                         )}
 
-                        
+                        <div className="container pt-5 pb-5">{showComments()}</div>                        
 
                         <div className="pt-5 container">
                             {showAllReviews(blog)}
@@ -190,11 +190,10 @@ const SingleBlog = ({ blog, query }) => {
                         </div>`}
 
                         <div className="container">
-                            <h4 className="text-center pt-5 pb-5 h2">Related blogs</h4>
+                            <h4 className="text-center pt-5 pb-5 h2">Customers Also Bought</h4>
                             <div className="row">{showRelatedBlog()}</div>
                         </div>
-
-                        <div className="container pt-5 pb-5">{showComments()}</div>
+                        
                     </article>
                 </main>
             </Layout>
