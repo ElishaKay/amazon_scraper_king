@@ -78,6 +78,17 @@ const BlogRead = ({ username }) => {
         }
     };
 
+    const showViewButton = blog => {
+        let blogPublicLink = "https://www.myamazonhistory.com/blogs/" + blog.slug;
+        if(blog.hidden!=true){
+            return (
+                <Link prefetch={false} href={blogPublicLink}>
+                    <a target={"_blank"} className="ml-2 btn btn-sm btn-warning">View</a>
+                </Link>
+          )
+        }
+    };
+
     const showAllBlogs = () => {
         return blogs.map((blog, i) => {
             return (
@@ -98,6 +109,7 @@ const BlogRead = ({ username }) => {
                         Delete
                     </button>
                     {showUpdateButton(blog)}
+                    {showViewButton(blog)}
                     
                 </div>
             );
