@@ -24,6 +24,13 @@ or: pm2 restart server.js
 
 -----------------------------
 
+ERROR LOGGING
+
+Writes logs and errors to 2 separate files
+pm2 start server.js -o ./out.log -e ./err.log
+
+-------------------------
+
 To Debug (ie see logs) - run the frontend and backend as you would in dev:
 cd into backend:
 pm2 stop server
