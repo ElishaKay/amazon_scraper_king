@@ -34,7 +34,7 @@ const SpotLight = ({ blog }) => {
 							<span>{blog.product_summary ? renderHTML(blog.product_summary): ''}</span>
 
 							<div className="action">
-								<Link prefetch={false} href={`${blog.product_link}&tag=${blog.postedBy.trackingID}`}>
+								<Link prefetch={false} href={`${blog.product_link}&tag=${blog.postedBy && blog.postedBy.trackingID ? blog.postedBy.trackingID : 'mysidehussl08-20'}`}>
 									<a target={"_blank"} className="add-to-cart btn btn-default">View on Amazon</a>
 								</Link>
 							</div>
