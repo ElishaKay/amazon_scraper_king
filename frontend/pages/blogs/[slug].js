@@ -173,7 +173,7 @@ const SingleBlog = ({ blog, query }) => {
                           </div>
                         )}
 
-                        <div className="container pt-5 pb-5">{showComments()}</div>                        
+                                             
 
                         <div className="pt-5 container">
                             {showAllReviews(blog)}
