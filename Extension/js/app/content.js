@@ -22,7 +22,7 @@ function ajaxGet(url, callback){
 }
 
 // Fetching Search Page Data
-if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
+if(url.includes('amazon.com/s?k=') && url.includes('asf=on')){
   let products = document.querySelectorAll('.s-desktop-content div .sg-col-inner');
   let searchPageData = [];
   for (i = 0; i < products.length; i++) {
@@ -122,7 +122,7 @@ function getSearchPageNumber(){
 
 
 // Fetching Orders Page Data
-if(url.includes('amazon.com/gp/css/order-history') && url.includes('amazonhistoryfetching=on') && !url.includes('orderFilter=')){
+if(url.includes('amazon.com/gp/css/order-history') && url.includes('ahf=on') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
@@ -134,11 +134,11 @@ if(url.includes('amazon.com/gp/css/order-history') && url.includes('amazonhistor
 	}
     sendToBackground("purchaseYears", purchaseYears);
     setTimeout(function(){ 
-	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]+'&amazonhistoryfetching=on'; 
+	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]+'&ahf=on'; 
     	}, 
     10000);
 
-} else if (url.includes('amazon.com/gp/your-account/') && url.includes('&amazonhistoryfetching=on') && url.includes('orderFilter=')){
+} else if (url.includes('amazon.com/gp/your-account/') && url.includes('&ahf=on') && url.includes('orderFilter=')){
 	//got to yearly page - need to:
     //checkAndGetPagination
     //send OrderDetails to the Background
@@ -176,17 +176,17 @@ function sendToBackground(eventName, eventData, callback){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
                 if(eventName=='ordersPageDetails'){
                     if(response.nextWhat == 'nextYear'){
-                      window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&amazonhistoryfetching=on';
+                      window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&ahf=on';
                     } else if (response.nextWhat == 'nextPage' && typeof response.year != 'undefined'){
-                        window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&amazonhistoryfetching=on';
+                        window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&ahf=on';
                     }
                 } else if(eventName=='searchPageData'){
                     console.log('searchPageData response block ran');
                     if(response.nextWhat == 'nextPage'){
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&amazonsearchfetching=on&page='+response.nextPageNumber;
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&asf=on&page='+response.nextPageNumber;
                     } else if(response.nextWhat == 'nextKeyword'){
                         console.log('reached nextKeyword conditional block');
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&amazonsearchfetching=on&page=1';
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&asf=on&page=1';
                     }
                 }
             }

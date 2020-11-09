@@ -11,7 +11,7 @@ When running the Chrome Extension (always use the relevant Scraping Profile)
 How To Enter
 ssh historyadmin@138.197.196.165
 or (for new domains): ssh root@138.197.196.165 
-password: BazookaB42B
+password: Pizzarocks45,
 
 After making any edits on the frontend, you must navigate to the '/frontend' folder and run:
 sudo npm run build
