@@ -29,7 +29,7 @@ const SpotLight = ({ blog }) => {
 							        <p>With {blog.total_ratings} ratings</p>
 						        </div>
 					    	}
-								<h4 className="price">By: <span>{blog.product_by}</span></h4>	
+							{blog.product_by ? <h4 className="price">By: {blog.product_by}<span></span></h4> : ''}	
 							<h4 className="price">Purchased At: <span>{blog.product_cost}</span></h4>						
 							<span>{blog.product_summary ? renderHTML(blog.product_summary): ''}</span>
 
