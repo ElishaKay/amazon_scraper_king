@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'prod';
+let environment = 'dev';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -27,12 +27,12 @@ chrome.runtime.onMessage.addListener(
             		break;
             	case 'initiateHistoryScraping':
             		console.log('message: ',message);
-            		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?amazonhistoryfetching=on'});
+            		chrome.tabs.create({url: 'https://www.amazon.com/gp/css/order-history?ahf=on'});
 					return true;
 				    break;
 				case 'initiateSearchScraping':
 					console.log('message: ',message);
-            		chrome.tabs.create({url: message.search_url + '&amazonsearchfetching=on'});
+            		chrome.tabs.create({url: message.search_url + '&asf=on'});
 					return true;
 				    break;
 				case 'initiateSearchKeywordsScraping':
@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener(
 					let search_keywords = message.search_keywords.split(',');
 					setStorageItem('search_keywords',search_keywords);
 					var search_url = 'https://www.amazon.com/s?k='+ search_keywords[0];
-            		chrome.tabs.create({url: search_url + '&amazonsearchfetching=on'});
+            		chrome.tabs.create({url: search_url + '&asf=on'});
 				    
 					return true;
 				    break;
