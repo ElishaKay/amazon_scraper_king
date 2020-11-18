@@ -1,3 +1,4 @@
 .env
+out.log
 node_modules
 package-lock.json
