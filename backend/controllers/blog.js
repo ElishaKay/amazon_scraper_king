@@ -193,7 +193,7 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
                 }
                 categories = c; // categories
                 // get all tags
-                Tag.find({"slug": /jeff-bezos|james-cameron|mark-zuckerbergrichard-branson|larry-page|elon-musk|donald-trump|oprah-winfrey/})
+                Tag.find({"slug": /jeff-bezos|james-cameron|mark-zuckerberg|richard-branson|larry-page|elon-musk|oprah-winfrey/})
                 .sort({createdAt:1})
                 .limit(15)
                 .exec((err, t) => {

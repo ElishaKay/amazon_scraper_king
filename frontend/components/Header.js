@@ -41,21 +41,16 @@ const Header = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <React.Fragment>
-              <NavItem>
-                <Link href="/blogs">
-                  <NavLink>Products</NavLink>
-                </Link>
-              </NavItem>
-
+            
               <NavItem>
                  <Link href="/getting-started">
-                    <NavLink>Getting Started</NavLink>
+                    <NavLink>Get Started</NavLink>
                   </Link>
               </NavItem>
 
               <NavItem>
                 <Link href="/contact">
-                  <NavLink>Contact</NavLink>
+                  <NavLink>Reach Out</NavLink>
                 </Link>
               </NavItem>
             </React.Fragment>
@@ -64,15 +59,15 @@ const Header = () => {
               <React.Fragment>
                 <NavItem>
                   <Link href="/signin">
-                    <NavLink>Signin</NavLink>
+                    <NavLink>Log in</NavLink>
                   </Link>
                 </NavItem>
-                <NavItem>
-                  <Link href="/signup">
-                    <NavLink>Signup</NavLink>
-                  </Link>
+                  <NavItem>
+                  <a href="/signup" className="btn btn-primary text-light">
+                    Free Membership
+                  </a>
                 </NavItem>
-              </React.Fragment>
+            </React.Fragment>
             )}
 
             {isAuth() && isAuth().role === 0 && (
@@ -98,12 +93,6 @@ const Header = () => {
                 </NavLink>
               </NavItem>
             )}
-
-            <NavItem>
-              <a href="/user/crud/blog" className="btn btn-primary text-light">
-                Write a Post
-              </a>
-            </NavItem>
 
           </Nav>
         </Collapse>
