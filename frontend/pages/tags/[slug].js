@@ -89,7 +89,7 @@ const Tag = ({ tag, blogs, query, totalBlogs, blogsLimit, blogSkip }) => {
                 <main>
                     <div className="container-fluid text-center">
                         <header>
-                            <div className="col-md-12 pt-3">
+                            <div className="col-md-12 pt-3 pb-5">
                                 <h1 className="display-4 font-weight-bold">{tag.name}</h1>
                             </div>
                         </header>
@@ -97,29 +97,27 @@ const Tag = ({ tag, blogs, query, totalBlogs, blogsLimit, blogSkip }) => {
                 </main>
 
                 <article className="overflow-hidden">
+                    <div className="container-fluid">
+                        <div className="row">{showAllBlogs()}{showLoadedBlogs()}</div>
+                    </div>
+                    
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-12 text-center pt-4 pb-5">
-                                <p className="lead">
-                                    Share your Amazon history with friends and family. Use the Chrome Extension to generate your listings within minutes.
-                                </p>
+                            <div className="col-md-12 text-center pt-4">
+                                <h4>
+                                   The Amazon Wave is sweeping across the world. Use the Chrome Extension to generate your listings within minutes.
+                                </h4>
                                  <div className="pt-3 pb-3 action">
                                      <Link prefetch={false} href="https://chrome.google.com/webstore/detail/my-amazon-history/epmjnoajehdombhjonaoifmhbkkflnli">
                                         <a target={"_blank"} className="add-to-cart btn btn-default">Get The Chrome Extension</a>
                                     </Link>
                                 </div>
-                                <p className="lead">
-                                    The Amazon Wave is sweeping the world economy. Check out what other users purchased, write reviews, comment on other people's posts, 
-                                    and make up to 10% commission when someone purchases an Amazon Product via one of your pages. 
-                                </p>
                             </div>
                         </div>
                     </div>
-
-                    <div className="container-fluid">
-                        <div className="row">{showAllBlogs()}{showLoadedBlogs()}</div>
-                    </div>
-                <div className="text-center pt-5 pb-5">{loadMoreButton()}</div>      
+                                        
+                <div className="text-center pb-3">{loadMoreButton()}</div> 
+                         
             </article>
             </Layout>
         </React.Fragment>
