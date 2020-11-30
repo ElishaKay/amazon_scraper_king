@@ -1,8 +1,19 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'dev';
+let environment = 'prod';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
+
+//google analytics
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-162862101-3']);
+_gaq.push(['_trackPageview']);
+
+(function () {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 
 chrome.runtime.onMessage.addListener(
         function(message, sender, sendResponse) {
