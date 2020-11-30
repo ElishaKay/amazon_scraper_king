@@ -103,10 +103,17 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
     //choose method
     $scope.fetchSearchResults = function(user){
         $state.go('home.fetch-search-results');
+
+        _gaq.push(['_trackEvent', 'category', 'action', 'label'])
+
+        _gaq.push(['_trackEvent', e.target.id, 'clicked gather results']);
     }
 
     $scope.fetchMyHistory = function(user){
         $state.go('home.fetch-my-history');
+        _gaq.push(['_trackEvent', 'category', 'action', 'label'])
+        
+        _gaq.push(['_trackEvent', e.target.id, 'clicked gather history']);
     }
 
     $scope.exportMyData = function(user){
