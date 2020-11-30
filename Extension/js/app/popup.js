@@ -103,17 +103,12 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
     //choose method
     $scope.fetchSearchResults = function(user){
         $state.go('home.fetch-search-results');
-
-        _gaq.push(['_trackEvent', 'category', 'action', 'label'])
-
-        _gaq.push(['_trackEvent', e.target.id, 'clicked gather results']);
+        _gaq.push(['_trackEvent', 'Clicks', 'Clicked Gather Search Results', 'from Homepage']);
     }
 
     $scope.fetchMyHistory = function(user){
         $state.go('home.fetch-my-history');
-        _gaq.push(['_trackEvent', 'category', 'action', 'label'])
-        
-        _gaq.push(['_trackEvent', e.target.id, 'clicked gather history']);
+        _gaq.push(['_trackEvent', 'Clicks', 'Clicked Gather My History', 'from Homepage'])
     }
 
     $scope.exportMyData = function(user){
@@ -122,6 +117,8 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
 
     //scrape search results
     $scope.initiateSearchScraping = function(){
+        _gaq.push(['_trackEvent', 'Actions', 'Initialized Gather Results of Current Search', 'from Gather Search Results View']);
+
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             console.log('tabs', tabs);
             chrome.runtime.sendMessage({type:"initiateSearchScraping", search_url: tabs[0].url }, 
@@ -141,7 +138,9 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
     }
 
     $scope.initiateSearchKeywordsScraping = function(search_keywords){
-        console.log('search_keywords: ',search_keywords)
+        console.log('search_keywords: ',search_keywords);
+        _gaq.push(['_trackEvent', 'Actions', 'Initialized Gather Results of Search Keywords', 'from Gather Search Results View']);
+ 
         chrome.runtime.sendMessage({type:"initiateSearchKeywordsScraping", search_keywords: search_keywords }, 
             function(response){
                 console.log('this is the response from the content page for the initiateSearchKeywordsScraping Event',response); 
@@ -159,6 +158,8 @@ myApp.controller("ScraperCtrl", ['$scope', '$http', '$state', function($scope, $
 
     //scrape purchase history result
     $scope.initiateHistoryScraping = function(user){
+        _gaq.push(['_trackEvent', 'Actions', 'Initialized Gather My Order History', 'from Gather History View'])
+
         $state.go('home.dance-time');
         chrome.runtime.sendMessage({type:"initiateHistoryScraping", user: user }, 
             function(response){
