@@ -8,11 +8,32 @@
     <script src="../js/lib/angular.min.js"></script>
     <script src="../js/lib/angular-ui-router.min.js"></script>
 
-
     <!-- App's Custom code -->
+    <script src="../js/helpers/ga.js"></script>
+
+    <script>
+      var _AnalyticsCode = 'UA-162862101-3';
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', _AnalyticsCode]);
+_gaq.push(['_trackPageview']);
+(function() {
+  var ga = document.createElement('script');
+  ga.type = 'text/javascript';
+  ga.async = true;
+  ga.src = 'https://ssl.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(ga, s);
+})();
+    </script>
+
     <script src="../js/app/popup.js"></script>
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KF7WF5R"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div ng-controller="PopupCtrl">
          <div class="container">
             <div ui-view></div>
