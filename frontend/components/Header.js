@@ -41,6 +41,11 @@ const Header = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <React.Fragment>
+               <NavItem>
+                 <Link href="/">
+                    <NavLink>Explore</NavLink>
+                  </Link>
+              </NavItem>
             
               <NavItem>
                  <Link href="/getting-started">
