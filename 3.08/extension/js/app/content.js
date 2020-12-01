@@ -23,8 +23,6 @@ function ajaxGet(url, callback){
 
 // Fetching Search Page Data
 if(url.includes('amazon.com/s?k=') && url.includes('asf=on')){
-  loadSideBar();
-
   let products = document.querySelectorAll('.s-desktop-content div .sg-col-inner');
   let searchPageData = [];
   for (i = 0; i < products.length; i++) {
@@ -260,11 +258,13 @@ function loadSideBar(config){
             </div> </div> </a></div>
             <div class='sidebar'> 
             <div class='sidebar-list'>
-                    <h2>Currently Fetching Data from ${config && config.yearlyPage && year != 'undefined' ? year : 'Amazon'}</h2>
-                    <p>The Amazon Product King Chrome Extension is now Importing Products Into Your eCommerce Dashboard 😊</p>
-                    <p>Meanwhile, please keep this tab open</p>
-                    <p>You'll be able to Hide, Show & Review these Products via the Web App Dashboard once 
-                    this process is complete</p>
+                    <h2>Currently Fetching Data from ${config.yearlyPage && year != 'undefined' ? year : 'Amazon'}</h2>
+                    <p>The MyAmazonHistory Chrome Extension is now populating your 
+                    Social Shopping Dashboard 😊</p>
+                    <p>Please keep this tab open as your Public Shopping Dashboard is being generated.
+                    </p>
+                    <p>You'll be able to hide specific orders via your MyAmazonHistory Dashboard once 
+                    this process is complete.</p>
             </div>
     </div>
 
