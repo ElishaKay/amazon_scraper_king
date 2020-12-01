@@ -1,28 +1,27 @@
 <div ng-controller="ScraperCtrl">
+    <a href="#/home/choose-method" class="previous">&laquo; Previous</a>
 
-    <div ng-show="error" class="alert alert-danger"><strong>Error:</strong> {{errorMessage}}</div>
+    <h4 class="pt-3">Option #1: Gather Results of Search Keywords</h4>
 
-    <p>Sure thing! Please Refine your Amazon Search Results Page, and Press 'Start Scraping' when you're ready to begin. Please note: The app will automatically navigate to the Next Page until it reaches the final page of the given Search Results</p>
-
-    <a ng-click="initiateSearchScraping()" class="btn btn-block btn-info">
-        Only Scrape Current Search</a>
-    <br/>
-
-    <p class="pt-3">Alternatively, if you'd like to scrape Search Results for several keywords please insert the keywords below in comma-separated format (i.e. 'javascript, c++, html')</p>
+    <p class="pt-3">Please insert below the Search Keywords you'd like to use to Gather Amazon Products ("Bob Dylan","The Beatles","Aerosmith"...)
 
     <div class="form-group">
         <label for="name">Amazon Search Keywords</label>
-        <input type="text" class="form-control" name="search_keywords" placeholder="javascript, c++, html" ng-model="search_keywords">
+        <input type="text" class="form-control" name="search_keywords" placeholder=""Bob Dylan","The Beatles","Aerosmith"" ng-model="search_keywords">
     </div>
 
     <a ng-click="initiateSearchKeywordsScraping(search_keywords)" class="btn btn-block btn-info">
-        Scrape Results of These Keywords</a>
+        Gather Results of These Keywords</a>
     <br/>
-    <div class="row">
-        <div class="jumbotron text-muted text-center">
-            <p>Need Assistance?
-              <a target="_blank" href="https://myamazonhistory.com/contact">Contact Support Here</a>!</p>
-        </div>
-    </div>
+
+    <br>
+
+    <h4>Option #2: Gather Current Search Only</h4>
+
+    <p>For this option, please navigate to the Amazon Search Page & Refine your Amazon Search. Then, press "Gather" Below.
+
+    <a ng-click="initiateSearchScraping()" class="pt-3 btn btn-block btn-info">
+        Gather Products of Current Search</a>
+    <br/>
 
 </div>
