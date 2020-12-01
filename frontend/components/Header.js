@@ -50,6 +50,9 @@ const Header = () => {
               <NavItem>
                  <Link href="/getting-started">
                     <NavLink>Get Started</NavLink>
+                    </Link>
+              </NavItem>
+
               <NavItem>
                 <Link href="/blogs">
                   <NavLink>Products</NavLink>
