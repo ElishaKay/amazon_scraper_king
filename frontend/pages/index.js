@@ -106,7 +106,6 @@ const Index = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
             <div className="container-fluid">
                 <header>
                     <section>
-<<<<<<< HEAD
                      <div className="container">
                         <div className="row">
                             <div className="col-md-12 text-center">
