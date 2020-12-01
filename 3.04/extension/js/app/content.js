@@ -22,9 +22,7 @@ function ajaxGet(url, callback){
 }
 
 // Fetching Search Page Data
-if(url.includes('amazon.com/s?k=') && url.includes('asf=on')){
-  loadSideBar();
-
+if(url.includes('amazon.com/s?k=') && url.includes('amazonsearchfetching=on')){
   let products = document.querySelectorAll('.s-desktop-content div .sg-col-inner');
   let searchPageData = [];
   for (i = 0; i < products.length; i++) {
@@ -124,7 +122,7 @@ function getSearchPageNumber(){
 
 
 // Fetching Orders Page Data
-if(url.includes('amazon.com/gp/css/order-history') && url.includes('ahf=on') && !url.includes('orderFilter=')){
+if(url.includes('amazon.com/gp/css/order-history') && url.includes('amazonhistoryfetching=on') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
@@ -136,11 +134,11 @@ if(url.includes('amazon.com/gp/css/order-history') && url.includes('ahf=on') && 
 	}
     sendToBackground("purchaseYears", purchaseYears);
     setTimeout(function(){ 
-	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]+'&ahf=on'; 
+	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]+'&amazonhistoryfetching=on'; 
     	}, 
     10000);
 
-} else if (url.includes('amazon.com/gp/your-account/') && url.includes('&ahf=on') && url.includes('orderFilter=')){
+} else if (url.includes('amazon.com/gp/your-account/') && url.includes('&amazonhistoryfetching=on') && url.includes('orderFilter=')){
 	//got to yearly page - need to:
     //checkAndGetPagination
     //send OrderDetails to the Background
@@ -178,17 +176,17 @@ function sendToBackground(eventName, eventData, callback){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
                 if(eventName=='ordersPageDetails'){
                     if(response.nextWhat == 'nextYear'){
-                      window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&ahf=on';
+                      window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&amazonhistoryfetching=on';
                     } else if (response.nextWhat == 'nextPage' && typeof response.year != 'undefined'){
-                        window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&ahf=on';
+                        window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&amazonhistoryfetching=on';
                     }
                 } else if(eventName=='searchPageData'){
                     console.log('searchPageData response block ran');
                     if(response.nextWhat == 'nextPage'){
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&asf=on&page='+response.nextPageNumber;
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&amazonsearchfetching=on&page='+response.nextPageNumber;
                     } else if(response.nextWhat == 'nextKeyword'){
                         console.log('reached nextKeyword conditional block');
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&asf=on&page=1';
+                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&amazonsearchfetching=on&page=1';
                     }
                 }
             }
@@ -260,11 +258,13 @@ function loadSideBar(config){
             </div> </div> </a></div>
             <div class='sidebar'> 
             <div class='sidebar-list'>
-                    <h2>Currently Fetching Data from ${config && config.yearlyPage && year != 'undefined' ? year : 'Amazon'}</h2>
-                    <p>The Amazon Product King Chrome Extension is now Importing Products Into Your eCommerce Dashboard 😊</p>
-                    <p>Meanwhile, please keep this tab open</p>
-                    <p>You'll be able to Hide, Show & Review these Products via the Web App Dashboard once 
-                    this process is complete</p>
+                    <h2>Currently Fetching Data from ${config.yearlyPage && year != 'undefined' ? year : 'Amazon'}</h2>
+                    <p>The MyAmazonHistory Chrome Extension is now populating your 
+                    Social Shopping Dashboard 😊</p>
+                    <p>Please keep this tab open as your Public Shopping Dashboard is being generated.
+                    </p>
+                    <p>You'll be able to hide specific orders via your MyAmazonHistory Dashboard once 
+                    this process is complete.</p>
             </div>
     </div>
 

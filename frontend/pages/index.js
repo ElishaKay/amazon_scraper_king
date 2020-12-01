@@ -141,9 +141,10 @@ const Index = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
                     <div className="row">{showAllBlogs()}{showLoadedBlogs()}</div>
                 </div>
 
-                <div className="text-center pt-5 pb-5">{loadMoreButton()}</div>      
-
-            </article>
+                <div className="text-center pt-5 pb-5">{loadMoreButton()}</div>
+                </section>
+                </header>      
+                </div>
         </Layout>
      </React.Fragment>
     );
