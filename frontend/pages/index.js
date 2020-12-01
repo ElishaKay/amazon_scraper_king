@@ -106,6 +106,7 @@ const Index = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
             <div className="container-fluid">
                 <header>
                     <section>
+<<<<<<< HEAD
                      <div className="container">
                         <div className="row">
                             <div className="col-md-12 text-center">
@@ -133,17 +134,16 @@ const Index = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
                               </div>
                           </div>
                       </div>
-                    </section>
-                </header>
-            </div>
-            <article className="overflow-hidden">
+
                 <div className="pb-5 text-center">
                          {showAllTags()}
                         </div>
                 <div className="container-fluid">
                     <div className="row">{showAllBlogs()}{showLoadedBlogs()}</div>
                 </div>
-                <div className="text-center pb-3">{loadMoreButton()}</div>      
+
+                <div className="text-center pt-5 pb-5">{loadMoreButton()}</div>      
+
             </article>
         </Layout>
      </React.Fragment>

@@ -1,4 +1,7 @@
 .env
+<<<<<<< HEAD
 out.log
+=======
+>>>>>>> 07266ee260c6a316e1912157c16b92027fbeca18
 node_modules
 package-lock.json
