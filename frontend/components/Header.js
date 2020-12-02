@@ -54,18 +54,6 @@ const Header = () => {
               </NavItem>
 
               <NavItem>
-                <Link href="/blogs">
-                  <NavLink>Products</NavLink>
-                </Link>
-              </NavItem>
-
-              <NavItem>
-                 <Link href="/getting-started">
-                    <NavLink>Getting Started</NavLink>
-                  </Link>
-              </NavItem>
-
-              <NavItem>
                 <Link href="/contact">
                   <NavLink>Reach Out</NavLink>
                  </Link>
@@ -110,13 +98,6 @@ const Header = () => {
                 </NavLink>
               </NavItem>
             )}
-
-
-            <NavItem>
-              <a href="/user/crud/blog" className="btn btn-primary text-light">
-                Write a Post
-              </a>
-            </NavItem>
 
           </Nav>
         </Collapse>
