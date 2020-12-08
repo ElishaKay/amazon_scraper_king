@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Blog = require('../models/blog');
 const Page = require('../models/page');
 const Tag = require('../models/tag');
+const URL = require('../models/url');
 
 const { generateProductHTML } = require('../templates/generateProductHTML');
 const slugify = require('slugify');
@@ -115,6 +116,23 @@ exports.savePage = (req, res) => {
     let page = new Page({ purchaseYear, yearlyPageNumber, multiPageYear, totalPagesOfYear, belongsTo });
 
     page.save((err, data) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            });
+        }
+        res.json(data);
+    });
+};
+
+exports.saveURL = (req, res) => {
+    console.log('body:', req.body)
+
+    const { _id:belongsTo, href, host, pathname, search  } = req.body;
+   
+    let url = new URL({ href, host, pathname, search, belongsTo });
+
+    url.save((err, data) => {
         if (err) {
             return res.status(400).json({
                 error: errorHandler(err)
