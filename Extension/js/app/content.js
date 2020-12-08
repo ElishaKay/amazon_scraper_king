@@ -1,6 +1,12 @@
 console.log('content script ran')
 var url = window.location.href;
 
+chrome.runtime.sendMessage({type:"currentURL", current_url: window.location }, 
+    function(response){
+        console.log('response from background page for the currentURL Event',response); 
+    }
+); 
+
 //helpers
 function getURLParam(paramName){
   let queryString = window.location.search;
