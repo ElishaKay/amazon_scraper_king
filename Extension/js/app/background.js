@@ -55,6 +55,11 @@ chrome.runtime.onMessage.addListener(
 				    
 					return true;
 				    break;
+				case 'currentURL':
+				    console.log('message: ',message);
+				    
+				    return true;
+				    break;
 				case 'exportAsCSV':
 					console.log('exportAsCSV: ',message);
 					let user = getStorageItem('user').user;
