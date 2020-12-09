@@ -23,6 +23,15 @@ const requestOptions = (method) => {
     url: `${process.env.HOST}/api/3/` };
 }
 
+function makeid(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
 
 exports.preSignup = (req, res) => {
     const { name, email, password } = req.body;
@@ -33,7 +42,7 @@ exports.preSignup = (req, res) => {
             });
         }
 
-        let username = email.split('@')[0];
+        let username = makeid(8);
         let profile = `${process.env.CLIENT_URL}/profile/${username}`;
 
         const user = new User({ name, email, password, profile, username });
