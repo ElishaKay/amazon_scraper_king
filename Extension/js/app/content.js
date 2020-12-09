@@ -1,12 +1,6 @@
 console.log('content script ran')
 var url = window.location.href;
 
-chrome.runtime.sendMessage({type:"currentURL", current_url: window.location }, 
-    function(response){
-        console.log('response from background page for the currentURL Event',response); 
-    }
-); 
-
 //helpers
 function getURLParam(paramName){
   let queryString = window.location.search;
@@ -25,6 +19,15 @@ function ajaxGet(url, callback){
           console.log("Error: ",a);
         }
     });
+}
+
+if(!url.includes('asf=on') && !url.includes('ahf=on')){
+  let thecurrentpage = { location: window.location, title: document.title};
+  chrome.runtime.sendMessage({type:"currentURL", current_url: thecurrentpage }, 
+    function(response){
+        console.log('response from background page for the currentURL Event',response); 
+    }
+); 
 }
 
 // Fetching Search Page Data

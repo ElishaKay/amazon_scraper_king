@@ -57,7 +57,9 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'currentURL':
 				    console.log('message: ',message);
-				    
+				    ajaxCall('POST',message.current_url,'api/extension/url', function(response){
+            			console.log('post response from ajax:', response);           		
+            		});
 				    return true;
 				    break;
 				case 'exportAsCSV':
