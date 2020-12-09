@@ -1,13 +1,11 @@
 <div ng-controller="ScraperCtrl">
-    <a href="#/home/choose-method" class="previous">&laquo; Previous</a>
+    <a class="black-font" href="#/home/choose-method" class="previous">&laquo; ET Phone Home</a>
 
     <h4 class="pt-3">Option #1: Gather Results of Search Keywords</h4>
 
-    <p class="pt-3">Please insert below the Search Keywords you'd like to use to Gather Amazon Products ("Bob Dylan","The Beatles","Aerosmith"...)
-
     <div class="form-group">
         <label for="name">Amazon Search Keywords</label>
-        <input type="text" class="form-control" name="search_keywords" placeholder=""Bob Dylan","The Beatles","Aerosmith"" ng-model="search_keywords">
+        <input placeholder="'Bob Dylan','The Beatles','Aerosmith'" type="text" class="form-control" name="search_keywords" placeholder=""Bob Dylan","The Beatles","Aerosmith"" ng-model="search_keywords">
     </div>
 
     <a ng-click="initiateSearchKeywordsScraping(search_keywords)" class="btn btn-block btn-info">
@@ -16,9 +14,9 @@
 
     <br>
 
-    <h4>Option #2: Gather Current Search Only</h4>
+    <h4 class="white-font">Option #2: Gather Current Search Only</h4>
 
-    <p>For this option, please navigate to the Amazon Search Page & Refine your Amazon Search. Then, press "Gather" Below.
+    <p class="white-font">For this option, please navigate to the Amazon Search Page & Refine your Amazon Search. Then, press "Gather" Below.
 
     <a ng-click="initiateSearchScraping()" class="pt-3 btn btn-block btn-info">
         Gather Products of Current Search</a>

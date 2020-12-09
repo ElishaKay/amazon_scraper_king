@@ -61,7 +61,7 @@ const SigninComponent = () => {
                         onChange={handleChange('email')}
                         type="email"
                         className="form-control"
-                        placeholder="Type your email"
+                        placeholder="Email"
                     />
                 </div>
 
@@ -71,7 +71,7 @@ const SigninComponent = () => {
                         onChange={handleChange('password')}
                         type="password"
                         className="form-control"
-                        placeholder="Type your password"
+                        placeholder="Password"
                     />
                 </div>
 
