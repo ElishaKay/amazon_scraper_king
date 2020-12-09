@@ -38,7 +38,6 @@ const Signin = ({ router }) => {
         <Layout>
             {head()}
              <div className="contact-us">
-              <form>
                     <div className="container-fluid">
                         <h2 className="text-center pt-4 pb-4">Log in</h2>
 
@@ -52,7 +51,6 @@ const Signin = ({ router }) => {
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         </Layout>
     );
