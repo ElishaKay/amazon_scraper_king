@@ -3,6 +3,9 @@ const { ObjectId } = mongoose.Schema;
 
 const urlSchema = new mongoose.Schema(
     {
+        pageTitle: {
+            type: String
+        },
         href: {
             type: String
         },
