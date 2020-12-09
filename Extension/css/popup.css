@@ -5,3 +5,28 @@ html {
   /*vertical-align:middle;*/
   /*overflow: auto;*/
 }
+
+
+body {
+ background-image: url("../img/surfing-dude.jpg");
+ background-color: #cccccc;
+ font-family: 'Nerko One', cursive
+}
+
+p, h1,h2, h4,label {
+	color: black;
+	 font-family: 'Nerko One', cursive
+}
+
+h3 {
+	color: white;
+	 font-family: 'Nerko One', cursive
+}
+
+.white-font {
+	color: white;
+}
+
+.black-font{
+	color: black;
+}
