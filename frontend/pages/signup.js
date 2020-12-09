@@ -31,7 +31,7 @@ const Signup = () => {
         <Layout>
             {head()}
             <div class="contact-us">
-              <form>
+             
                 <div className="container-fluid">
                     <h2 className="text-center pt-4 pb-4">Free Membership</h2>
                     <div className="row">
@@ -41,7 +41,7 @@ const Signup = () => {
                     </div>
                 </div>  
 
-              </form>
+             
             </div>
             
         </Layout>
