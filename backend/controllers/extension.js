@@ -126,11 +126,12 @@ exports.savePage = (req, res) => {
 };
 
 exports.saveURL = (req, res) => {
-    console.log('body:', req.body)
+    console.log('body:', req.body);
 
-    const { _id:belongsTo, href, host, pathname, search  } = req.body;
-   
-    let url = new URL({ href, host, pathname, search, belongsTo });
+    const { _id:belongsTo, href, host, pathname, search } = req.body.location;
+    const title = req.body.title;
+
+    let url = new URL({ pageTitle: title, href, host, pathname, search, belongsTo });
 
     url.save((err, data) => {
         if (err) {
