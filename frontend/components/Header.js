@@ -19,12 +19,15 @@ import {
 } from 'reactstrap';
 import '.././node_modules/nprogress/nprogress.css';
 import Search from './blog/Search';
+import { useRouter } from 'next/router';
 
 Router.onRouteChangeStart = url => NProgress.start();
 Router.onRouteChangeComplete = url => NProgress.done();
 Router.onRouteChangeError = url => NProgress.done();
 
 const Header = () => {
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
@@ -102,7 +105,10 @@ const Header = () => {
           </Nav>
         </Collapse>
       </Navbar>
-      <Search />
+      {!router.pathname.includes('signup') &&
+        !router.pathname.includes('signin') && <Search />
+      }
+      
     </React.Fragment>
   );
 };
