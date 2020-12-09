@@ -19,23 +19,6 @@ const HowItWorks = () => {
                         </div>
                     </div>
                 </div>
-
-                <div className="row">
-                    <div className="col-md-8 offset-md-2">
-                        <h2>How It Works</h2>
-                        <hr />
-                        <iframe 
-                            className="iframe"
-                            src="//www.slideshare.net/slideshow/embed_code/key/f813IqqXbOSRMX" 
-                            width="100%" 
-                            frameBorder="0" 
-                            marginWidth="0" 
-                            marginHeight="0" 
-                            scrolling="no" 
-                            allowFullScreen> 
-                        </iframe> 
-                    </div>
-                </div>
        
             </div>
     );
