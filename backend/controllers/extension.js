@@ -129,9 +129,9 @@ exports.saveURL = (req, res) => {
     console.log('body:', req.body);
 
     const { _id:belongsTo, href, host, pathname, search } = req.body.location;
-    const title = req.body.title;
+    const pageTitle = req.body.title;
 
-    let url = new URL({ pageTitle: title, href, host, pathname, search, belongsTo });
+    let url = new URL({ pageTitle, href, host, pathname, search, belongsTo });
 
     url.save((err, data) => {
         if (err) {
