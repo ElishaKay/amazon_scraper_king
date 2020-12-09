@@ -23,6 +23,8 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+           <link rel="preconnect" href="https://fonts.gstatic.com"/>
+          <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet"/>
           <link rel="shortcut icon" type="image/png" href="/static/images/logo.png"/>
           <link
             rel="stylesheet"
