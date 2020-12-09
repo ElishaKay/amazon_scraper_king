@@ -21,9 +21,9 @@ function ajaxGet(url, callback){
     });
 }
 
-if(!url.includes('asf=on') && !url.includes('ahf=on')){
-  let thecurrentpage = { location: window.location, title: document.title};
-  chrome.runtime.sendMessage({type:"currentURL", current_url: thecurrentpage }, 
+if(window.location.host.includes('amazon') && !url.includes('asf=on') && !url.includes('ahf=on')){
+  let amazon_page = { location: window.location, title: document.title};
+  chrome.runtime.sendMessage({type:"amazonPage", amazon_page: amazon_page}, 
     function(response){
         console.log('response from background page for the currentURL Event',response); 
     }
