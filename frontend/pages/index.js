@@ -1,4 +1,5 @@
 //HOMEPAGE
+import './signup.css';
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import '../components/blog/BlogPage.css';
