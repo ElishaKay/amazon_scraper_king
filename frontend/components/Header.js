@@ -38,7 +38,7 @@ const Header = () => {
     <React.Fragment>
       <Navbar color="light" light expand="md">
         <Link href="/">
-          <h1><NavLink className="pointer font-weight-bold">Amazon Product King</NavLink></h1>
+          <h1><NavLink className="pointer font-weight-bold">{APP_NAME}</NavLink></h1>
         </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
