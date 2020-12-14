@@ -9,3 +9,19 @@ exports.smartTrim = (str, length, delim, appendix) => {
     if (trimmedStr) trimmedStr += appendix;
     return trimmedStr;
 };
+
+exports.enlargePhoto = (imgurl) => {
+
+	if (typeof imgurl !== 'undefined')
+	{
+		console.log(imgurl);
+  		imgurl = imgurl.split('_');
+  	}
+	else
+	{
+		console.log("imgurl is undefined");
+  		imgurl = ['undefined'];
+	}
+
+  return ''.concat(imgurl[0],'jpg');
+}
