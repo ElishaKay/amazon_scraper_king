@@ -117,35 +117,36 @@ const Index = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
                         </div>
                     </div>
 
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12 text-center pt-4 pb-2">
+                                <p className="lead">
+                                    Share your Amazon history with friends and family. Use the Chrome Extension to generate your listings within minutes.
+                                </p>
+                                 <div className="pt-3 pb-3 action">
+                                     <Link prefetch={false} href="https://chrome.google.com/webstore/detail/my-amazon-history/epmjnoajehdombhjonaoifmhbkkflnli">
+                                        <a target={"_blank"} className="add-to-cart btn btn-default">Get The Chrome Extension</a>
+                                    </Link>
+                                </div>
+                                <p className="lead">
+                                    The Amazon Wave is sweeping the world economy. Check out what other users purchased, write reviews, comment on other people's posts, 
+                                    and make up to 10% commission when someone purchases an Amazon Product via one of your pages. 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 <div className="pb-5 text-center">
                          {showAllTags()}
-                        </div>
-                <div className="container-fluid">
-                    <div className="row">{showAllBlogs()}{showLoadedBlogs()}</div>
                 </div>
 
                 <div className="text-center pt-5 pb-5">{loadMoreButton()}</div>
 
-                <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 text-center">
-                                <h1 className="display-4 font-weight-bold">
-                                    Join the eCommerce Tidal Wave
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
-              <div className="container">
-                      <div className="row">
-                          <div className="col-md-12 text-center pt-4 pb-2">
-                               <div className="pt-3 pb-3 action">
-                                   <Link prefetch={false} href="https://chrome.google.com/webstore/detail/my-amazon-history/epmjnoajehdombhjonaoifmhbkkflnli">
-                                      <a target={"_blank"} className="add-to-cart btn btn-default">Get The Chrome Extension</a>
-                                  </Link>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                <div className="container-fluid">
+                    <div className="row">{showLoadedBlogs()}{showAllBlogs()}</div>
+                </div>
+
+
                 </section>
                 </header>      
                 </div>
