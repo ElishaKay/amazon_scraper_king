@@ -1,6 +1,6 @@
 let dev_server_url = 'http://localhost:8000/';
 let prod_server_url = 'http://138.197.196.165/';
-let environment = 'dev';
+let environment = 'prod';
 let domain = environment == 'dev' ? dev_server_url : prod_server_url;
 let multi_page = false;
 
@@ -57,6 +57,8 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'amazonPage':
 				    console.log('message: ',message);
+				    message.amazon_page._id = getStorageItem('user').user ? getStorageItem('user').user._id : JSON.parse(getStorageItem('user')).user._id;
+
 				    ajaxCall('POST',message.amazon_page,'api/extension/url', function(response){
             			console.log('post response from ajax:', response);           		
             		});

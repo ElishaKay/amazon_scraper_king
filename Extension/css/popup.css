@@ -8,25 +8,30 @@ html {
 
 
 body {
- background-image: url("../img/surfing-dude.jpg");
- background-color: #cccccc;
+ /*background-image: url("../img/rose.jpg");*/
+ /*background-color: #da621e;*/
  font-family: 'Nerko One', cursive
 }
 
+input, button {
+	font-size: 20px;
+}
+
 p, h1,h2, h4,label {
-	color: black;
+	color: white;
+	font-size: 20px;
 	 font-family: 'Nerko One', cursive
 }
 
 h3 {
-	color: white;
+	/*color: white;*/
 	 font-family: 'Nerko One', cursive
 }
 
 .white-font {
-	color: white;
+	color: white
 }
 
 .black-font{
-	color: black;
+	color: white;
 }
