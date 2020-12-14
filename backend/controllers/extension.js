@@ -7,7 +7,7 @@ const URL = require('../models/url');
 const { generateProductHTML } = require('../templates/generateProductHTML');
 const slugify = require('slugify');
 const stripHtml = require('string-strip-html');
-const { smartTrim } = require('../helpers/blog');
+const { smartTrim, enlargePhoto } = require('../helpers/blog');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 //only leave here if you keep the jwt for chrome extension
@@ -128,10 +128,11 @@ exports.savePage = (req, res) => {
 exports.saveURL = (req, res) => {
     console.log('body:', req.body);
 
-    const { _id:belongsTo, href, host, pathname, search } = req.body.location;
+    const { href, host, pathname, search } = req.body.location;
     const pageTitle = req.body.title;
+    console.log('req.body._id',req.body._id)
 
-    let url = new URL({ pageTitle, href, host, pathname, search, belongsTo });
+    let url = new URL({ pageTitle, href, host, pathname, search, belongsTo: req.body._id });
 
     url.save((err, data) => {
         if (err) {
@@ -287,11 +288,4 @@ exports.savePageFromSearch = (req, res) => {
         res.json(data);
     });
 };
-
-
-
-function enlargePhoto(imgurl){
-  imgurl = imgurl.split('_');
-  return ''.concat(imgurl[0],'jpg');
-}
 
