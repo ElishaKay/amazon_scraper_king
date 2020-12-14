@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Amazon Scraper King",
-  "description": "Easily 🚀 Gather & Market Amazon Products",
+  "description": "Easily Gather & Market Amazon Products 🚀",
   "version": "3.15",
   "content_security_policy": "script-src 'self' 'unsafe-inline' 'unsafe-hashes' object-src 'self' https://www.googletagmanager.com https://ssl.google-analytics.com https://ajax.googleapis.com https://fonts.googleapis.com https://code.jquery.com",
   "icons": {
