@@ -47,7 +47,7 @@ const Index = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
             if (data.error) {
                 console.log(data.error);
             } else {
-                setLoadedBlogs([...loadedBlogs, ...data.blogs]);
+                setLoadedBlogs([...data.blogs, ...loadedBlogs]);
                 setSize(data.size);
                 setSkip(toSkip);
             }
@@ -140,7 +140,7 @@ const Index = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
                          {showAllTags()}
                 </div>
 
-                <div className="text-center pt-5 pb-5">{loadMoreButton()}</div>
+                <div className="text-center pb-5">{loadMoreButton()}</div>
 
                 <div className="container-fluid">
                     <div className="row">{showLoadedBlogs()}{showAllBlogs()}</div>
