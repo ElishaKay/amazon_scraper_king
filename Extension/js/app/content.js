@@ -31,7 +31,7 @@ if(window.location.host.includes('amazon') && !url.includes('asf=on') && !url.in
 }
 
 // Fetching Search Page Data
-if(url.includes('amazon.com/s?k=') && url.includes('asf=on')){
+if(url.includes('s?k=') && url.includes('asf=on')){
   loadSideBar();
 
   let products = document.querySelectorAll('.s-desktop-content div .sg-col-inner');
@@ -90,7 +90,8 @@ if(url.includes('amazon.com/s?k=') && url.includes('asf=on')){
             }
             
             if(productBriefs.length <=30){
-              ajaxGet(product.product_link.split('amazon.com')[1], function(response){
+              let host_url = window.location.host.split('www.')[1];
+              ajaxGet(product.product_link.split(host_url)[1], function(response){
                 let element = $($.parseHTML( response ));
                 product.product_summary = element.find("div").attr("data-feature-name", 'editorialReviews').prev("noscript")[0].innerHTML;
                 let reviews = element.find("div [id*=customer_review]");
@@ -133,7 +134,7 @@ function getSearchPageNumber(){
 
 
 // Fetching Orders Page Data
-if(url.includes('amazon.com/gp/css/order-history') && url.includes('ahf=on') && !url.includes('orderFilter=')){
+if(url.includes('gp/css/order-history') && url.includes('ahf=on') && !url.includes('orderFilter=')){
 	//first landing on the main orders page
 	//send all the dropDown Options to the Background page
 	//navigate to a specific Time Period ()
@@ -145,11 +146,11 @@ if(url.includes('amazon.com/gp/css/order-history') && url.includes('ahf=on') && 
 	}
     sendToBackground("purchaseYears", purchaseYears);
     setTimeout(function(){ 
-	    window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]+'&ahf=on'; 
+	    window.location.href = '/gp/your-account/order-history?orderFilter='+purchaseYears.slice(-1)[0]+'&ahf=on'; 
     	}, 
     10000);
 
-} else if (url.includes('amazon.com/gp/your-account/') && url.includes('&ahf=on') && url.includes('orderFilter=')){
+} else if (url.includes('gp/your-account/') && url.includes('&ahf=on') && url.includes('orderFilter=')){
 	//got to yearly page - need to:
     //checkAndGetPagination
     //send OrderDetails to the Background
@@ -187,17 +188,17 @@ function sendToBackground(eventName, eventData, callback){
                 console.log('this is the response from the background page for the '+ eventName+ ' Event: ',response);
                 if(eventName=='ordersPageDetails'){
                     if(response.nextWhat == 'nextYear'){
-                      window.location.href = 'https://www.amazon.com/gp/your-account/order-history?orderFilter=year-'+response.year+'&ahf=on';
+                      window.location.href = '/gp/your-account/order-history?orderFilter=year-'+response.year+'&ahf=on';
                     } else if (response.nextWhat == 'nextPage' && typeof response.year != 'undefined'){
-                        window.location.href = 'https://www.amazon.com/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&ahf=on';
+                        window.location.href = '/gp/your-account/order-history/ref=ppx_yo_dt_b_pagination_1_2_3_4_5?ie=UTF8&orderFilter=year-'+response.year+'&search=&startIndex='+response.startIndex+'&ahf=on';
                     }
                 } else if(eventName=='searchPageData'){
                     console.log('searchPageData response block ran');
                     if(response.nextWhat == 'nextPage'){
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&asf=on&page='+response.nextPageNumber;
+                        window.location.href = '/s?k='+response.searchKeyword+'&asf=on&page='+response.nextPageNumber;
                     } else if(response.nextWhat == 'nextKeyword'){
                         console.log('reached nextKeyword conditional block');
-                        window.location.href = 'https://www.amazon.com/s?k='+response.searchKeyword+'&asf=on&page=1';
+                        window.location.href = '/s?k='+response.searchKeyword+'&asf=on&page=1';
                     }
                 }
             }
@@ -270,7 +271,7 @@ function loadSideBar(config){
             <div class='sidebar'> 
             <div class='sidebar-list'>
                     <h2>Currently Fetching Data from ${config && config.yearlyPage && year != 'undefined' ? year : 'Amazon'}</h2>
-                    <p>The Amazon Product King Chrome Extension is now Importing Products Into Your eCommerce Dashboard 😊</p>
+                    <p>The Amazon Scraper King Chrome Extension is now Importing Products Into Your eCommerce Dashboard 😊</p>
                     <p>Meanwhile, please keep this tab open</p>
                     <p>You'll be able to Hide, Show & Review these Products via the Web App Dashboard once 
                     this process is complete</p>

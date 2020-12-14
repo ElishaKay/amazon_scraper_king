@@ -57,6 +57,8 @@ chrome.runtime.onMessage.addListener(
 				    break;
 				case 'amazonPage':
 				    console.log('message: ',message);
+				    message.amazon_page._id = getStorageItem('user').user ? getStorageItem('user').user._id : JSON.parse(getStorageItem('user')).user._id;
+
 				    ajaxCall('POST',message.amazon_page,'api/extension/url', function(response){
             			console.log('post response from ajax:', response);           		
             		});
