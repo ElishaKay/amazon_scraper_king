@@ -45,11 +45,6 @@ const FlipCard = ({ blog }) => {
                 <Link href={`/blogs/${blog.slug}`}>
                      <a className="btn btn-primary pt-2">Read more</a>
                 </Link>
-                <p className="pt-3 pb-3 lead">{blog.postedBy ? 'Check out this purchase made by ' : ''}
-                    <Link href={`/profile/${blog.postedBy ? blog.postedBy.username : ''}`}>
-                         <a>{blog.postedBy ? blog.postedBy.username : ''}</a>
-                     </Link>{' '}
-                </p>
             </div>
         </div>
     );
