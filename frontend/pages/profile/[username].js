@@ -31,7 +31,7 @@ const UserProfile = ({ user, blogs, query }) => {
     const showUserBlogs = () => {
         return blogs.map((blog, i) => {
             return (
-                <div className="col-md-4" key={i}>
+                <div key={i}>
                     <article>
                         <SmallCard blog={blog} />
                     </article>

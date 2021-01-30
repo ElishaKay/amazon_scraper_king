@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="my-app">
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/darkly-bootswatch.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    
+    <script src="../js/lib/angular.min.js"></script>
+    <script src="../js/lib/angular-ui-router.min.js"></script>
+
+    <!-- App's Custom code -->
+    <script src="../js/helpers/ga.js"></script>
+
+    <script src="../js/app/popup.js"></script>
+  </head>
+  <body class="container">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KF7WF5R"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div ng-controller="PopupCtrl">
+         <div class="container">
+            <div ui-view></div>
+        </div>
+
+    </div>
+  </body>
+</html>
