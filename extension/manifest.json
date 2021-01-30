@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Amazon Scraper King",
+  "description": "Easily Gather & Market Amazon Products 🚀",
+  "version": "3.15",
+  "content_security_policy": "script-src 'self' 'unsafe-inline' 'unsafe-hashes' object-src 'self' https://www.googletagmanager.com https://ssl.google-analytics.com https://ajax.googleapis.com https://fonts.googleapis.com https://code.jquery.com",
+  "icons": {
+      "16": "img/icon_16.png",
+      "48": "img/icon_48.png",
+      "128": "img/icon_128.png",
+      "440": "img/icon_440.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.amazon.com/*", "https://www.amazon.com.au/*", "https://www.amazon.com.br/*", "https://www.amazon.ca/*", "https://www.amazon.cn/*", "https://www.amazon.fr/*", "https://www.amazon.de/*", "https://www.amazon.in/*", "https://www.amazon.it/*", "https://www.amazon.co.jp/*", "https://www.amazon.com.mx/*", "https://www.amazon.nl/*", "https://www.amazon.es/*", "https://www.amazon.co.uk/*", "https://www.amazon.se/*"],
+      "js": ["js/lib/jquery-3.3.1.min.js","js/app/content.js"]
+    }
+  ],
+  "permissions": [
+     "tabs", "http://*/*", "https://*/*"
+  ],
+  "background": {
+    "scripts": ["js/lib/jquery-3.3.1.min.js","js/app/background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_icon": "img/icon_128.png",
+    "default_popup": "views/popup.html",
+    "default_title": "Amazon Product King"
+  }
+}
+
