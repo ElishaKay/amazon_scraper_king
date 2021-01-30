@@ -23,7 +23,7 @@ const SmallCard = ({ blog }) => {
                     <a>
                         <img
                             className="img img-fluid"
-                            style={{ width: '50%' }}
+                            style={{ display:'inline', height: '250px' }}
                             src={getFeaturedImage(blog)}
                             alt={blog.title}
                         />
