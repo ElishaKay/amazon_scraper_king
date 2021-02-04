@@ -11,27 +11,27 @@ const LoginFacebook = () => {
     }
 
     const responseFacebook = response => {
-        // console.log(response);
-        // const tokenId = response.tokenId;
-        // const user = { tokenId };
+        console.log(response);
+        const tokenId = response.tokenId;
+        const user = { tokenId };
 
         console.log('response in LoginFacebook Func', response)
 
         console.log('Picture', response.picture.data.url)
 
-        // loginWithFacebook(user).then(data => {
-        //     if (data.error) {
-        //         console.log(data.error);
-        //     } else {
-        //         authenticate(data, () => {
-        //             if (isAuth() && isAuth().role === 1) {
-        //                 Router.push(`/admin`);
-        //             } else {
-        //                 Router.push(`/user`);
-        //             }
-        //         });
-        //     }
-        // });
+        loginWithFacebook(user).then(data => {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                authenticate(data, () => {
+                    if (isAuth() && isAuth().role === 1) {
+                        Router.push(`/admin`);
+                    } else {
+                        Router.push(`/user`);
+                    }
+                });
+            }
+        });
     };
 
     return (
