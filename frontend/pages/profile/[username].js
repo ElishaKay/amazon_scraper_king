@@ -6,17 +6,19 @@ import { userPublicProfile } from '../../actions/user';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import moment from 'moment';
 import ContactForm from '../../components/form/ContactForm';
+import HowItWorks from '../../components/tutorials/HowItWorks';
+import Header from '../../components/Header';
 
 const UserProfile = ({ user, blogs, query }) => {
     const head = () => (
         <Head>
             <title>
-                {user.username} | {APP_NAME}
+                {user ? user.username : 'somebody special'} | {APP_NAME}
             </title>
-            <meta name="description" content={`Amazon products recommended by ${user.username}`} />
+            <meta name="description" content={`Amazon products recommended by ${user ? user.username : 'somebody special'}`} />
             <link rel="canonical" href={`${DOMAIN}/profile/${query.username}`} />
-            <meta property="og:title" content={`${user.username}| ${APP_NAME}`} />
-            <meta property="og:description" content={`Amazon products recommended by ${user.username}`} />
+            <meta property="og:title" content={`${user ? user.username : 'somebody special'}| ${APP_NAME}`} />
+            <meta property="og:description" content={`Amazon products recommended by ${user ? user.username : 'somebody special'}`} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={`${DOMAIN}/profile/${query.username}`} />
             <meta property="og:site_name" content={`${APP_NAME}`} />
@@ -48,6 +50,7 @@ const UserProfile = ({ user, blogs, query }) => {
     return (
         <React.Fragment>
             {head()}
+            {!user ? <div><Header/> <HowItWorks/></div> :
             <Layout>
                 <div className="container">
                     <div className="row">
@@ -106,7 +109,7 @@ const UserProfile = ({ user, blogs, query }) => {
                         </div>
                     </div>
                 </div>
-            </Layout>
+            </Layout>}
         </React.Fragment>
     );
 };
@@ -114,8 +117,9 @@ const UserProfile = ({ user, blogs, query }) => {
 UserProfile.getInitialProps = ({ query }) => {
     // console.log(query);
     return userPublicProfile(query.username).then(data => {
-        if (data.error) {
-            console.log(data.error);
+        if (!data) {
+            console.log('there was an error fetching the blog');
+            return {user: '', query: {slug: '/'}}
         } else {
             // console.log(data);
             return { user: data.user, blogs: data.blogs, query };
