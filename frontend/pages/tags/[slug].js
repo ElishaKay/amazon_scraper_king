@@ -11,17 +11,19 @@ import Card from '../../components/blog/Card';
 import FlipCard from '../../components/blog/FlipCard';
 
 import '../../components/blog/BlogPage.css';
+import HowItWorks from '../../components/tutorials/HowItWorks';
+import Header from '../../components/Header';
 
 const Tag = ({ tag, blogs, query, totalBlogs, blogsLimit, blogSkip }) => {
     const head = () => (
         <Head>
             <title>
-                {tag.name} | {APP_NAME}
+                {tag && tag.name || 'Welcome'} | {APP_NAME}
             </title>
-            <meta name="description" content={`View the best Amazon products related to ${tag.name}`} />
+            <meta name="description" content={`View the best Amazon products ${tag ? 'related to '+tag.name : ''}`} />
             <link rel="canonical" href={`${DOMAIN}/categories/${query.slug}`} />
-            <meta property="og:title" content={`${tag.name}| ${APP_NAME}`} />
-            <meta property="og:description" content={`View the best Amazon products related to ${tag.name}`} />
+            <meta property="og:title" content={`${tag && tag.name}| ${APP_NAME}`} />
+            <meta property="og:description" content={`View the best Amazon products ${tag ? 'related to '+tag.name : ''}`} />
             <meta property="og:type" content="website" />
             <meta property="og:url" content={`${DOMAIN}/categories/${query.slug}`} />
             <meta property="og:site_name" content={`${APP_NAME}`} />
@@ -85,6 +87,7 @@ const Tag = ({ tag, blogs, query, totalBlogs, blogsLimit, blogSkip }) => {
     return (
         <React.Fragment>
             {head()}
+            {!tag ? <div><Header/> <HowItWorks/></div> :
             <Layout>
                 <main>
                     <div className="container-fluid text-center">
@@ -123,7 +126,7 @@ const Tag = ({ tag, blogs, query, totalBlogs, blogsLimit, blogSkip }) => {
                         <div className="row">{showLoadedBlogs()}{showAllBlogs()}</div>
                     </div>
             </article>
-            </Layout>
+            </Layout>}
         </React.Fragment>
     );
 };
@@ -133,8 +136,9 @@ Tag.getInitialProps = ({ query }) => {
     let limit = 9;
 
     return singleTag(query.slug, skip, limit).then(data => {
-        if (data.error) {
-            console.log(data.error);
+        if (!data) {
+            console.log('there was an error fetching the blog');
+            return {blog: '', query: {slug: '/'}}
         } else {
             return { 
                 tag: data.tag, 
