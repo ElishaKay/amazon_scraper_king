@@ -11,7 +11,8 @@ import SmallCard from '../../components/blog/SmallCard';
 import SpotLight from '../../components/blog/SpotLight';
 
 import DisqusThread from '../../components/DisqusThread';
-
+import HowItWorks from '../../components/tutorials/HowItWorks';
+import Header from '../../components/Header';
 
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
@@ -129,6 +130,7 @@ const SingleBlog = ({ blog, query }) => {
     return (
         <React.Fragment>
             {head()}
+            {!blog ? <div><Header/> <HowItWorks/></div> : 
             <Layout>
                 <main>
                     <article>
@@ -195,17 +197,19 @@ const SingleBlog = ({ blog, query }) => {
                         
                     </article>
                 </main>
-            </Layout>
+            </Layout>}
         </React.Fragment>
     );
 };
 
 SingleBlog.getInitialProps = ({ query }) => {
     return singleBlog(query.slug).then(data => {
-        if (data.error) {
-            console.log(data.error);
+        if (!data) {
+            console.log('there was an error fetching the blog');
+            return {blog: '', query: {slug: '/'}}
         } else {
             // console.log('GET INITIAL PROPS IN SINGLE BLOG', data);
+            console.log('data within getInitialProps of blog slug view',{ blog: data, query });
             return { blog: data, query };
         }
     });
