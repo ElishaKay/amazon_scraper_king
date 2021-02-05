@@ -13,13 +13,7 @@ const categoryRoutes = require('./routes/category');
 const tagRoutes = require('./routes/tag');
 const formRoutes = require('./routes/form');
 const extensionRoutes = require('./routes/extension');
-//sitemap
-// const sitemapOptions = {
-//     root: __dirname + '/static/sitemap/',
-//     headers: {
-//         'Content-Type': 'text/xml;charset=UTF-8'
-//     }
-// };
+
 // app
 const app = express();
 
@@ -52,9 +46,6 @@ app.use('/api', categoryRoutes);
 app.use('/api', tagRoutes);
 app.use('/api', formRoutes);
 app.use('/api', extensionRoutes);
-
-// serve sitemap
-// app.get('/sitemap.xml', (req, res) => res.status(200).sendFile('sitemap.xml', sitemapOptions));
 
 // port
 const port = process.env.PORT || 8000;
