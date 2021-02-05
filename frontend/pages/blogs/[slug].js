@@ -14,7 +14,7 @@ import DisqusThread from '../../components/DisqusThread';
 import HowItWorks from '../../components/tutorials/HowItWorks';
 import Header from '../../components/Header';
 
-const SingleBlog = ({ blog, query }) => {
+const SingleBlog = ({ blog, amazonAffData, query }) => {
     const [related, setRelated] = useState([]);
 
     const loadRelated = () => {
@@ -168,7 +168,7 @@ const SingleBlog = ({ blog, query }) => {
                           <div className="container">
                              <div className="card">
                                     <div className="wrapper row">
-                                        <SpotLight blog={blog} />
+                                        <SpotLight amazonAffData={amazonAffData} blog={blog} />
                                     </div>
                               </div>
                           </div>
