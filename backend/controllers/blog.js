@@ -341,7 +341,6 @@ exports.photo = (req, res) => {
 };
 
 exports.listRelated = (req, res) => {
-    console.log(req.body.blog);
     let limit = req.body.limit ? parseInt(req.body.limit) : 9;
     const { _id, tags, search_keyword } = req.body.blog;
 
