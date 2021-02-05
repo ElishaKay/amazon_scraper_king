@@ -208,9 +208,8 @@ SingleBlog.getInitialProps = ({ query }) => {
             console.log('there was an error fetching the blog');
             return {blog: '', query: {slug: '/'}}
         } else {
-            // console.log('GET INITIAL PROPS IN SINGLE BLOG', data);
-            console.log('data within getInitialProps of blog slug view',{ blog: data, query });
-            return { blog: data, query };
+            let {blogData, amazonAffData} = data;
+            return { blog: blogData, amazonAffData, query };
         }
     });
 };
