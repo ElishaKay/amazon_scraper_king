@@ -82,7 +82,8 @@ chrome.runtime.onMessage.addListener(
 					let purchaseYears = [];
 					for (let i = 0; i < message.data.length; i++) { 
 						let value = message.data[i];
-						if(value.includes('-')&&!value.includes('months')){
+						if(value.includes('-') && !value.includes('months') 
+							&& !value.includes('archived')){
 							 purchaseYears.unshift(value.split('-')[1]);
 						}
 					}

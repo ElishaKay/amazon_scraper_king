@@ -140,9 +140,13 @@ if(url.includes('gp/css/order-history') && url.includes('ahf=on') && !url.includ
 	//navigate to a specific Time Period ()
   loadSideBar({yearlyPage: false});
 	let purchaseYears = [];
-	var theOptions = document.querySelectorAll('#timePeriodForm #orderFilter')[0].options;
-	for (i = 0; i < theOptions.length; i++) { 
-    	purchaseYears.push(theOptions[i].value);
+	let theOptions = document.querySelectorAll('#time-filter')[0].options;
+	for (i = 0; i < theOptions.length; i++) {
+    let value = theOptions[i].value;
+    if(value.includes('-') && !value.includes('months') 
+        && !value.includes('archived')){
+          purchaseYears.push(value);
+        }
 	}
     sendToBackground("purchaseYears", purchaseYears);
     setTimeout(function(){ 
