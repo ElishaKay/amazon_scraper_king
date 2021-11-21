@@ -57,6 +57,12 @@ const Header = () => {
               </NavItem>
 
               <NavItem>
+                 <Link href="/privacy-policy">
+                     <h5><NavLink className="pointer">Privacy Policy</NavLink></h5>
+                    </Link>
+              </NavItem>
+
+              <NavItem>
                 <Link href="/contact">
                    <h5><NavLink className="pointer">Reach Out</NavLink></h5>
                  </Link>
