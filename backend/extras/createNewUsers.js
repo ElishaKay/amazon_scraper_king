@@ -2,7 +2,7 @@
 // require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose
-    .connect('mongodb://root:leeshtime83@ds125255.mlab.com:25255/amazon-spark-app', { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
+    .connect('mongodb+srv://root:<secretpass>@myprojectname.zm3hz.mongodb.net/<mydbname>?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
     .then(() => console.log('DB connected'))
     .catch(err => {
         console.log(err);
@@ -21,13 +21,13 @@ console.log('script ran');
 for (let i = 0; i < 150; i++) {
 	let theLastName = userLastNames[getRandomArbitrary(0,userLastNames.length-1)]
 
-  	let name = `${boyFirstNames[i]} ${theLastName}` ;
+  	let name = `${girlFirstNames[i]} ${theLastName}` ;
 
 	let email = 'AlephMarketingPros@gmail.com';
 
 	let password = 'coderstyle87';
 
-	let username = `${boyFirstNames[i]}_${theLastName}`
+	let username = `${girlFirstNames[i]}_${theLastName}`
 
 	let profile = `https://myamazonhistory.com/profile/${username}`;
 	let popUser = true;

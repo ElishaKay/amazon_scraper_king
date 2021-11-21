@@ -14,7 +14,7 @@ import DisqusThread from '../../components/DisqusThread';
 import HowItWorks from '../../components/tutorials/HowItWorks';
 import Header from '../../components/Header';
 
-const SingleBlog = ({ blog, query }) => {
+const SingleBlog = ({ blog, amazonAffData, query }) => {
     const [related, setRelated] = useState([]);
 
     const loadRelated = () => {
@@ -168,7 +168,7 @@ const SingleBlog = ({ blog, query }) => {
                           <div className="container">
                              <div className="card">
                                     <div className="wrapper row">
-                                        <SpotLight blog={blog} />
+                                        <SpotLight amazonAffData={amazonAffData} blog={blog} />
                                     </div>
                               </div>
                           </div>
@@ -208,9 +208,8 @@ SingleBlog.getInitialProps = ({ query }) => {
             console.log('there was an error fetching the blog');
             return {blog: '', query: {slug: '/'}}
         } else {
-            // console.log('GET INITIAL PROPS IN SINGLE BLOG', data);
-            console.log('data within getInitialProps of blog slug view',{ blog: data, query });
-            return { blog: data, query };
+            let {blogData, amazonAffData} = data;
+            return { blog: blogData, amazonAffData, query };
         }
     });
 };
