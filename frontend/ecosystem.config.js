@@ -1,8 +1,9 @@
 module.exports = {
   apps : [{
-    name: 'Scraper King Frontend',
+    name: 'Frontend',
     script: "npm",
     args : "start",
+    max_memory_restart: '300M',
     instances: 1,
     out_file: "/dev/null",
     error_file: "/dev/null",

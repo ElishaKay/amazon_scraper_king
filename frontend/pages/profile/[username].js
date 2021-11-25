@@ -116,7 +116,7 @@ const UserProfile = ({ user, blogs, query }) => {
 
 UserProfile.getInitialProps = ({ query }) => {
     // console.log(query);
-    return z\\zzz(query.username).then(data => {
+    return userPublicProfile(query.username).then(data => {
         if (!data) {
             console.log('there was an error fetching the blog');
             return {user: '', query: {slug: '/'}}

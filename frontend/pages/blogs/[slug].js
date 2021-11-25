@@ -148,13 +148,6 @@ const SingleBlog = ({ blog, amazonAffData, query }) => {
                             <section>
                                 <div className="container">
                                     <h3 className="pb-3 pt-3 text-center font-weight-bold">{blog.title}</h3>
-                                    <p className="lead mt-3 mark">
-                                        <Link href={`/profile/${blog.postedBy ? blog.postedBy.username : 'Anonymous'}`}>
-                                            <a>{blog.postedBy ? 'Posted by '+blog.postedBy.username : ''}</a>
-                                        </Link>{' '}
-                                        | Published {moment(blog.updatedAt).fromNow()}
-                                    </p>
-
                                     <div className="pb-3">
                                         {showBlogTags(blog)}
                                         <br />
